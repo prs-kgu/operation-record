@@ -212,11 +212,24 @@
             <div class="col-span-4 text-right">
                 区分: <label class="mx-2"><input type="radio" name="type"> 入院</label><label class="mx-2"><input type="radio" name="type"> 外来</label>
             </div>
-            <div class="col-span-12 flex items-center gap-2">
-                <div class="font-bold flex-1">氏名: <input type="text" id="patientName" class="input-underlined w-full" placeholder="患者 氏名"></div>
-                <div class="font-bold flex-1">よみ: <input type="text" class="input-underlined w-full" placeholder="ヨミ"></div>
-                <div class="flex-1">生年月日: <input type="date" id="birthDate" class="input-underlined w-full" onchange="calculateAge()"></div>
-                <div class="w-16 text-right"><input type="text" id="ageResult" class="w-8 text-right font-bold" readonly> 歳</div>
+
+            <div class="col-span-12 flex items-center gap-4">
+                <div class="font-bold flex-1 flex items-center gap-1">
+                    <span class="whitespace-nowrap">氏名:</span>
+                    <input type="text" id="patientName" class="input-underlined w-full" placeholder="患者 氏名">
+                </div>
+                <div class="font-bold flex-1 flex items-center gap-1">
+                    <span class="whitespace-nowrap">よみ:</span>
+                    <input type="text" class="input-underlined w-full" placeholder="ヨミ">
+                </div>
+                <div class="flex-1 flex items-center gap-1">
+                    <span class="whitespace-nowrap">生年月日:</span>
+                    <input type="date" id="birthDate" class="input-underlined w-full" onchange="calculateAge()">
+                </div>
+                <div class="flex-none flex items-center gap-1 border-b-2 border-gray-200">
+                    <input type="text" id="ageResult" class="w-8 text-right font-bold bg-transparent outline-none" readonly>
+                    <span class="whitespace-nowrap pr-1">歳</span>
+                </div>
             </div>
 
             <!-- 時間セクション -->
@@ -376,7 +389,7 @@
                 <table class="points-table">
                     <thead><tr><th colspan="2">K020 自家遊離複合組織移植術</th></tr></thead>
                     <tbody>
-                        <tr onclick="toggleRow(this)"><td>顕微鏡下血管柄付きのもの</td><td class="text-right">131,310</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K020"><td>顕微鏡下血管柄付きのもの</td><td class="text-right">131,310</td></tr>
                     </tbody>
                 </table>
 
@@ -392,9 +405,9 @@
                 <table class="points-table">
                     <thead><tr><th colspan="2">K016 動脈(皮)弁術、筋(皮)弁術</th></tr></thead>
                     <tbody>
-                        <tr onclick="toggleRow(this)"><td>動脈(皮)弁術</td><td class="text-right">41,120</td></tr>
-                        <tr onclick="toggleRow(this)"><td>筋(皮)弁術</td><td class="text-right">41,120</td></tr>
-                        <tr onclick="toggleRow(this)"><td>穿通枝皮弁</td><td class="text-right">41,120</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K016"><td>動脈(皮)弁術</td><td class="text-right">41,120</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K016"><td>筋(皮)弁術</td><td class="text-right">41,120</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K016"><td>穿通枝皮弁</td><td class="text-right">41,120</td></tr>
                     </tbody>
                 </table>
 
@@ -412,15 +425,15 @@
                             </td>
                         </tr>
                         <tr><td colspan="2" class="font-bold bg-slate-100">K013-2 全層植皮術</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　1. 25cm²未満</td><td class="text-right">10,000</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　2. 25cm²以上100cm²未満</td><td class="text-right">12,500</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　3. 100cm²以上200cm²未満</td><td class="text-right">28,210</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　4. 200cm²以上</td><td class="text-right">40,290</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013-2"><td>　1. 25cm²未満</td><td class="text-right">10,000</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013-2"><td>　2. 25cm²以上100cm²未満</td><td class="text-right">12,500</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013-2"><td>　3. 100cm²以上200cm²未満</td><td class="text-right">28,210</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013-2"><td>　4. 200cm²以上</td><td class="text-right">40,290</td></tr>
                         <tr><td colspan="2" class="font-bold bg-slate-100">K013 分層植皮術</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　1. 25cm²未満</td><td class="text-right">3,520</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　2. 25cm²以上100cm²未満</td><td class="text-right">6,270</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　3. 100cm²以上200cm²未満</td><td class="text-right">9,000</td></tr>
-                        <tr onclick="toggleRow(this)"><td>　4. 200cm²以上</td><td class="text-right">25,820</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013"><td>　1. 25cm²未満</td><td class="text-right">3,520</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013"><td>　2. 25cm²以上100cm²未満</td><td class="text-right">6,270</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013"><td>　3. 100cm²以上200cm²未満</td><td class="text-right">9,000</td></tr>
+                        <tr onclick="toggleRow(this)" data-kcode="K013"><td>　4. 200cm²以上</td><td class="text-right">25,820</td></tr>
                     </tbody>
                 </table>
 
@@ -494,12 +507,125 @@
         </div>
         <div class="mb-4">
             <div class="section-title">Kコード（上記にない場合）</div>
-            <input type="text" class="input-underlined w-full text-lg font-bold" placeholder="Kコードを検索して入力">
+            <input id="kCodeInput" type="text" class="input-underlined w-full text-lg font-bold" placeholder="Kコードを検索して入力">
         </div>
         <div class="mb-4 no-print">
             <a href="https://docs.google.com/spreadsheets/d/13ZG8FXXzWYKLNJUzk5kPcwShQwx13tor5sHJ20DI_IQ/edit?gid=1301598919#gid=1301598919" class="text-blue-600 font-bold text-lg" target="_blank">早見表</a>
         </div>
         <div class="text-right text-[9px] text-slate-300 mt-2 italic">Page 03</div>
+    </div>
+
+    <!-- 第4ページ -->
+    <div class="print-container" id="page4">
+        <h2 class="text-xl font-bold mb-4 border-b-2 border-slate-800 pb-2">追加症例情報</h2>
+
+        <div class="grid grid-cols-12 gap-4">
+            <div class="col-span-12">
+                <div class="section-title">疾患名</div>
+                <div class="grid grid-cols-5 gap-2">
+                    <select id="diseaseLevel1" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 1)"></select>
+                    <select id="diseaseLevel2" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 2)" disabled></select>
+                    <select id="diseaseLevel3" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 3)" disabled></select>
+                    <select id="diseaseLevel4" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 4)" disabled></select>
+                    <select id="diseaseLevel5" size="3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">疾患部位</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <select id="siteLevel1" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 1)"></select>
+                    <select id="siteLevel2" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 2)" disabled></select>
+                    <select id="siteLevel3" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">顔面骨部位</div>
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="facialBoneLevel1" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('facialBone', 1)"></select>
+                    <select id="facialBoneLevel2" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                </div>
+            </div>
+
+            <div id="skinDonorK013Wrapper" class="col-span-12 hidden">
+                <div class="section-title">採皮部（K013 分層植皮術）</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>頭頸部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>上肢</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>下肢</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>胸腹部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>殿部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>背部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div id="skinDonorK0132Wrapper" class="col-span-12 hidden">
+                <div class="section-title">採皮部（K013-2 全層植皮術）</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>耳後部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>内果下部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>鎖骨上窩</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>鼠径部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>足底部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div id="boneDonorWrapper" class="col-span-12 hidden">
+                <div class="section-title">採骨部</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input type="checkbox" name="boneDonor" class="accent-slate-800"><span>頭蓋骨</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="boneDonor" class="accent-slate-800"><span>耳介軟骨</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="boneDonor" class="accent-slate-800"><span>鼻中隔軟骨</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="boneDonor" class="accent-slate-800"><span>肋骨</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="boneDonor" class="accent-slate-800"><span>肋軟骨</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="boneDonor" class="accent-slate-800"><span>腸骨</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="boneDonor" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div id="flapDonorWrapper" class="col-span-12 hidden">
+                <div class="section-title">皮弁採取部位</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>頭頸部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>上腕部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>前腕部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>手指部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>胸部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>腹部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>背部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>鼠径部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>腎部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>大腿部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>下腿部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>足部</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>空腸</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>大網</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="flapDonor" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">熱傷の予後</div>
+                <div class="flex flex-wrap gap-4 items-center text-sm">
+                    <label class="flex items-center gap-2"><input type="radio" name="burnOutcome" value="救命" class="accent-slate-800">救命</label>
+                    <label class="flex items-center gap-2"><input type="radio" name="burnOutcome" value="死亡" class="accent-slate-800">死亡</label>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">移植片の生着</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input type="checkbox" name="graftTake" class="accent-slate-800"><span>完全生着</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="graftTake" class="accent-slate-800"><span>部分壊死</span></label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="graftTake" class="accent-slate-800"><span>全壊死</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-right text-[9px] text-slate-300 mt-4 italic">Page 04</div>
     </div>
 
     <script>
@@ -534,8 +660,6279 @@
             document.getElementById('durationResult').value = diffMinutes;
         }
 
+        const diseaseMaster = [
+  {
+    "value": "Ⅰ外傷",
+    "label": "Ⅰ外傷",
+    "children": [
+      {
+        "value": "上肢の外傷",
+        "label": "上肢の外傷",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の上肢の外傷",
+                    "label": "その他の上肢の外傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "偽関節",
+            "label": "偽関節",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の上肢の偽関節",
+                    "label": "その他の上肢の偽関節"
+                  },
+                  {
+                    "value": "手の偽関節",
+                    "label": "手の偽関節"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "切断",
+            "label": "切断",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の不全切断",
+                    "label": "上肢の不全切断"
+                  },
+                  {
+                    "value": "上肢の完全切断",
+                    "label": "上肢の完全切断"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "咬傷",
+            "label": "咬傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の人咬傷",
+                    "label": "上肢の人咬傷"
+                  },
+                  {
+                    "value": "上肢の獣咬傷",
+                    "label": "上肢の獣咬傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外傷性色素沈着症",
+            "label": "外傷性色素沈着症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の外傷性色素沈着症",
+                    "label": "上肢の外傷性色素沈着症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "異物",
+            "label": "異物",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の外傷性刺青",
+                    "label": "上肢の外傷性刺青"
+                  },
+                  {
+                    "value": "上肢の異物",
+                    "label": "上肢の異物"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚・皮下組織の損傷",
+            "label": "皮膚・皮下組織の損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢のデグロービング損傷",
+                    "label": "上肢のデグロービング損傷"
+                  },
+                  {
+                    "value": "上肢の切創",
+                    "label": "上肢の切創"
+                  },
+                  {
+                    "value": "上肢の刺創",
+                    "label": "上肢の刺創"
+                  },
+                  {
+                    "value": "上肢の圧挫創",
+                    "label": "上肢の圧挫創"
+                  },
+                  {
+                    "value": "上肢の引き抜き損傷",
+                    "label": "上肢の引き抜き損傷"
+                  },
+                  {
+                    "value": "上肢の打撲（傷）",
+                    "label": "上肢の打撲（傷）"
+                  },
+                  {
+                    "value": "上肢の挫創",
+                    "label": "上肢の挫創"
+                  },
+                  {
+                    "value": "上肢の挫滅（創）",
+                    "label": "上肢の挫滅（創）"
+                  },
+                  {
+                    "value": "上肢の擦過傷",
+                    "label": "上肢の擦過傷"
+                  },
+                  {
+                    "value": "上肢の杙創",
+                    "label": "上肢の杙創"
+                  },
+                  {
+                    "value": "上肢の熱圧挫創",
+                    "label": "上肢の熱圧挫創"
+                  },
+                  {
+                    "value": "上肢の皮膚・皮下組織欠損",
+                    "label": "上肢の皮膚・皮下組織欠損"
+                  },
+                  {
+                    "value": "上肢の裂創",
+                    "label": "上肢の裂創"
+                  },
+                  {
+                    "value": "上肢の轢創",
+                    "label": "上肢の轢創"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "神経損傷",
+            "label": "神経損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の神経損傷",
+                    "label": "上肢の神経損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "続発性リンパ浮腫",
+            "label": "続発性リンパ浮腫",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の続発性リンパ浮腫",
+                    "label": "上肢の続発性リンパ浮腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "腱損傷",
+            "label": "腱損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の上肢の腱損傷",
+                    "label": "その他の上肢の腱損傷"
+                  },
+                  {
+                    "value": "手の伸筋腱損傷",
+                    "label": "手の伸筋腱損傷"
+                  },
+                  {
+                    "value": "手の屈筋腱損傷",
+                    "label": "手の屈筋腱損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管損傷",
+            "label": "血管損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢のその他の血管損傷",
+                    "label": "上肢のその他の血管損傷"
+                  },
+                  {
+                    "value": "上肢の皮下血腫",
+                    "label": "上肢の皮下血腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "複合組織損傷",
+            "label": "複合組織損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の複合組織損傷",
+                    "label": "上肢の複合組織損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "陥入爪",
+            "label": "陥入爪",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "手指の陥入爪",
+                    "label": "手指の陥入爪"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "靱帯損傷",
+            "label": "靱帯損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の上肢の靱帯損傷",
+                    "label": "その他の上肢の靱帯損傷"
+                  },
+                  {
+                    "value": "手の靱帯損傷",
+                    "label": "手の靱帯損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "骨折・脱臼",
+            "label": "骨折・脱臼",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "CM 関節内骨折（第一中手骨基部関節内骨折、Bennet骨折、Roland骨折など）",
+                    "label": "CM 関節内骨折（第一中手骨基部関節内骨折、Bennet骨折、Roland骨折など）"
+                  },
+                  {
+                    "value": "DIP関節内骨折",
+                    "label": "DIP関節内骨折"
+                  },
+                  {
+                    "value": "MP関節内骨折",
+                    "label": "MP関節内骨折"
+                  },
+                  {
+                    "value": "Monteggia脱臼骨折（尺骨骨折＋橈骨頭脱臼）",
+                    "label": "Monteggia脱臼骨折（尺骨骨折＋橈骨頭脱臼）"
+                  },
+                  {
+                    "value": "PIP関節内骨折",
+                    "label": "PIP関節内骨折"
+                  },
+                  {
+                    "value": "その他の上肢の骨折・脱臼",
+                    "label": "その他の上肢の骨折・脱臼"
+                  },
+                  {
+                    "value": "その他の手の骨折・脱臼",
+                    "label": "その他の手の骨折・脱臼"
+                  },
+                  {
+                    "value": "中手骨骨折",
+                    "label": "中手骨骨折"
+                  },
+                  {
+                    "value": "中節骨骨折",
+                    "label": "中節骨骨折"
+                  },
+                  {
+                    "value": "前腕両骨骨折",
+                    "label": "前腕両骨骨折"
+                  },
+                  {
+                    "value": "基節骨骨折",
+                    "label": "基節骨骨折"
+                  },
+                  {
+                    "value": "尺骨骨折",
+                    "label": "尺骨骨折"
+                  },
+                  {
+                    "value": "月状骨周囲脱臼",
+                    "label": "月状骨周囲脱臼"
+                  },
+                  {
+                    "value": "末節骨骨折",
+                    "label": "末節骨骨折"
+                  },
+                  {
+                    "value": "橈骨手根関節脱臼骨折（Barton骨折など）",
+                    "label": "橈骨手根関節脱臼骨折（Barton骨折など）"
+                  },
+                  {
+                    "value": "橈骨遠位端骨折（Colles骨折、Smith骨折など）",
+                    "label": "橈骨遠位端骨折（Colles骨折、Smith骨折など）"
+                  },
+                  {
+                    "value": "橈骨骨折",
+                    "label": "橈骨骨折"
+                  },
+                  {
+                    "value": "舟状骨骨折",
+                    "label": "舟状骨骨折"
+                  },
+                  {
+                    "value": "遠位橈尺関節脱臼",
+                    "label": "遠位橈尺関節脱臼"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "下肢の外傷",
+        "label": "下肢の外傷",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の下肢の外傷",
+                    "label": "その他の下肢の外傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "偽関節",
+            "label": "偽関節",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の偽関節",
+                    "label": "下肢の偽関節"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "切断",
+            "label": "切断",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の不全切断",
+                    "label": "下肢の不全切断"
+                  },
+                  {
+                    "value": "下肢の完全切断",
+                    "label": "下肢の完全切断"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "咬傷",
+            "label": "咬傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の人咬傷",
+                    "label": "下肢の人咬傷"
+                  },
+                  {
+                    "value": "下肢の獣咬傷",
+                    "label": "下肢の獣咬傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外傷性色素沈着症",
+            "label": "外傷性色素沈着症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の外傷性色素沈着症",
+                    "label": "下肢の外傷性色素沈着症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "異物",
+            "label": "異物",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の外傷性刺青",
+                    "label": "下肢の外傷性刺青"
+                  },
+                  {
+                    "value": "下肢の異物",
+                    "label": "下肢の異物"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚・皮下組織の損傷",
+            "label": "皮膚・皮下組織の損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢のデグロービング損傷",
+                    "label": "下肢のデグロービング損傷"
+                  },
+                  {
+                    "value": "下肢の切創",
+                    "label": "下肢の切創"
+                  },
+                  {
+                    "value": "下肢の刺創",
+                    "label": "下肢の刺創"
+                  },
+                  {
+                    "value": "下肢の圧挫創",
+                    "label": "下肢の圧挫創"
+                  },
+                  {
+                    "value": "下肢の引き抜き損傷",
+                    "label": "下肢の引き抜き損傷"
+                  },
+                  {
+                    "value": "下肢の打撲（傷）",
+                    "label": "下肢の打撲（傷）"
+                  },
+                  {
+                    "value": "下肢の挫創",
+                    "label": "下肢の挫創"
+                  },
+                  {
+                    "value": "下肢の挫滅（創）",
+                    "label": "下肢の挫滅（創）"
+                  },
+                  {
+                    "value": "下肢の擦過傷",
+                    "label": "下肢の擦過傷"
+                  },
+                  {
+                    "value": "下肢の杙創",
+                    "label": "下肢の杙創"
+                  },
+                  {
+                    "value": "下肢の熱圧挫創",
+                    "label": "下肢の熱圧挫創"
+                  },
+                  {
+                    "value": "下肢の皮膚・皮下組織欠損",
+                    "label": "下肢の皮膚・皮下組織欠損"
+                  },
+                  {
+                    "value": "下肢の裂創",
+                    "label": "下肢の裂創"
+                  },
+                  {
+                    "value": "下肢の轢創",
+                    "label": "下肢の轢創"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "神経損傷",
+            "label": "神経損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の神経損傷",
+                    "label": "下肢の神経損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "続発性リンパ浮腫",
+            "label": "続発性リンパ浮腫",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の続発性リンパ浮腫",
+                    "label": "下肢の続発性リンパ浮腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "腱損傷",
+            "label": "腱損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の腱損傷",
+                    "label": "下肢の腱損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管損傷",
+            "label": "血管損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢のその他の血管損傷",
+                    "label": "下肢のその他の血管損傷"
+                  },
+                  {
+                    "value": "下肢の皮下血腫",
+                    "label": "下肢の皮下血腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "陥入爪",
+            "label": "陥入爪",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の陥入爪",
+                    "label": "下肢の陥入爪"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "靱帯損傷",
+            "label": "靱帯損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の靱帯損傷",
+                    "label": "下肢の靱帯損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "骨折・脱臼",
+            "label": "骨折・脱臼",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下肢の骨折・脱臼",
+                    "label": "下肢の骨折・脱臼"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "外傷後の組織欠損（２次再建）",
+        "label": "外傷後の組織欠損（２次再建）",
+        "children": [
+          {
+            "value": "体幹",
+            "label": "体幹",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹の外傷後組織欠損の再建",
+                    "label": "体幹の外傷後組織欠損の再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "四肢",
+            "label": "四肢",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "四肢の外傷後組織欠損の再建",
+                    "label": "四肢の外傷後組織欠損の再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "頭頸部",
+            "label": "頭頸部",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "頭頸部の外傷後組織欠損の再建",
+                    "label": "頭頸部の外傷後組織欠損の再建"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "熱傷・凍傷・化学損傷・電撃傷",
+        "label": "熱傷・凍傷・化学損傷・電撃傷",
+        "children": [
+          {
+            "value": "凍傷",
+            "label": "凍傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "深達性凍傷（Ⅲ、Ⅳ度）",
+                    "label": "深達性凍傷（Ⅲ、Ⅳ度）"
+                  },
+                  {
+                    "value": "表在性凍傷（Ⅰ、Ⅱ度）",
+                    "label": "表在性凍傷（Ⅰ、Ⅱ度）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "化学損傷",
+            "label": "化学損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の物質による化学損傷",
+                    "label": "その他の物質による化学損傷"
+                  },
+                  {
+                    "value": "アルカリによる化学損傷",
+                    "label": "アルカリによる化学損傷"
+                  },
+                  {
+                    "value": "フェノールによる化学損傷",
+                    "label": "フェノールによる化学損傷"
+                  },
+                  {
+                    "value": "フッ化水素酸による化学損傷",
+                    "label": "フッ化水素酸による化学損傷"
+                  },
+                  {
+                    "value": "酸による化学損傷",
+                    "label": "酸による化学損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "熱傷(全身管理を要しないもの)",
+            "label": "熱傷(全身管理を要しないもの)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "全身管理を要しない熱傷（10≦B.I.＜15）",
+                    "label": "全身管理を要しない熱傷（10≦B.I.＜15）"
+                  },
+                  {
+                    "value": "全身管理を要しない熱傷（15≦B.I.＜20）",
+                    "label": "全身管理を要しない熱傷（15≦B.I.＜20）"
+                  },
+                  {
+                    "value": "全身管理を要しない熱傷（20≦B.I.）",
+                    "label": "全身管理を要しない熱傷（20≦B.I.）"
+                  },
+                  {
+                    "value": "全身管理を要しない熱傷（5≦B.I.＜10）",
+                    "label": "全身管理を要しない熱傷（5≦B.I.＜10）"
+                  },
+                  {
+                    "value": "全身管理を要しない熱傷（B.I.＜5）",
+                    "label": "全身管理を要しない熱傷（B.I.＜5）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "熱傷(全身管理を要するもの)",
+            "label": "熱傷(全身管理を要するもの)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "全身管理を要する熱傷（10≦B.I.＜15）",
+                    "label": "全身管理を要する熱傷（10≦B.I.＜15）"
+                  },
+                  {
+                    "value": "全身管理を要する熱傷（15≦B.I.＜20）",
+                    "label": "全身管理を要する熱傷（15≦B.I.＜20）"
+                  },
+                  {
+                    "value": "全身管理を要する熱傷（20≦B.I.）",
+                    "label": "全身管理を要する熱傷（20≦B.I.）"
+                  },
+                  {
+                    "value": "全身管理を要する熱傷（5≦B.I.＜10）",
+                    "label": "全身管理を要する熱傷（5≦B.I.＜10）"
+                  },
+                  {
+                    "value": "全身管理を要する熱傷（B.I.＜5）",
+                    "label": "全身管理を要する熱傷（B.I.＜5）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "電撃傷",
+            "label": "電撃傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "雷撃症",
+                    "label": "雷撃症"
+                  },
+                  {
+                    "value": "電撃傷",
+                    "label": "電撃傷"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "頭部・頸部・体幹の外傷",
+        "label": "頭部・頸部・体幹の外傷",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の体幹の外傷",
+                    "label": "その他の体幹の外傷"
+                  },
+                  {
+                    "value": "その他の頭部の外傷",
+                    "label": "その他の頭部の外傷"
+                  },
+                  {
+                    "value": "その他の頸部の外傷",
+                    "label": "その他の頸部の外傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "切断",
+            "label": "切断",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹の不全切断",
+                    "label": "体幹の不全切断"
+                  },
+                  {
+                    "value": "体幹の完全切断",
+                    "label": "体幹の完全切断"
+                  },
+                  {
+                    "value": "頭皮の不全切断",
+                    "label": "頭皮の不全切断"
+                  },
+                  {
+                    "value": "頭皮の完全切断",
+                    "label": "頭皮の完全切断"
+                  },
+                  {
+                    "value": "頸部の不全切断",
+                    "label": "頸部の不全切断"
+                  },
+                  {
+                    "value": "頸部の完全切断",
+                    "label": "頸部の完全切断"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "咬傷",
+            "label": "咬傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹の人咬傷",
+                    "label": "体幹の人咬傷"
+                  },
+                  {
+                    "value": "体幹の獣咬傷",
+                    "label": "体幹の獣咬傷"
+                  },
+                  {
+                    "value": "頭部の人咬傷",
+                    "label": "頭部の人咬傷"
+                  },
+                  {
+                    "value": "頭部の獣咬傷",
+                    "label": "頭部の獣咬傷"
+                  },
+                  {
+                    "value": "頸部の人咬傷",
+                    "label": "頸部の人咬傷"
+                  },
+                  {
+                    "value": "頸部の獣咬傷",
+                    "label": "頸部の獣咬傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外傷性色素沈着症",
+            "label": "外傷性色素沈着症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹の外傷性色素沈着症",
+                    "label": "体幹の外傷性色素沈着症"
+                  },
+                  {
+                    "value": "頭部の外傷性色素沈着症",
+                    "label": "頭部の外傷性色素沈着症"
+                  },
+                  {
+                    "value": "頸部の外傷性色素沈着症",
+                    "label": "頸部の外傷性色素沈着症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "異物",
+            "label": "異物",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹の外傷性刺青",
+                    "label": "体幹の外傷性刺青"
+                  },
+                  {
+                    "value": "体幹の異物",
+                    "label": "体幹の異物"
+                  },
+                  {
+                    "value": "頭部の外傷性刺青",
+                    "label": "頭部の外傷性刺青"
+                  },
+                  {
+                    "value": "頭部の異物",
+                    "label": "頭部の異物"
+                  },
+                  {
+                    "value": "頸部の外傷性刺青",
+                    "label": "頸部の外傷性刺青"
+                  },
+                  {
+                    "value": "頸部の異物",
+                    "label": "頸部の異物"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚・皮下組織の損傷",
+            "label": "皮膚・皮下組織の損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹のデグロービング損傷",
+                    "label": "体幹のデグロービング損傷"
+                  },
+                  {
+                    "value": "体幹の切創",
+                    "label": "体幹の切創"
+                  },
+                  {
+                    "value": "体幹の刺創",
+                    "label": "体幹の刺創"
+                  },
+                  {
+                    "value": "体幹の圧挫創",
+                    "label": "体幹の圧挫創"
+                  },
+                  {
+                    "value": "体幹の打撲（傷）",
+                    "label": "体幹の打撲（傷）"
+                  },
+                  {
+                    "value": "体幹の挫創",
+                    "label": "体幹の挫創"
+                  },
+                  {
+                    "value": "体幹の挫滅（創）",
+                    "label": "体幹の挫滅（創）"
+                  },
+                  {
+                    "value": "体幹の擦過傷",
+                    "label": "体幹の擦過傷"
+                  },
+                  {
+                    "value": "体幹の杙創",
+                    "label": "体幹の杙創"
+                  },
+                  {
+                    "value": "体幹の熱圧挫創",
+                    "label": "体幹の熱圧挫創"
+                  },
+                  {
+                    "value": "体幹の皮膚・皮下組織欠損",
+                    "label": "体幹の皮膚・皮下組織欠損"
+                  },
+                  {
+                    "value": "体幹の裂創",
+                    "label": "体幹の裂創"
+                  },
+                  {
+                    "value": "体幹の轢創",
+                    "label": "体幹の轢創"
+                  },
+                  {
+                    "value": "頭部のデグロービング損傷",
+                    "label": "頭部のデグロービング損傷"
+                  },
+                  {
+                    "value": "頭部の切創",
+                    "label": "頭部の切創"
+                  },
+                  {
+                    "value": "頭部の刺創",
+                    "label": "頭部の刺創"
+                  },
+                  {
+                    "value": "頭部の圧挫創",
+                    "label": "頭部の圧挫創"
+                  },
+                  {
+                    "value": "頭部の打撲（傷）",
+                    "label": "頭部の打撲（傷）"
+                  },
+                  {
+                    "value": "頭部の挫創",
+                    "label": "頭部の挫創"
+                  },
+                  {
+                    "value": "頭部の挫滅（創）",
+                    "label": "頭部の挫滅（創）"
+                  },
+                  {
+                    "value": "頭部の擦過傷",
+                    "label": "頭部の擦過傷"
+                  },
+                  {
+                    "value": "頭部の杙創",
+                    "label": "頭部の杙創"
+                  },
+                  {
+                    "value": "頭部の皮膚・皮下組織欠損",
+                    "label": "頭部の皮膚・皮下組織欠損"
+                  },
+                  {
+                    "value": "頭部の裂創",
+                    "label": "頭部の裂創"
+                  },
+                  {
+                    "value": "頭部の轢創",
+                    "label": "頭部の轢創"
+                  },
+                  {
+                    "value": "頭部熱圧挫創",
+                    "label": "頭部熱圧挫創"
+                  },
+                  {
+                    "value": "頸部のデグロービング損傷",
+                    "label": "頸部のデグロービング損傷"
+                  },
+                  {
+                    "value": "頸部の切創",
+                    "label": "頸部の切創"
+                  },
+                  {
+                    "value": "頸部の刺創",
+                    "label": "頸部の刺創"
+                  },
+                  {
+                    "value": "頸部の圧挫創",
+                    "label": "頸部の圧挫創"
+                  },
+                  {
+                    "value": "頸部の打撲（傷）",
+                    "label": "頸部の打撲（傷）"
+                  },
+                  {
+                    "value": "頸部の挫創",
+                    "label": "頸部の挫創"
+                  },
+                  {
+                    "value": "頸部の挫滅（創）",
+                    "label": "頸部の挫滅（創）"
+                  },
+                  {
+                    "value": "頸部の擦過傷",
+                    "label": "頸部の擦過傷"
+                  },
+                  {
+                    "value": "頸部の杙創",
+                    "label": "頸部の杙創"
+                  },
+                  {
+                    "value": "頸部の熱圧挫創",
+                    "label": "頸部の熱圧挫創"
+                  },
+                  {
+                    "value": "頸部の皮膚・皮下組織欠損",
+                    "label": "頸部の皮膚・皮下組織欠損"
+                  },
+                  {
+                    "value": "頸部の裂創",
+                    "label": "頸部の裂創"
+                  },
+                  {
+                    "value": "頸部の轢創",
+                    "label": "頸部の轢創"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "神経損傷",
+            "label": "神経損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹の神経損傷",
+                    "label": "体幹の神経損傷"
+                  },
+                  {
+                    "value": "頭部の神経損傷",
+                    "label": "頭部の神経損傷"
+                  },
+                  {
+                    "value": "頸部の神経損傷",
+                    "label": "頸部の神経損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "続発性リンパ浮腫",
+            "label": "続発性リンパ浮腫",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "頭部の続発性リンパ浮腫",
+                    "label": "頭部の続発性リンパ浮腫"
+                  },
+                  {
+                    "value": "頸部の続発性リンパ浮腫",
+                    "label": "頸部の続発性リンパ浮腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管損傷",
+            "label": "血管損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹のその他の血管損傷",
+                    "label": "体幹のその他の血管損傷"
+                  },
+                  {
+                    "value": "体幹の皮下血腫",
+                    "label": "体幹の皮下血腫"
+                  },
+                  {
+                    "value": "頚部の皮下血腫",
+                    "label": "頚部の皮下血腫"
+                  },
+                  {
+                    "value": "頭部のその他の血管損傷",
+                    "label": "頭部のその他の血管損傷"
+                  },
+                  {
+                    "value": "頭部の皮下血腫",
+                    "label": "頭部の皮下血腫"
+                  },
+                  {
+                    "value": "頸部のその他の血管損傷",
+                    "label": "頸部のその他の血管損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "骨折・脱臼",
+            "label": "骨折・脱臼",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "体幹の骨折・脱臼",
+                    "label": "体幹の骨折・脱臼"
+                  },
+                  {
+                    "value": "頭部の骨折",
+                    "label": "頭部の骨折"
+                  },
+                  {
+                    "value": "頸部の骨折・脱臼",
+                    "label": "頸部の骨折・脱臼"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "顔面軟部組織損傷",
+        "label": "顔面軟部組織損傷",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の顔面軟部組織損傷",
+                    "label": "その他の顔面軟部組織損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "その他の神経損傷",
+            "label": "その他の神経損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の顔面の神経損傷",
+                    "label": "その他の顔面の神経損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "切断",
+            "label": "切断",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "顔面の不全切断",
+                    "label": "顔面の不全切断"
+                  },
+                  {
+                    "value": "顔面の完全切断",
+                    "label": "顔面の完全切断"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "咬傷",
+            "label": "咬傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "顔面のその他の咬傷",
+                    "label": "顔面のその他の咬傷"
+                  },
+                  {
+                    "value": "顔面の人咬傷",
+                    "label": "顔面の人咬傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外傷性眼瞼下垂症",
+            "label": "外傷性眼瞼下垂症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "外傷性眼瞼下垂症",
+                    "label": "外傷性眼瞼下垂症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外傷性色素沈着症",
+            "label": "外傷性色素沈着症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "外傷性色素沈着症",
+                    "label": "外傷性色素沈着症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外傷性顔面神経麻痺",
+            "label": "外傷性顔面神経麻痺",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "外傷による中枢性顔面神経麻痺",
+                    "label": "外傷による中枢性顔面神経麻痺"
+                  },
+                  {
+                    "value": "外傷による末梢性顔面神経麻痺",
+                    "label": "外傷による末梢性顔面神経麻痺"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "涙道損傷",
+            "label": "涙道損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "涙嚢損傷",
+                    "label": "涙嚢損傷"
+                  },
+                  {
+                    "value": "涙小管損傷",
+                    "label": "涙小管損傷"
+                  },
+                  {
+                    "value": "鼻涙管損傷",
+                    "label": "鼻涙管損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "異物",
+            "label": "異物",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "顔面の外傷性刺青",
+                    "label": "顔面の外傷性刺青"
+                  },
+                  {
+                    "value": "顔面の異物",
+                    "label": "顔面の異物"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚・皮下組織の損傷",
+            "label": "皮膚・皮下組織の損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の顔面の皮膚・皮下組織損傷",
+                    "label": "その他の顔面の皮膚・皮下組織損傷"
+                  },
+                  {
+                    "value": "顔面デグロービング損傷",
+                    "label": "顔面デグロービング損傷"
+                  },
+                  {
+                    "value": "顔面切創",
+                    "label": "顔面切創"
+                  },
+                  {
+                    "value": "顔面刺創",
+                    "label": "顔面刺創"
+                  },
+                  {
+                    "value": "顔面圧挫創",
+                    "label": "顔面圧挫創"
+                  },
+                  {
+                    "value": "顔面打撲（傷）",
+                    "label": "顔面打撲（傷）"
+                  },
+                  {
+                    "value": "顔面挫創",
+                    "label": "顔面挫創"
+                  },
+                  {
+                    "value": "顔面挫滅創",
+                    "label": "顔面挫滅創"
+                  },
+                  {
+                    "value": "顔面擦過傷",
+                    "label": "顔面擦過傷"
+                  },
+                  {
+                    "value": "顔面杙創",
+                    "label": "顔面杙創"
+                  },
+                  {
+                    "value": "顔面熱圧挫創",
+                    "label": "顔面熱圧挫創"
+                  },
+                  {
+                    "value": "顔面裂創",
+                    "label": "顔面裂創"
+                  },
+                  {
+                    "value": "顔面轢創",
+                    "label": "顔面轢創"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "眼窩組織欠損(義眼床・台手術)",
+            "label": "眼窩組織欠損(義眼床・台手術)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "眼窩全欠損",
+                    "label": "眼窩全欠損"
+                  },
+                  {
+                    "value": "眼窩部分欠損",
+                    "label": "眼窩部分欠損"
+                  },
+                  {
+                    "value": "結膜嚢拘縮",
+                    "label": "結膜嚢拘縮"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "耳下腺損傷",
+            "label": "耳下腺損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "耳下腺損傷",
+                    "label": "耳下腺損傷"
+                  },
+                  {
+                    "value": "耳下腺管損傷",
+                    "label": "耳下腺管損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管損傷",
+            "label": "血管損傷",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "耳介血腫",
+                    "label": "耳介血腫"
+                  },
+                  {
+                    "value": "顔面のその他の皮下血腫",
+                    "label": "顔面のその他の皮下血腫"
+                  },
+                  {
+                    "value": "顔面のその他の血管損傷",
+                    "label": "顔面のその他の血管損傷"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "顔面骨折",
+        "label": "顔面骨折",
+        "children": [
+          {
+            "value": "上顎骨",
+            "label": "上顎骨",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "ルフォーⅠ型骨折",
+                    "label": "ルフォーⅠ型骨折"
+                  },
+                  {
+                    "value": "ルフォーⅡ型骨折",
+                    "label": "ルフォーⅡ型骨折"
+                  },
+                  {
+                    "value": "ルフォーⅢ型骨折",
+                    "label": "ルフォーⅢ型骨折"
+                  },
+                  {
+                    "value": "上顎骨欠損",
+                    "label": "上顎骨欠損"
+                  },
+                  {
+                    "value": "口蓋骨欠損",
+                    "label": "口蓋骨欠損"
+                  },
+                  {
+                    "value": "口蓋骨骨折",
+                    "label": "口蓋骨骨折"
+                  },
+                  {
+                    "value": "歯槽骨骨折",
+                    "label": "歯槽骨骨折"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "下顎骨",
+            "label": "下顎骨",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "下顎体部骨折",
+                    "label": "下顎体部骨折"
+                  },
+                  {
+                    "value": "下顎骨欠損",
+                    "label": "下顎骨欠損"
+                  },
+                  {
+                    "value": "歯槽骨骨折",
+                    "label": "歯槽骨骨折"
+                  },
+                  {
+                    "value": "顎関節部骨折",
+                    "label": "顎関節部骨折"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "前頭骨",
+            "label": "前頭骨",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "前頭骨欠損",
+                    "label": "前頭骨欠損"
+                  },
+                  {
+                    "value": "前頭骨骨折",
+                    "label": "前頭骨骨折"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "歯牙",
+            "label": "歯牙",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "歯牙損傷",
+                    "label": "歯牙損傷"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "眼窩(ブローアウト)",
+            "label": "眼窩(ブローアウト)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "眼窩上壁骨折",
+                    "label": "眼窩上壁骨折"
+                  },
+                  {
+                    "value": "眼窩下壁（眼窩底）骨折",
+                    "label": "眼窩下壁（眼窩底）骨折"
+                  },
+                  {
+                    "value": "眼窩内側壁骨折",
+                    "label": "眼窩内側壁骨折"
+                  },
+                  {
+                    "value": "眼窩縁骨折",
+                    "label": "眼窩縁骨折"
+                  },
+                  {
+                    "value": "眼窩骨欠損",
+                    "label": "眼窩骨欠損"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "篩骨",
+            "label": "篩骨",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "篩骨欠損",
+                    "label": "篩骨欠損"
+                  },
+                  {
+                    "value": "篩骨骨折",
+                    "label": "篩骨骨折"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "陳旧性骨折",
+            "label": "陳旧性骨折",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "陳旧性顔面骨欠損",
+                    "label": "陳旧性顔面骨欠損"
+                  },
+                  {
+                    "value": "顔面変形治癒骨折",
+                    "label": "顔面変形治癒骨折"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "頬骨",
+            "label": "頬骨",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "頬骨体部骨折",
+                    "label": "頬骨体部骨折"
+                  },
+                  {
+                    "value": "頬骨弓骨折",
+                    "label": "頬骨弓骨折"
+                  },
+                  {
+                    "value": "頬骨欠損",
+                    "label": "頬骨欠損"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "顎関節",
+            "label": "顎関節",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "顎関節脱臼",
+                    "label": "顎関節脱臼"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "鼻骨・鼻軟骨",
+            "label": "鼻骨・鼻軟骨",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "鼻軟骨欠損",
+                    "label": "鼻軟骨欠損"
+                  },
+                  {
+                    "value": "鼻軟骨骨折",
+                    "label": "鼻軟骨骨折"
+                  },
+                  {
+                    "value": "鼻骨欠損",
+                    "label": "鼻骨欠損"
+                  },
+                  {
+                    "value": "鼻骨骨折",
+                    "label": "鼻骨骨折"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "value": "Ⅱ先天異常",
+    "label": "Ⅱ先天異常",
+    "children": [
+      {
+        "value": "体幹（その他）の先天異常",
+        "label": "体幹（その他）の先天異常",
+        "children": [
+          {
+            "value": "その他の先天異常",
+            "label": "その他の先天異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の先天異常",
+                    "label": "その他の先天異常"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "背部・腰部・臀部",
+            "label": "背部・腰部・臀部",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の背・腰・臀部の先天異常",
+                    "label": "その他の背・腰・臀部の先天異常"
+                  },
+                  {
+                    "value": "二分脊椎（髄膜瘤",
+                    "label": "二分脊椎（髄膜瘤"
+                  },
+                  {
+                    "value": "人尾（ヒューマンテイル）",
+                    "label": "人尾（ヒューマンテイル）"
+                  },
+                  {
+                    "value": "毛巣洞",
+                    "label": "毛巣洞"
+                  },
+                  {
+                    "value": "皮膚洞",
+                    "label": "皮膚洞"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "胸部",
+            "label": "胸部",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の胸部の先天異常",
+                    "label": "その他の胸部の先天異常"
+                  },
+                  {
+                    "value": "ポーランド症候群",
+                    "label": "ポーランド症候群"
+                  },
+                  {
+                    "value": "副乳・多乳頭症",
+                    "label": "副乳・多乳頭症"
+                  },
+                  {
+                    "value": "漏斗胸",
+                    "label": "漏斗胸"
+                  },
+                  {
+                    "value": "陥没乳頭",
+                    "label": "陥没乳頭"
+                  },
+                  {
+                    "value": "鳩胸",
+                    "label": "鳩胸"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "腹部",
+            "label": "腹部",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の腹部の先天異常",
+                    "label": "その他の腹部の先天異常"
+                  },
+                  {
+                    "value": "臍ヘルニア",
+                    "label": "臍ヘルニア"
+                  },
+                  {
+                    "value": "臍突出症",
+                    "label": "臍突出症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "陰部",
+            "label": "陰部",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の陰部の先天異常",
+                    "label": "その他の陰部の先天異常"
+                  },
+                  {
+                    "value": "包茎",
+                    "label": "包茎"
+                  },
+                  {
+                    "value": "尿道下裂",
+                    "label": "尿道下裂"
+                  },
+                  {
+                    "value": "性分化異常（半陰陽）",
+                    "label": "性分化異常（半陰陽）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "（全身の）皮膚の異常",
+            "label": "（全身の）皮膚の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の皮膚の先天性疾患",
+                    "label": "その他の皮膚の先天性疾患"
+                  },
+                  {
+                    "value": "先天性表皮水疱症",
+                    "label": "先天性表皮水疱症"
+                  },
+                  {
+                    "value": "色素性乾皮症",
+                    "label": "色素性乾皮症"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "唇裂・口蓋裂",
+        "label": "唇裂・口蓋裂",
+        "children": [
+          {
+            "value": "初回手術例（一連の段階手術を含む）",
+            "label": "初回手術例（一連の段階手術を含む）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の口唇口蓋裂",
+                    "label": "その他の口唇口蓋裂"
+                  },
+                  {
+                    "value": "口唇口蓋裂（口唇と口蓋の裂が連続していないもの）",
+                    "label": "口唇口蓋裂（口唇と口蓋の裂が連続していないもの）"
+                  },
+                  {
+                    "value": "口唇裂（口唇のみ）",
+                    "label": "口唇裂（口唇のみ）"
+                  },
+                  {
+                    "value": "口唇顎裂",
+                    "label": "口唇顎裂"
+                  },
+                  {
+                    "value": "口蓋垂裂",
+                    "label": "口蓋垂裂"
+                  },
+                  {
+                    "value": "口蓋裂",
+                    "label": "口蓋裂"
+                  },
+                  {
+                    "value": "唇顎口蓋裂（口唇と口蓋の裂が連続しているもの）",
+                    "label": "唇顎口蓋裂（口唇と口蓋の裂が連続しているもの）"
+                  },
+                  {
+                    "value": "粘膜下口蓋裂",
+                    "label": "粘膜下口蓋裂"
+                  },
+                  {
+                    "value": "軟口蓋裂",
+                    "label": "軟口蓋裂"
+                  },
+                  {
+                    "value": "顎裂（顎裂のみ）",
+                    "label": "顎裂（顎裂のみ）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "術後変形など",
+            "label": "術後変形など",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上顎劣成長・咬合異常（唇裂・口蓋裂による）",
+                    "label": "上顎劣成長・咬合異常（唇裂・口蓋裂による）"
+                  },
+                  {
+                    "value": "口唇裂術後変形",
+                    "label": "口唇裂術後変形"
+                  },
+                  {
+                    "value": "口蓋瘻孔",
+                    "label": "口蓋瘻孔"
+                  },
+                  {
+                    "value": "唇裂・口蓋裂によるその他の変形",
+                    "label": "唇裂・口蓋裂によるその他の変形"
+                  },
+                  {
+                    "value": "唇裂鼻変形",
+                    "label": "唇裂鼻変形"
+                  },
+                  {
+                    "value": "鼻咽腔閉鎖機能不全（唇裂・口蓋裂による）",
+                    "label": "鼻咽腔閉鎖機能不全（唇裂・口蓋裂による）"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "四肢の先天異常",
+        "label": "四肢の先天異常",
+        "children": [
+          {
+            "value": "その他の四肢の先天異常",
+            "label": "その他の四肢の先天異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の四肢の先天異常",
+                    "label": "その他の四肢の先天異常"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "リンパ系疾患",
+            "label": "リンパ系疾患",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他のリンパ系先天異常",
+                    "label": "その他のリンパ系先天異常"
+                  },
+                  {
+                    "value": "原発性リンパ浮腫",
+                    "label": "原発性リンパ浮腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "手の先天異常",
+            "label": "手の先天異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の手の低成長（小手症）",
+                    "label": "その他の手の低成長（小手症）"
+                  },
+                  {
+                    "value": "その他の手の先天性骨癒合症",
+                    "label": "その他の手の先天性骨癒合症"
+                  },
+                  {
+                    "value": "その他の手の先天異常",
+                    "label": "その他の手の先天異常"
+                  },
+                  {
+                    "value": "その他の手の分化障害",
+                    "label": "その他の手の分化障害"
+                  },
+                  {
+                    "value": "その他の手の形成障害",
+                    "label": "その他の手の形成障害"
+                  },
+                  {
+                    "value": "その他の手の過成長",
+                    "label": "その他の手の過成長"
+                  },
+                  {
+                    "value": "その他の手の重複",
+                    "label": "その他の手の重複"
+                  },
+                  {
+                    "value": "その他の指列誘導障害",
+                    "label": "その他の指列誘導障害"
+                  },
+                  {
+                    "value": "フォコメリア（あざらし肢症）",
+                    "label": "フォコメリア（あざらし肢症）"
+                  },
+                  {
+                    "value": "先天性橈尺骨癒合症",
+                    "label": "先天性橈尺骨癒合症"
+                  },
+                  {
+                    "value": "先天性橈骨頭脱臼",
+                    "label": "先天性橈骨頭脱臼"
+                  },
+                  {
+                    "value": "合指症",
+                    "label": "合指症"
+                  },
+                  {
+                    "value": "多合指症",
+                    "label": "多合指症"
+                  },
+                  {
+                    "value": "多発性関節拘縮",
+                    "label": "多発性関節拘縮"
+                  },
+                  {
+                    "value": "尺側列形成障害",
+                    "label": "尺側列形成障害"
+                  },
+                  {
+                    "value": "屈指症",
+                    "label": "屈指症"
+                  },
+                  {
+                    "value": "巨指症",
+                    "label": "巨指症"
+                  },
+                  {
+                    "value": "手の爪形成障害",
+                    "label": "手の爪形成障害"
+                  },
+                  {
+                    "value": "手の筋腱形成障害",
+                    "label": "手の筋腱形成障害"
+                  },
+                  {
+                    "value": "指関節強直",
+                    "label": "指関節強直"
+                  },
+                  {
+                    "value": "握り母指",
+                    "label": "握り母指"
+                  },
+                  {
+                    "value": "斜指症",
+                    "label": "斜指症"
+                  },
+                  {
+                    "value": "横軸形成障害（合短指症）",
+                    "label": "横軸形成障害（合短指症）"
+                  },
+                  {
+                    "value": "橈側列形成障害",
+                    "label": "橈側列形成障害"
+                  },
+                  {
+                    "value": "母指多指症",
+                    "label": "母指多指症"
+                  },
+                  {
+                    "value": "短指症",
+                    "label": "短指症"
+                  },
+                  {
+                    "value": "絞扼輪症候群",
+                    "label": "絞扼輪症候群"
+                  },
+                  {
+                    "value": "裂手",
+                    "label": "裂手"
+                  },
+                  {
+                    "value": "鏡手",
+                    "label": "鏡手"
+                  },
+                  {
+                    "value": "風車翼手",
+                    "label": "風車翼手"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "足の先天異常",
+            "label": "足の先天異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の足の先天異常",
+                    "label": "その他の足の先天異常"
+                  },
+                  {
+                    "value": "先天性内反足",
+                    "label": "先天性内反足"
+                  },
+                  {
+                    "value": "先天性外反足",
+                    "label": "先天性外反足"
+                  },
+                  {
+                    "value": "合趾症",
+                    "label": "合趾症"
+                  },
+                  {
+                    "value": "多合趾症",
+                    "label": "多合趾症"
+                  },
+                  {
+                    "value": "多趾症",
+                    "label": "多趾症"
+                  },
+                  {
+                    "value": "屈趾症",
+                    "label": "屈趾症"
+                  },
+                  {
+                    "value": "巨趾症",
+                    "label": "巨趾症"
+                  },
+                  {
+                    "value": "腓側列形成不全症",
+                    "label": "腓側列形成不全症"
+                  },
+                  {
+                    "value": "裂足症",
+                    "label": "裂足症"
+                  },
+                  {
+                    "value": "趾短縮症",
+                    "label": "趾短縮症"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "頚部の先天異常",
+        "label": "頚部の先天異常",
+        "children": [
+          {
+            "value": "その他の頸部先天異常",
+            "label": "その他の頸部先天異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の頸部先天異常",
+                    "label": "その他の頸部先天異常"
+                  },
+                  {
+                    "value": "斜頚",
+                    "label": "斜頚"
+                  },
+                  {
+                    "value": "翼状頚",
+                    "label": "翼状頚"
+                  },
+                  {
+                    "value": "頚耳",
+                    "label": "頚耳"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "遺残性嚢胞・瘻孔",
+            "label": "遺残性嚢胞・瘻孔",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "側頚嚢胞",
+                    "label": "側頚嚢胞"
+                  },
+                  {
+                    "value": "正中頚嚢胞",
+                    "label": "正中頚嚢胞"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "頭蓋・顎・顔面の先天異常",
+        "label": "頭蓋・顎・顔面の先天異常",
+        "children": [
+          {
+            "value": "その他の頭部先天性異常",
+            "label": "その他の頭部先天性異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の頭部先天性異常",
+                    "label": "その他の頭部先天性異常"
+                  },
+                  {
+                    "value": "先天性禿髪",
+                    "label": "先天性禿髪"
+                  },
+                  {
+                    "value": "先天性頭皮欠損症",
+                    "label": "先天性頭皮欠損症"
+                  },
+                  {
+                    "value": "脳瘤",
+                    "label": "脳瘤"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "その他の顔面先天異常",
+            "label": "その他の顔面先天異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の顔面先天異常",
+                    "label": "その他の顔面先天異常"
+                  },
+                  {
+                    "value": "上口唇小帯短縮",
+                    "label": "上口唇小帯短縮"
+                  },
+                  {
+                    "value": "皮様嚢腫（デルモイドシスト）",
+                    "label": "皮様嚢腫（デルモイドシスト）"
+                  },
+                  {
+                    "value": "眼窩隔離症",
+                    "label": "眼窩隔離症"
+                  },
+                  {
+                    "value": "顔面先天異常",
+                    "label": "顔面先天異常"
+                  },
+                  {
+                    "value": "顔面片側肥大症",
+                    "label": "顔面片側肥大症"
+                  },
+                  {
+                    "value": "顔面片側萎縮症",
+                    "label": "顔面片側萎縮症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "上・下顎の異常",
+            "label": "上・下顎の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "microsomia（第１第２鰓弓症候群）",
+                    "label": "microsomia（第１第２鰓弓症候群）"
+                  },
+                  {
+                    "value": "その他の上・下顎の先天異常",
+                    "label": "その他の上・下顎の先天異常"
+                  },
+                  {
+                    "value": "トリーチャー・コリンズ症候群",
+                    "label": "トリーチャー・コリンズ症候群"
+                  },
+                  {
+                    "value": "ピエール・ロバン・シークエンス",
+                    "label": "ピエール・ロバン・シークエンス"
+                  },
+                  {
+                    "value": "上顎前突",
+                    "label": "上顎前突"
+                  },
+                  {
+                    "value": "上顎後退症",
+                    "label": "上顎後退症"
+                  },
+                  {
+                    "value": "下顎前突",
+                    "label": "下顎前突"
+                  },
+                  {
+                    "value": "咬筋肥大症",
+                    "label": "咬筋肥大症"
+                  },
+                  {
+                    "value": "小顎症",
+                    "label": "小顎症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "口唇の異常",
+            "label": "口唇の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の口唇の先天異常",
+                    "label": "その他の口唇の先天異常"
+                  },
+                  {
+                    "value": "上口唇小帯短縮症",
+                    "label": "上口唇小帯短縮症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "涙道の異常",
+            "label": "涙道の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の涙道の先天異常",
+                    "label": "その他の涙道の先天異常"
+                  },
+                  {
+                    "value": "先天性鼻涙管閉塞・狭窄",
+                    "label": "先天性鼻涙管閉塞・狭窄"
+                  },
+                  {
+                    "value": "涙道皮膚瘻",
+                    "label": "涙道皮膚瘻"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "症候群",
+            "label": "症候群",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "Apert症候群",
+                    "label": "Apert症候群"
+                  },
+                  {
+                    "value": "Crouzon症候群",
+                    "label": "Crouzon症候群"
+                  },
+                  {
+                    "value": "Pfeiffer症候群",
+                    "label": "Pfeiffer症候群"
+                  },
+                  {
+                    "value": "その他の頭蓋顎顔面症候群",
+                    "label": "その他の頭蓋顎顔面症候群"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "眼瞼の異常",
+            "label": "眼瞼の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の眼瞼の先天異常",
+                    "label": "その他の眼瞼の先天異常"
+                  },
+                  {
+                    "value": "先天性眼瞼下垂",
+                    "label": "先天性眼瞼下垂"
+                  },
+                  {
+                    "value": "小・無眼球症",
+                    "label": "小・無眼球症"
+                  },
+                  {
+                    "value": "眼瞼欠損",
+                    "label": "眼瞼欠損"
+                  },
+                  {
+                    "value": "眼裂狭小症",
+                    "label": "眼裂狭小症"
+                  },
+                  {
+                    "value": "睫毛内反",
+                    "label": "睫毛内反"
+                  },
+                  {
+                    "value": "蒙古ヒダ（内眼角贅皮）",
+                    "label": "蒙古ヒダ（内眼角贅皮）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "神経の異常",
+            "label": "神経の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の顔面の神経の先天異常",
+                    "label": "その他の顔面の神経の先天異常"
+                  },
+                  {
+                    "value": "先天性顔面神経麻痺",
+                    "label": "先天性顔面神経麻痺"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "耳介の異常",
+            "label": "耳介の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の耳介の先天異常",
+                    "label": "その他の耳介の先天異常"
+                  },
+                  {
+                    "value": "スタール耳",
+                    "label": "スタール耳"
+                  },
+                  {
+                    "value": "先天性耳垂欠損",
+                    "label": "先天性耳垂欠損"
+                  },
+                  {
+                    "value": "副耳",
+                    "label": "副耳"
+                  },
+                  {
+                    "value": "埋没耳（袋耳）",
+                    "label": "埋没耳（袋耳）"
+                  },
+                  {
+                    "value": "小耳症",
+                    "label": "小耳症"
+                  },
+                  {
+                    "value": "折耳",
+                    "label": "折耳"
+                  },
+                  {
+                    "value": "立ち耳",
+                    "label": "立ち耳"
+                  },
+                  {
+                    "value": "耳垂裂",
+                    "label": "耳垂裂"
+                  },
+                  {
+                    "value": "耳（前）瘻孔",
+                    "label": "耳（前）瘻孔"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "舌の異常",
+            "label": "舌の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の舌の先天異常",
+                    "label": "その他の舌の先天異常"
+                  },
+                  {
+                    "value": "巨舌症",
+                    "label": "巨舌症"
+                  },
+                  {
+                    "value": "舌小帯短縮症",
+                    "label": "舌小帯短縮症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "頭蓋骨縫合早期癒合症",
+            "label": "頭蓋骨縫合早期癒合症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の頭蓋骨縫合早期癒合症",
+                    "label": "その他の頭蓋骨縫合早期癒合症"
+                  },
+                  {
+                    "value": "三角頭蓋",
+                    "label": "三角頭蓋"
+                  },
+                  {
+                    "value": "尖頭蓋・塔状頭蓋（両側冠状矢状縫合）",
+                    "label": "尖頭蓋・塔状頭蓋（両側冠状矢状縫合）"
+                  },
+                  {
+                    "value": "斜頭症",
+                    "label": "斜頭症"
+                  },
+                  {
+                    "value": "短頭症（両側冠状縫合）",
+                    "label": "短頭症（両側冠状縫合）"
+                  },
+                  {
+                    "value": "長頭",
+                    "label": "長頭"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "顔面裂",
+            "label": "顔面裂",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の顔面裂",
+                    "label": "その他の顔面裂"
+                  },
+                  {
+                    "value": "斜顔面裂",
+                    "label": "斜顔面裂"
+                  },
+                  {
+                    "value": "横顔面裂・巨口症",
+                    "label": "横顔面裂・巨口症"
+                  },
+                  {
+                    "value": "正中唇裂",
+                    "label": "正中唇裂"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "鼻の異常",
+            "label": "鼻の異常",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他鼻の先天異常",
+                    "label": "その他鼻の先天異常"
+                  },
+                  {
+                    "value": "後鼻孔閉鎖",
+                    "label": "後鼻孔閉鎖"
+                  },
+                  {
+                    "value": "重複鼻",
+                    "label": "重複鼻"
+                  },
+                  {
+                    "value": "鼻裂",
+                    "label": "鼻裂"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "value": "Ⅲ腫瘍",
+    "label": "Ⅲ腫瘍",
+    "children": [
+      {
+        "value": "悪性腫瘍",
+        "label": "悪性腫瘍",
+        "children": [
+          {
+            "value": "リンパ系腫瘍",
+            "label": "リンパ系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他のリンパ系悪性腫瘍",
+                    "label": "その他のリンパ系悪性腫瘍"
+                  },
+                  {
+                    "value": "リンパ節転移",
+                    "label": "リンパ節転移"
+                  },
+                  {
+                    "value": "悪性リンパ腫",
+                    "label": "悪性リンパ腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "上皮性腫瘍",
+            "label": "上皮性腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他上皮性悪性腫瘍",
+                    "label": "その他上皮性悪性腫瘍"
+                  },
+                  {
+                    "value": "ケラトアカントーマ",
+                    "label": "ケラトアカントーマ"
+                  },
+                  {
+                    "value": "ボーエン病",
+                    "label": "ボーエン病"
+                  },
+                  {
+                    "value": "メルケル細胞癌",
+                    "label": "メルケル細胞癌"
+                  },
+                  {
+                    "value": "基底細胞癌",
+                    "label": "基底細胞癌"
+                  },
+                  {
+                    "value": "悪性黒色腫",
+                    "label": "悪性黒色腫"
+                  },
+                  {
+                    "value": "日光角化症",
+                    "label": "日光角化症"
+                  },
+                  {
+                    "value": "有棘細胞癌",
+                    "label": "有棘細胞癌"
+                  },
+                  {
+                    "value": "白板症",
+                    "label": "白板症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "末梢神経系腫瘍",
+            "label": "末梢神経系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の神経系悪性腫瘍",
+                    "label": "その他の神経系悪性腫瘍"
+                  },
+                  {
+                    "value": "悪性神経線維腫",
+                    "label": "悪性神経線維腫"
+                  },
+                  {
+                    "value": "悪性神経鞘腫",
+                    "label": "悪性神経鞘腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚付属器腫瘍",
+            "label": "皮膚付属器腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他皮膚付属器悪性腫瘍",
+                    "label": "その他皮膚付属器悪性腫瘍"
+                  },
+                  {
+                    "value": "アポクリン汗腺癌",
+                    "label": "アポクリン汗腺癌"
+                  },
+                  {
+                    "value": "エクリン汗器官癌",
+                    "label": "エクリン汗器官癌"
+                  },
+                  {
+                    "value": "乳房ページェット病",
+                    "label": "乳房ページェット病"
+                  },
+                  {
+                    "value": "乳房外ページェット病",
+                    "label": "乳房外ページェット病"
+                  },
+                  {
+                    "value": "脂腺癌",
+                    "label": "脂腺癌"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚腫瘍（組織診断不明）",
+            "label": "皮膚腫瘍（組織診断不明）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "皮膚悪性腫瘍",
+                    "label": "皮膚悪性腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "眼窩腫瘍",
+            "label": "眼窩腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の眼窩悪性腫瘍",
+                    "label": "その他の眼窩悪性腫瘍"
+                  },
+                  {
+                    "value": "悪性リンパ腫",
+                    "label": "悪性リンパ腫"
+                  },
+                  {
+                    "value": "眼窩悪性腫瘍",
+                    "label": "眼窩悪性腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "筋組織系腫瘍",
+            "label": "筋組織系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の筋組織系悪性腫瘍",
+                    "label": "その他の筋組織系悪性腫瘍"
+                  },
+                  {
+                    "value": "平滑筋肉腫",
+                    "label": "平滑筋肉腫"
+                  },
+                  {
+                    "value": "横紋筋肉腫",
+                    "label": "横紋筋肉腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "結合組織性腫瘍",
+            "label": "結合組織性腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の結合組織性悪性腫瘍",
+                    "label": "その他の結合組織性悪性腫瘍"
+                  },
+                  {
+                    "value": "悪性線維性組織球腫",
+                    "label": "悪性線維性組織球腫"
+                  },
+                  {
+                    "value": "隆起性皮膚線維肉腫",
+                    "label": "隆起性皮膚線維肉腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "脂肪組織系腫瘍",
+            "label": "脂肪組織系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の脂肪組織系悪性腫瘍",
+                    "label": "その他の脂肪組織系悪性腫瘍"
+                  },
+                  {
+                    "value": "脂肪肉腫",
+                    "label": "脂肪肉腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管系腫瘍",
+            "label": "血管系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の血管系悪性腫瘍",
+                    "label": "その他の血管系悪性腫瘍"
+                  },
+                  {
+                    "value": "血管肉腫",
+                    "label": "血管肉腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "軟部腫瘍（組織診断不明）",
+            "label": "軟部腫瘍（組織診断不明）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "悪性軟部腫瘍",
+                    "label": "悪性軟部腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "転移性腫瘍",
+            "label": "転移性腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の転移性悪性腫瘍",
+                    "label": "その他の転移性悪性腫瘍"
+                  },
+                  {
+                    "value": "転移性皮膚腫瘍",
+                    "label": "転移性皮膚腫瘍"
+                  },
+                  {
+                    "value": "転移性軟部腫瘍",
+                    "label": "転移性軟部腫瘍"
+                  },
+                  {
+                    "value": "転移性骨腫瘍",
+                    "label": "転移性骨腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "頭頚部癌",
+            "label": "頭頚部癌",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の口腔内癌",
+                    "label": "その他の口腔内癌"
+                  },
+                  {
+                    "value": "その他の唾液腺癌",
+                    "label": "その他の唾液腺癌"
+                  },
+                  {
+                    "value": "その他の頭頸部悪性腫瘍",
+                    "label": "その他の頭頸部悪性腫瘍"
+                  },
+                  {
+                    "value": "その他の鼻・副鼻腔癌",
+                    "label": "その他の鼻・副鼻腔癌"
+                  },
+                  {
+                    "value": "上咽頭癌",
+                    "label": "上咽頭癌"
+                  },
+                  {
+                    "value": "上顎癌",
+                    "label": "上顎癌"
+                  },
+                  {
+                    "value": "下咽頭癌",
+                    "label": "下咽頭癌"
+                  },
+                  {
+                    "value": "中咽頭癌",
+                    "label": "中咽頭癌"
+                  },
+                  {
+                    "value": "口唇癌",
+                    "label": "口唇癌"
+                  },
+                  {
+                    "value": "口腔底癌",
+                    "label": "口腔底癌"
+                  },
+                  {
+                    "value": "口蓋癌",
+                    "label": "口蓋癌"
+                  },
+                  {
+                    "value": "喉頭癌",
+                    "label": "喉頭癌"
+                  },
+                  {
+                    "value": "歯肉癌",
+                    "label": "歯肉癌"
+                  },
+                  {
+                    "value": "耳下腺癌",
+                    "label": "耳下腺癌"
+                  },
+                  {
+                    "value": "舌癌",
+                    "label": "舌癌"
+                  },
+                  {
+                    "value": "頬粘膜癌",
+                    "label": "頬粘膜癌"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "骨腫瘍（組織診断不明）",
+            "label": "骨腫瘍（組織診断不明）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "悪性骨腫瘍",
+                    "label": "悪性骨腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "骨軟骨組織系腫瘍",
+            "label": "骨軟骨組織系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の骨軟骨悪性腫瘍",
+                    "label": "その他の骨軟骨悪性腫瘍"
+                  },
+                  {
+                    "value": "ユーイング肉腫",
+                    "label": "ユーイング肉腫"
+                  },
+                  {
+                    "value": "滑膜肉腫",
+                    "label": "滑膜肉腫"
+                  },
+                  {
+                    "value": "軟骨肉腫",
+                    "label": "軟骨肉腫"
+                  },
+                  {
+                    "value": "骨悪性線維性組織球腫",
+                    "label": "骨悪性線維性組織球腫"
+                  },
+                  {
+                    "value": "骨肉腫",
+                    "label": "骨肉腫"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "腫瘍の続発症",
+        "label": "腫瘍の続発症",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の腫瘍の続発症",
+                    "label": "その他の腫瘍の続発症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "リンパ浮腫",
+            "label": "リンパ浮腫",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "リンパ郭清に伴うリンパ浮腫",
+                    "label": "リンパ郭清に伴うリンパ浮腫"
+                  },
+                  {
+                    "value": "腫瘍によるリンパ浮腫",
+                    "label": "腫瘍によるリンパ浮腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "眼瞼下垂",
+            "label": "眼瞼下垂",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "腫瘍及びその切除に伴う眼瞼下垂",
+                    "label": "腫瘍及びその切除に伴う眼瞼下垂"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "禿髪",
+            "label": "禿髪",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "母斑による禿髪",
+                    "label": "母斑による禿髪"
+                  },
+                  {
+                    "value": "腫瘍切除後の禿髪",
+                    "label": "腫瘍切除後の禿髪"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "顔面神経麻痺（神経・表情筋再建を除く）",
+            "label": "顔面神経麻痺（神経・表情筋再建を除く）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "腫瘍の浸潤・圧排による顔面神経麻痺",
+                    "label": "腫瘍の浸潤・圧排による顔面神経麻痺"
+                  },
+                  {
+                    "value": "腫瘍切除に伴う顔面神経麻痺",
+                    "label": "腫瘍切除に伴う顔面神経麻痺"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "腫瘍切除後の組織欠損（一次再建）",
+        "label": "腫瘍切除後の組織欠損（一次再建）",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の一次再建",
+                    "label": "その他の一次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "リンパ管の再建",
+            "label": "リンパ管の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "リンパ管の一次再建",
+                    "label": "リンパ管の一次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "乳房胸壁の再建",
+            "label": "乳房胸壁の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "乳房の一次一期再建：二回目（他施設でのエキスパンダー挿入症例）",
+                    "label": "乳房の一次一期再建：二回目（他施設でのエキスパンダー挿入症例）"
+                  },
+                  {
+                    "value": "乳房の一次一期再建：全摘に対する再建",
+                    "label": "乳房の一次一期再建：全摘に対する再建"
+                  },
+                  {
+                    "value": "乳房の一次一期再建：部分切除に対する再建",
+                    "label": "乳房の一次一期再建：部分切除に対する再建"
+                  },
+                  {
+                    "value": "乳房の一次二期再建：二回目（エキスパンダーから一連の再建）",
+                    "label": "乳房の一次二期再建：二回目（エキスパンダーから一連の再建）"
+                  },
+                  {
+                    "value": "乳房の一次二期再建：初回エキスパンダー挿入",
+                    "label": "乳房の一次二期再建：初回エキスパンダー挿入"
+                  },
+                  {
+                    "value": "乳頭乳輪の一次再建（乳房再建と一連のもの）",
+                    "label": "乳頭乳輪の一次再建（乳房再建と一連のもの）"
+                  },
+                  {
+                    "value": "胸壁の一次再建",
+                    "label": "胸壁の一次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "体幹の再建",
+            "label": "体幹の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の体幹の一次再建",
+                    "label": "その他の体幹の一次再建"
+                  },
+                  {
+                    "value": "腹壁の一次再建",
+                    "label": "腹壁の一次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "四肢の再建",
+            "label": "四肢の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の一次再建",
+                    "label": "上肢の一次再建"
+                  },
+                  {
+                    "value": "下肢の一次再建",
+                    "label": "下肢の一次再建"
+                  },
+                  {
+                    "value": "手・手指の一次再建",
+                    "label": "手・手指の一次再建"
+                  },
+                  {
+                    "value": "足の一次再建",
+                    "label": "足の一次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外陰部の再建",
+            "label": "外陰部の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の外陰部の一次再建",
+                    "label": "その他の外陰部の一次再建"
+                  },
+                  {
+                    "value": "肛門周囲の一次再建",
+                    "label": "肛門周囲の一次再建"
+                  },
+                  {
+                    "value": "膣の一次再建",
+                    "label": "膣の一次再建"
+                  },
+                  {
+                    "value": "陰唇・陰嚢の一次再建",
+                    "label": "陰唇・陰嚢の一次再建"
+                  },
+                  {
+                    "value": "陰茎の一次再建",
+                    "label": "陰茎の一次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "神経の再建",
+            "label": "神経の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "神経の一次再建（顔面神経を除く）",
+                    "label": "神経の一次再建（顔面神経を除く）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管の再建",
+            "label": "血管の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "血管の一次再建",
+                    "label": "血管の一次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "頭頚部再建",
+            "label": "頭頚部再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の頭頸部一次再建",
+                    "label": "その他の頭頸部一次再建"
+                  },
+                  {
+                    "value": "上顎の一次再建",
+                    "label": "上顎の一次再建"
+                  },
+                  {
+                    "value": "下咽頭・頸部食道の一次再建",
+                    "label": "下咽頭・頸部食道の一次再建"
+                  },
+                  {
+                    "value": "下顎の一次再建",
+                    "label": "下顎の一次再建"
+                  },
+                  {
+                    "value": "中咽頭の一次再建",
+                    "label": "中咽頭の一次再建"
+                  },
+                  {
+                    "value": "口腔（舌）の一次再建",
+                    "label": "口腔（舌）の一次再建"
+                  },
+                  {
+                    "value": "外鼻の一次再建",
+                    "label": "外鼻の一次再建"
+                  },
+                  {
+                    "value": "気管の一次再建",
+                    "label": "気管の一次再建"
+                  },
+                  {
+                    "value": "眼瞼・眼窩の一次再建",
+                    "label": "眼瞼・眼窩の一次再建"
+                  },
+                  {
+                    "value": "耳介の一次再建",
+                    "label": "耳介の一次再建"
+                  },
+                  {
+                    "value": "頭皮の一次再建",
+                    "label": "頭皮の一次再建"
+                  },
+                  {
+                    "value": "頭蓋底一次再建",
+                    "label": "頭蓋底一次再建"
+                  },
+                  {
+                    "value": "顔面神経（表情筋）の一次再建",
+                    "label": "顔面神経（表情筋）の一次再建"
+                  },
+                  {
+                    "value": "顔面軟部組織の一次再建",
+                    "label": "顔面軟部組織の一次再建"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "腫瘍切除後の組織欠損（二次再建）",
+        "label": "腫瘍切除後の組織欠損（二次再建）",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の二次再建",
+                    "label": "その他の二次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "リンパ管の再建",
+            "label": "リンパ管の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "リンパ管の二次再建",
+                    "label": "リンパ管の二次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "乳房胸壁の再建",
+            "label": "乳房胸壁の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "乳房の二次一期再建：全摘に対する再建",
+                    "label": "乳房の二次一期再建：全摘に対する再建"
+                  },
+                  {
+                    "value": "乳房の二次一期再建：部分切除に対する再建",
+                    "label": "乳房の二次一期再建：部分切除に対する再建"
+                  },
+                  {
+                    "value": "乳房の二次二期再建：二回目（エキスパンダーから一連の再建）",
+                    "label": "乳房の二次二期再建：二回目（エキスパンダーから一連の再建）"
+                  },
+                  {
+                    "value": "乳房の二次二期再建：二回目（他施設でのエキスパンダー挿入症例）",
+                    "label": "乳房の二次二期再建：二回目（他施設でのエキスパンダー挿入症例）"
+                  },
+                  {
+                    "value": "乳房の二次二期再建：初回エキスパンダー挿入",
+                    "label": "乳房の二次二期再建：初回エキスパンダー挿入"
+                  },
+                  {
+                    "value": "乳頭乳輪の二次再建（乳房の２次再建と一連のもの）",
+                    "label": "乳頭乳輪の二次再建（乳房の２次再建と一連のもの）"
+                  },
+                  {
+                    "value": "人工物再建症例に対する再々建：二次一期再建",
+                    "label": "人工物再建症例に対する再々建：二次一期再建"
+                  },
+                  {
+                    "value": "人工物再建症例に対する再々建：二次二期再建：二回目",
+                    "label": "人工物再建症例に対する再々建：二次二期再建：二回目"
+                  },
+                  {
+                    "value": "人工物再建症例に対する再々建：二次二期再建：初回エキスパンダー挿入",
+                    "label": "人工物再建症例に対する再々建：二次二期再建：初回エキスパンダー挿入"
+                  },
+                  {
+                    "value": "胸壁の二次再建",
+                    "label": "胸壁の二次再建"
+                  },
+                  {
+                    "value": "自家組織再建症例に対する再々建：二次一期再建",
+                    "label": "自家組織再建症例に対する再々建：二次一期再建"
+                  },
+                  {
+                    "value": "自家組織再建症例に対する再々建：二次二期再建：二回目",
+                    "label": "自家組織再建症例に対する再々建：二次二期再建：二回目"
+                  },
+                  {
+                    "value": "自家組織再建症例に対する再々建：二次二期再建：初回エキスパンダー挿入",
+                    "label": "自家組織再建症例に対する再々建：二次二期再建：初回エキスパンダー挿入"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "体幹の再建",
+            "label": "体幹の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の体幹の二次再建",
+                    "label": "その他の体幹の二次再建"
+                  },
+                  {
+                    "value": "腹壁の二次再建",
+                    "label": "腹壁の二次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "四肢の再建",
+            "label": "四肢の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "上肢の二次再建",
+                    "label": "上肢の二次再建"
+                  },
+                  {
+                    "value": "下肢の二次再建",
+                    "label": "下肢の二次再建"
+                  },
+                  {
+                    "value": "手・手指の二次再建",
+                    "label": "手・手指の二次再建"
+                  },
+                  {
+                    "value": "足の二次再建",
+                    "label": "足の二次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外陰部の再建",
+            "label": "外陰部の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の外陰部の二次再建",
+                    "label": "その他の外陰部の二次再建"
+                  },
+                  {
+                    "value": "肛門周囲の二次再建",
+                    "label": "肛門周囲の二次再建"
+                  },
+                  {
+                    "value": "膣の二次再建",
+                    "label": "膣の二次再建"
+                  },
+                  {
+                    "value": "陰唇・陰嚢の二次再建",
+                    "label": "陰唇・陰嚢の二次再建"
+                  },
+                  {
+                    "value": "陰茎の二次再建",
+                    "label": "陰茎の二次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "神経の再建",
+            "label": "神経の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "神経の二次再建（顔面神経を除く）",
+                    "label": "神経の二次再建（顔面神経を除く）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管の再建",
+            "label": "血管の再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "血管の二次再建",
+                    "label": "血管の二次再建"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "頭頚部再建",
+            "label": "頭頚部再建",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の頭頸部二次再建",
+                    "label": "その他の頭頸部二次再建"
+                  },
+                  {
+                    "value": "上顎の二次再建",
+                    "label": "上顎の二次再建"
+                  },
+                  {
+                    "value": "下咽頭・頸部食道の二次再建",
+                    "label": "下咽頭・頸部食道の二次再建"
+                  },
+                  {
+                    "value": "下顎の二次再建",
+                    "label": "下顎の二次再建"
+                  },
+                  {
+                    "value": "中咽頭の二次再建",
+                    "label": "中咽頭の二次再建"
+                  },
+                  {
+                    "value": "口腔（舌）の二次再建",
+                    "label": "口腔（舌）の二次再建"
+                  },
+                  {
+                    "value": "外鼻の二次再建",
+                    "label": "外鼻の二次再建"
+                  },
+                  {
+                    "value": "気管の二次再建",
+                    "label": "気管の二次再建"
+                  },
+                  {
+                    "value": "眼瞼・眼窩の二次再建",
+                    "label": "眼瞼・眼窩の二次再建"
+                  },
+                  {
+                    "value": "耳介の二次再建",
+                    "label": "耳介の二次再建"
+                  },
+                  {
+                    "value": "頭皮の二次再建",
+                    "label": "頭皮の二次再建"
+                  },
+                  {
+                    "value": "頭蓋底二次再建",
+                    "label": "頭蓋底二次再建"
+                  },
+                  {
+                    "value": "顔面神経（表情筋）の二次再建",
+                    "label": "顔面神経（表情筋）の二次再建"
+                  },
+                  {
+                    "value": "顔面軟部組織の二次再建",
+                    "label": "顔面軟部組織の二次再建"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "良性腫瘍",
+        "label": "良性腫瘍",
+        "children": [
+          {
+            "value": "その他",
+            "label": "その他",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の皮膚良性腫瘍",
+                    "label": "その他の皮膚良性腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "ウィルス性疣贅",
+            "label": "ウィルス性疣贅",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他のウイルス性腫瘍",
+                    "label": "その他のウイルス性腫瘍"
+                  },
+                  {
+                    "value": "伝染性軟属腫",
+                    "label": "伝染性軟属腫"
+                  },
+                  {
+                    "value": "尋常性疣贅",
+                    "label": "尋常性疣贅"
+                  },
+                  {
+                    "value": "尖圭コンジローム",
+                    "label": "尖圭コンジローム"
+                  },
+                  {
+                    "value": "扁平疣贅",
+                    "label": "扁平疣贅"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "上皮性腫瘍",
+            "label": "上皮性腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の上皮性腫瘍",
+                    "label": "その他の上皮性腫瘍"
+                  },
+                  {
+                    "value": "皮様嚢腫（デルモイドシスト、デルモイドチスト）",
+                    "label": "皮様嚢腫（デルモイドシスト、デルモイドチスト）"
+                  },
+                  {
+                    "value": "粉瘤（アテローマ、アテローム）",
+                    "label": "粉瘤（アテローマ、アテローム）"
+                  },
+                  {
+                    "value": "脂漏性角化症",
+                    "label": "脂漏性角化症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "唾液腺腫瘍",
+            "label": "唾液腺腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の唾液腺腫瘍",
+                    "label": "その他の唾液腺腫瘍"
+                  },
+                  {
+                    "value": "耳下腺腫瘍",
+                    "label": "耳下腺腫瘍"
+                  },
+                  {
+                    "value": "顎下腺腫瘍",
+                    "label": "顎下腺腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "嚢腫様病変",
+            "label": "嚢腫様病変",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "Baker嚢腫",
+                    "label": "Baker嚢腫"
+                  },
+                  {
+                    "value": "その他の嚢腫",
+                    "label": "その他の嚢腫"
+                  },
+                  {
+                    "value": "ガングリオン",
+                    "label": "ガングリオン"
+                  },
+                  {
+                    "value": "粘液嚢腫",
+                    "label": "粘液嚢腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "末梢神経系腫瘍",
+            "label": "末梢神経系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の神経腫",
+                    "label": "その他の神経腫"
+                  },
+                  {
+                    "value": "外傷性神経腫",
+                    "label": "外傷性神経腫"
+                  },
+                  {
+                    "value": "神経線維腫",
+                    "label": "神経線維腫"
+                  },
+                  {
+                    "value": "神経鞘腫",
+                    "label": "神経鞘腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "母斑・色素異常症",
+            "label": "母斑・色素異常症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "Becker母斑",
+                    "label": "Becker母斑"
+                  },
+                  {
+                    "value": "その他の母斑・色素異常症",
+                    "label": "その他の母斑・色素異常症"
+                  },
+                  {
+                    "value": "太田母斑",
+                    "label": "太田母斑"
+                  },
+                  {
+                    "value": "扁平母斑",
+                    "label": "扁平母斑"
+                  },
+                  {
+                    "value": "異所性蒙古斑",
+                    "label": "異所性蒙古斑"
+                  },
+                  {
+                    "value": "白斑",
+                    "label": "白斑"
+                  },
+                  {
+                    "value": "結合組織母斑",
+                    "label": "結合組織母斑"
+                  },
+                  {
+                    "value": "老人性色素斑",
+                    "label": "老人性色素斑"
+                  },
+                  {
+                    "value": "肝斑",
+                    "label": "肝斑"
+                  },
+                  {
+                    "value": "脂腺母斑",
+                    "label": "脂腺母斑"
+                  },
+                  {
+                    "value": "色素性母斑",
+                    "label": "色素性母斑"
+                  },
+                  {
+                    "value": "若年性黒色腫（スピッツ母斑）",
+                    "label": "若年性黒色腫（スピッツ母斑）"
+                  },
+                  {
+                    "value": "蒙古斑",
+                    "label": "蒙古斑"
+                  },
+                  {
+                    "value": "表皮母斑",
+                    "label": "表皮母斑"
+                  },
+                  {
+                    "value": "軟骨性母斑",
+                    "label": "軟骨性母斑"
+                  },
+                  {
+                    "value": "雀卵斑",
+                    "label": "雀卵斑"
+                  },
+                  {
+                    "value": "青色母斑",
+                    "label": "青色母斑"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "母斑症",
+            "label": "母斑症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の母斑症",
+                    "label": "その他の母斑症"
+                  },
+                  {
+                    "value": "クリッペル・ウェーバー症候群",
+                    "label": "クリッペル・ウェーバー症候群"
+                  },
+                  {
+                    "value": "スタージ・ウェーバ症候群",
+                    "label": "スタージ・ウェーバ症候群"
+                  },
+                  {
+                    "value": "フォン・レックリングハウゼン病",
+                    "label": "フォン・レックリングハウゼン病"
+                  },
+                  {
+                    "value": "ブルヌヴィーユ・プリングル症候群",
+                    "label": "ブルヌヴィーユ・プリングル症候群"
+                  },
+                  {
+                    "value": "ポイツ・イェガース症候群",
+                    "label": "ポイツ・イェガース症候群"
+                  },
+                  {
+                    "value": "神経皮膚黒色症",
+                    "label": "神経皮膚黒色症"
+                  },
+                  {
+                    "value": "青色ゴム様小疱母斑症候群",
+                    "label": "青色ゴム様小疱母斑症候群"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "滑膜組織系腫瘍",
+            "label": "滑膜組織系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の滑膜腫瘍",
+                    "label": "その他の滑膜腫瘍"
+                  },
+                  {
+                    "value": "腱鞘巨細胞腫",
+                    "label": "腱鞘巨細胞腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚付属器腫瘍(アポクリン汗器官性)",
+            "label": "皮膚付属器腫瘍(アポクリン汗器官性)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他のアポクリン汗腺腫瘍",
+                    "label": "その他のアポクリン汗腺腫瘍"
+                  },
+                  {
+                    "value": "アポクリン汗嚢腫",
+                    "label": "アポクリン汗嚢腫"
+                  },
+                  {
+                    "value": "円柱腫",
+                    "label": "円柱腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚付属器腫瘍(エクリン汗器官性)",
+            "label": "皮膚付属器腫瘍(エクリン汗器官性)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他のエクリン汗腺腫瘍",
+                    "label": "その他のエクリン汗腺腫瘍"
+                  },
+                  {
+                    "value": "エクリン汗嚢腫",
+                    "label": "エクリン汗嚢腫"
+                  },
+                  {
+                    "value": "汗管腫",
+                    "label": "汗管腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚付属器腫瘍(毛包起源性)",
+            "label": "皮膚付属器腫瘍(毛包起源性)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の毛包性腫瘍",
+                    "label": "その他の毛包性腫瘍"
+                  },
+                  {
+                    "value": "石灰化上皮腫",
+                    "label": "石灰化上皮腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚付属器腫瘍(脂腺起源性)",
+            "label": "皮膚付属器腫瘍(脂腺起源性)",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の脂腺性腫瘍",
+                    "label": "その他の脂腺性腫瘍"
+                  },
+                  {
+                    "value": "老人性脂腺増生症",
+                    "label": "老人性脂腺増生症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "皮膚腫瘍（組織診断不明）",
+            "label": "皮膚腫瘍（組織診断不明）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "皮膚良性腫瘍",
+                    "label": "皮膚良性腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "眼窩腫瘍",
+            "label": "眼窩腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の眼窩腫瘍",
+                    "label": "その他の眼窩腫瘍"
+                  },
+                  {
+                    "value": "涙腺腫瘍",
+                    "label": "涙腺腫瘍"
+                  },
+                  {
+                    "value": "眼窩偽腫瘍",
+                    "label": "眼窩偽腫瘍"
+                  },
+                  {
+                    "value": "眼窩腫瘍",
+                    "label": "眼窩腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "筋組織系腫瘍",
+            "label": "筋組織系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の筋組織系腫瘍",
+                    "label": "その他の筋組織系腫瘍"
+                  },
+                  {
+                    "value": "平滑筋腫",
+                    "label": "平滑筋腫"
+                  },
+                  {
+                    "value": "横紋筋腫",
+                    "label": "横紋筋腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "結合組織性腫瘍",
+            "label": "結合組織性腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の結合組織性腫瘍",
+                    "label": "その他の結合組織性腫瘍"
+                  },
+                  {
+                    "value": "アクロコルドン",
+                    "label": "アクロコルドン"
+                  },
+                  {
+                    "value": "デスモイド腫瘍",
+                    "label": "デスモイド腫瘍"
+                  },
+                  {
+                    "value": "皮膚線維腫",
+                    "label": "皮膚線維腫"
+                  },
+                  {
+                    "value": "軟性線維腫",
+                    "label": "軟性線維腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "脂肪組織系腫瘍",
+            "label": "脂肪組織系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の脂肪系腫瘍",
+                    "label": "その他の脂肪系腫瘍"
+                  },
+                  {
+                    "value": "脂肪腫",
+                    "label": "脂肪腫"
+                  },
+                  {
+                    "value": "血管脂肪腫",
+                    "label": "血管脂肪腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管・リンパ管奇形",
+            "label": "血管・リンパ管奇形",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の症候群（血管奇形合併）",
+                    "label": "その他の症候群（血管奇形合併）"
+                  },
+                  {
+                    "value": "その他の血管・リンパ管奇形",
+                    "label": "その他の血管・リンパ管奇形"
+                  },
+                  {
+                    "value": "クリッペル・トレノネー症候群またはパークス ウェーバー症候群",
+                    "label": "クリッペル・トレノネー症候群またはパークス ウェーバー症候群"
+                  },
+                  {
+                    "value": "スタージ・ウェーバー症候群",
+                    "label": "スタージ・ウェーバー症候群"
+                  },
+                  {
+                    "value": "リンパ管奇形（限局性・海綿状・嚢胞状リンパ管腫）",
+                    "label": "リンパ管奇形（限局性・海綿状・嚢胞状リンパ管腫）"
+                  },
+                  {
+                    "value": "動静脈奇形",
+                    "label": "動静脈奇形"
+                  },
+                  {
+                    "value": "毛細血管奇形（単純性血管腫）",
+                    "label": "毛細血管奇形（単純性血管腫）"
+                  },
+                  {
+                    "value": "混合型血管奇形",
+                    "label": "混合型血管奇形"
+                  },
+                  {
+                    "value": "青色ゴムまり様母斑症候群",
+                    "label": "青色ゴムまり様母斑症候群"
+                  },
+                  {
+                    "value": "静脈奇形（海綿状血管腫）",
+                    "label": "静脈奇形（海綿状血管腫）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管・リンパ管系腫瘍",
+            "label": "血管・リンパ管系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他のリンパ系腫瘍",
+                    "label": "その他のリンパ系腫瘍"
+                  },
+                  {
+                    "value": "その他の症候群（血管性腫瘍合併）",
+                    "label": "その他の症候群（血管性腫瘍合併）"
+                  },
+                  {
+                    "value": "その他の血管系腫瘍",
+                    "label": "その他の血管系腫瘍"
+                  },
+                  {
+                    "value": "カサバッハ・メリット症候群",
+                    "label": "カサバッハ・メリット症候群"
+                  },
+                  {
+                    "value": "グロムス腫瘍",
+                    "label": "グロムス腫瘍"
+                  },
+                  {
+                    "value": "リンパ節腫脹（診断不明を含む）",
+                    "label": "リンパ節腫脹（診断不明を含む）"
+                  },
+                  {
+                    "value": "乳児血管腫（苺状血管腫）",
+                    "label": "乳児血管腫（苺状血管腫）"
+                  },
+                  {
+                    "value": "先天性血管腫",
+                    "label": "先天性血管腫"
+                  },
+                  {
+                    "value": "血管拡張性肉芽腫",
+                    "label": "血管拡張性肉芽腫"
+                  },
+                  {
+                    "value": "被角血管腫",
+                    "label": "被角血管腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "軟部腫瘍（組織診断不明）",
+            "label": "軟部腫瘍（組織診断不明）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "良性軟部腫瘍",
+                    "label": "良性軟部腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "骨腫瘍（組織診断不明）",
+            "label": "骨腫瘍（組織診断不明）",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "良性骨腫瘍",
+                    "label": "良性骨腫瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "骨軟骨組織系腫瘍",
+            "label": "骨軟骨組織系腫瘍",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の骨軟骨腫瘍",
+                    "label": "その他の骨軟骨腫瘍"
+                  },
+                  {
+                    "value": "外骨腫",
+                    "label": "外骨腫"
+                  },
+                  {
+                    "value": "線維性骨異形成症",
+                    "label": "線維性骨異形成症"
+                  },
+                  {
+                    "value": "軟骨腫",
+                    "label": "軟骨腫"
+                  },
+                  {
+                    "value": "軟骨芽細胞腫",
+                    "label": "軟骨芽細胞腫"
+                  },
+                  {
+                    "value": "骨嚢胞",
+                    "label": "骨嚢胞"
+                  },
+                  {
+                    "value": "骨巨細胞腫",
+                    "label": "骨巨細胞腫"
+                  },
+                  {
+                    "value": "骨芽細胞腫",
+                    "label": "骨芽細胞腫"
+                  },
+                  {
+                    "value": "骨軟骨腫",
+                    "label": "骨軟骨腫"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "黄色腫",
+            "label": "黄色腫",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "眼瞼黄色腫",
+                    "label": "眼瞼黄色腫"
+                  },
+                  {
+                    "value": "黄色腫（眼瞼以外）",
+                    "label": "黄色腫（眼瞼以外）"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "value": "Ⅳ瘢痕・瘢痕拘縮・ケロイド",
+    "label": "Ⅳ瘢痕・瘢痕拘縮・ケロイド",
+    "children": [
+      {
+        "value": "瘢痕・瘢痕拘縮・ケロイド",
+        "label": "瘢痕・瘢痕拘縮・ケロイド",
+        "children": [
+          {
+            "value": "ケロイド",
+            "label": "ケロイド",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "ケロイド",
+                    "label": "ケロイド"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "外傷性色素沈着症",
+            "label": "外傷性色素沈着症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "外傷性色素沈着症",
+                    "label": "外傷性色素沈着症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "異物",
+            "label": "異物",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "外傷性刺青",
+                    "label": "外傷性刺青"
+                  },
+                  {
+                    "value": "皮下異物",
+                    "label": "皮下異物"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "瘢痕",
+            "label": "瘢痕",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の瘢痕",
+                    "label": "その他の瘢痕"
+                  },
+                  {
+                    "value": "外傷後瘢痕",
+                    "label": "外傷後瘢痕"
+                  },
+                  {
+                    "value": "手術後瘢痕",
+                    "label": "手術後瘢痕"
+                  },
+                  {
+                    "value": "熱傷瘢痕",
+                    "label": "熱傷瘢痕"
+                  },
+                  {
+                    "value": "瘢痕",
+                    "label": "瘢痕"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "瘢痕性禿髪",
+            "label": "瘢痕性禿髪",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の瘢痕性禿髪",
+                    "label": "その他の瘢痕性禿髪"
+                  },
+                  {
+                    "value": "外傷後瘢痕性禿髪",
+                    "label": "外傷後瘢痕性禿髪"
+                  },
+                  {
+                    "value": "手術後瘢痕性禿髪",
+                    "label": "手術後瘢痕性禿髪"
+                  },
+                  {
+                    "value": "熱傷後瘢痕性禿髪",
+                    "label": "熱傷後瘢痕性禿髪"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "瘢痕拘縮",
+            "label": "瘢痕拘縮",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の瘢痕拘縮",
+                    "label": "その他の瘢痕拘縮"
+                  },
+                  {
+                    "value": "外傷後瘢痕拘縮",
+                    "label": "外傷後瘢痕拘縮"
+                  },
+                  {
+                    "value": "手術後瘢痕拘縮",
+                    "label": "手術後瘢痕拘縮"
+                  },
+                  {
+                    "value": "熱傷後瘢痕拘縮",
+                    "label": "熱傷後瘢痕拘縮"
+                  },
+                  {
+                    "value": "瘢痕拘縮",
+                    "label": "瘢痕拘縮"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "肥厚性瘢痕",
+            "label": "肥厚性瘢痕",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の肥厚性瘢痕",
+                    "label": "その他の肥厚性瘢痕"
+                  },
+                  {
+                    "value": "外傷後肥厚性瘢痕",
+                    "label": "外傷後肥厚性瘢痕"
+                  },
+                  {
+                    "value": "手術後肥厚性瘢痕",
+                    "label": "手術後肥厚性瘢痕"
+                  },
+                  {
+                    "value": "熱傷後肥厚性瘢痕",
+                    "label": "熱傷後肥厚性瘢痕"
+                  },
+                  {
+                    "value": "肥厚性瘢痕",
+                    "label": "肥厚性瘢痕"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "腹壁瘢痕ヘルニア",
+            "label": "腹壁瘢痕ヘルニア",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の腹壁瘢痕ヘルニア",
+                    "label": "その他の腹壁瘢痕ヘルニア"
+                  },
+                  {
+                    "value": "外傷後腹壁瘢痕ヘルニア",
+                    "label": "外傷後腹壁瘢痕ヘルニア"
+                  },
+                  {
+                    "value": "手術後腹壁瘢痕ヘルニア",
+                    "label": "手術後腹壁瘢痕ヘルニア"
+                  },
+                  {
+                    "value": "熱傷後腹壁瘢痕ヘルニア",
+                    "label": "熱傷後腹壁瘢痕ヘルニア"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "value": "Ⅴ難治性潰瘍",
+    "label": "Ⅴ難治性潰瘍",
+    "children": [
+      {
+        "value": "その他の潰瘍",
+        "label": "その他の潰瘍",
+        "children": [
+          {
+            "value": "その他の病態",
+            "label": "その他の病態",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "Münchhausen syndromeによる潰瘍",
+                    "label": "Münchhausen syndromeによる潰瘍"
+                  },
+                  {
+                    "value": "Werner症候群による潰瘍",
+                    "label": "Werner症候群による潰瘍"
+                  },
+                  {
+                    "value": "その他の原因による潰瘍",
+                    "label": "その他の原因による潰瘍"
+                  },
+                  {
+                    "value": "クリオグロブリン血症による潰瘍",
+                    "label": "クリオグロブリン血症による潰瘍"
+                  },
+                  {
+                    "value": "毛巣洞",
+                    "label": "毛巣洞"
+                  },
+                  {
+                    "value": "異物による潰瘍",
+                    "label": "異物による潰瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "代謝性",
+            "label": "代謝性",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の代謝性潰瘍",
+                    "label": "その他の代謝性潰瘍"
+                  },
+                  {
+                    "value": "糖尿病性潰瘍",
+                    "label": "糖尿病性潰瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "免疫疾患",
+            "label": "免疫疾患",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の免疫疾患による潰瘍",
+                    "label": "その他の免疫疾患による潰瘍"
+                  },
+                  {
+                    "value": "壊死性筋膜炎",
+                    "label": "壊死性筋膜炎"
+                  },
+                  {
+                    "value": "慢性膿皮症",
+                    "label": "慢性膿皮症"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "医原性",
+            "label": "医原性",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "手術後の潰瘍",
+                    "label": "手術後の潰瘍"
+                  },
+                  {
+                    "value": "薬剤性潰瘍（ハイドロキシウレアなど）",
+                    "label": "薬剤性潰瘍（ハイドロキシウレアなど）"
+                  },
+                  {
+                    "value": "薬剤漏出性潰瘍",
+                    "label": "薬剤漏出性潰瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "感染症",
+            "label": "感染症",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の感染症による潰瘍",
+                    "label": "その他の感染症による潰瘍"
+                  },
+                  {
+                    "value": "ガス壊疽",
+                    "label": "ガス壊疽"
+                  },
+                  {
+                    "value": "フルニエ壊疽",
+                    "label": "フルニエ壊疽"
+                  },
+                  {
+                    "value": "帯状疱疹",
+                    "label": "帯状疱疹"
+                  },
+                  {
+                    "value": "梅毒による潰瘍",
+                    "label": "梅毒による潰瘍"
+                  },
+                  {
+                    "value": "深在性真菌症による潰瘍（スポロトリコーシスなど）",
+                    "label": "深在性真菌症による潰瘍（スポロトリコーシスなど）"
+                  },
+                  {
+                    "value": "皮膚結核による潰瘍",
+                    "label": "皮膚結核による潰瘍"
+                  },
+                  {
+                    "value": "非定型抗酸菌による潰瘍",
+                    "label": "非定型抗酸菌による潰瘍"
+                  },
+                  {
+                    "value": "骨髄炎・腐骨（潰瘍・廔孔を伴うもの）",
+                    "label": "骨髄炎・腐骨（潰瘍・廔孔を伴うもの）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "放射線性",
+            "label": "放射線性",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の放射線性潰瘍",
+                    "label": "その他の放射線性潰瘍"
+                  },
+                  {
+                    "value": "心臓カテーテル治療後の潰瘍",
+                    "label": "心臓カテーテル治療後の潰瘍"
+                  },
+                  {
+                    "value": "放射線治療後の潰瘍",
+                    "label": "放射線治療後の潰瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "神経障害性",
+            "label": "神経障害性",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の神経障害性潰瘍",
+                    "label": "その他の神経障害性潰瘍"
+                  },
+                  {
+                    "value": "ハンセン病による潰瘍",
+                    "label": "ハンセン病による潰瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "膠原病性",
+            "label": "膠原病性",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の膠原病性潰瘍",
+                    "label": "その他の膠原病性潰瘍"
+                  },
+                  {
+                    "value": "シェーグレン症候群による潰瘍",
+                    "label": "シェーグレン症候群による潰瘍"
+                  },
+                  {
+                    "value": "全身性エリテマトーデス（SLE）による潰瘍",
+                    "label": "全身性エリテマトーデス（SLE）による潰瘍"
+                  },
+                  {
+                    "value": "全身性強皮症（PSS）による潰瘍",
+                    "label": "全身性強皮症（PSS）による潰瘍"
+                  },
+                  {
+                    "value": "壊疽性膿皮症",
+                    "label": "壊疽性膿皮症"
+                  },
+                  {
+                    "value": "結節性多発性動脈炎（ANCA関連血管炎）による潰瘍",
+                    "label": "結節性多発性動脈炎（ANCA関連血管炎）による潰瘍"
+                  },
+                  {
+                    "value": "関節リウマチ（RA）による潰瘍",
+                    "label": "関節リウマチ（RA）による潰瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血液疾患",
+            "label": "血液疾患",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "その他の血液疾患による潰瘍",
+                    "label": "その他の血液疾患による潰瘍"
+                  },
+                  {
+                    "value": "多発性骨髄腫による潰瘍",
+                    "label": "多発性骨髄腫による潰瘍"
+                  },
+                  {
+                    "value": "悪性リンパ腫による潰瘍",
+                    "label": "悪性リンパ腫による潰瘍"
+                  },
+                  {
+                    "value": "白血病による潰瘍",
+                    "label": "白血病による潰瘍"
+                  },
+                  {
+                    "value": "真性多血症による潰瘍",
+                    "label": "真性多血症による潰瘍"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "血管性",
+            "label": "血管性",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "Blue toe syndrome（コレステロール塞栓症）",
+                    "label": "Blue toe syndrome（コレステロール塞栓症）"
+                  },
+                  {
+                    "value": "その他の血管性潰瘍",
+                    "label": "その他の血管性潰瘍"
+                  },
+                  {
+                    "value": "バージャー病による潰瘍",
+                    "label": "バージャー病による潰瘍"
+                  },
+                  {
+                    "value": "動静脈奇形による潰瘍",
+                    "label": "動静脈奇形による潰瘍"
+                  },
+                  {
+                    "value": "末梢動脈閉塞性疾患（PAD）（閉塞性動脈硬化症ASO）",
+                    "label": "末梢動脈閉塞性疾患（PAD）（閉塞性動脈硬化症ASO）"
+                  },
+                  {
+                    "value": "静脈うっ滞性潰瘍",
+                    "label": "静脈うっ滞性潰瘍"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "value": "褥瘡",
+        "label": "褥瘡",
+        "children": [
+          {
+            "value": "褥瘡",
+            "label": "褥瘡",
+            "children": [
+              {
+                "value": "",
+                "label": "",
+                "children": [
+                  {
+                    "value": "褥瘡",
+                    "label": "褥瘡"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "value": "Ⅵ炎症・変性疾患",
+    "label": "Ⅵ炎症・変性疾患",
+    "children": [
+      {
+        "value": "炎症・変性疾患",
+        "label": "炎症・変性疾患",
+        "children": [
+          {
+            "value": "体幹の炎症・変性疾患",
+            "label": "体幹の炎症・変性疾患",
+            "children": [
+              {
+                "value": "その他",
+                "label": "その他",
+                "children": [
+                  {
+                    "value": "その他の体幹の炎症・変性疾患",
+                    "label": "その他の体幹の炎症・変性疾患"
+                  },
+                  {
+                    "value": "ペイロニー病",
+                    "label": "ペイロニー病"
+                  }
+                ]
+              },
+              {
+                "value": "多汗症",
+                "label": "多汗症",
+                "children": [
+                  {
+                    "value": "多汗症",
+                    "label": "多汗症"
+                  }
+                ]
+              },
+              {
+                "value": "女性化乳房",
+                "label": "女性化乳房",
+                "children": [
+                  {
+                    "value": "女性化乳房",
+                    "label": "女性化乳房"
+                  }
+                ]
+              },
+              {
+                "value": "皮膚・軟部組織疾患",
+                "label": "皮膚・軟部組織疾患",
+                "children": [
+                  {
+                    "value": "その他の体幹の皮膚・軟部組織疾患",
+                    "label": "その他の体幹の皮膚・軟部組織疾患"
+                  },
+                  {
+                    "value": "毛巣洞",
+                    "label": "毛巣洞"
+                  },
+                  {
+                    "value": "蜂窩織炎・創感染",
+                    "label": "蜂窩織炎・創感染"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "四肢の炎症・変性疾患",
+            "label": "四肢の炎症・変性疾患",
+            "children": [
+              {
+                "value": "その他",
+                "label": "その他",
+                "children": [
+                  {
+                    "value": "その他の四肢の炎症・変性疾患",
+                    "label": "その他の四肢の炎症・変性疾患"
+                  },
+                  {
+                    "value": "リンパ節炎",
+                    "label": "リンパ節炎"
+                  },
+                  {
+                    "value": "痛風結節",
+                    "label": "痛風結節"
+                  }
+                ]
+              },
+              {
+                "value": "リンパ系疾患",
+                "label": "リンパ系疾患",
+                "children": [
+                  {
+                    "value": "その他の四肢のリンパ系疾患",
+                    "label": "その他の四肢のリンパ系疾患"
+                  },
+                  {
+                    "value": "原発性リンパ浮腫",
+                    "label": "原発性リンパ浮腫"
+                  },
+                  {
+                    "value": "続発性リンパ浮腫",
+                    "label": "続発性リンパ浮腫"
+                  }
+                ]
+              },
+              {
+                "value": "皮膚・軟部組織疾患",
+                "label": "皮膚・軟部組織疾患",
+                "children": [
+                  {
+                    "value": "Depuytren拘縮",
+                    "label": "Depuytren拘縮"
+                  },
+                  {
+                    "value": "Volkmann拘縮",
+                    "label": "Volkmann拘縮"
+                  },
+                  {
+                    "value": "その他の四肢の皮膚・軟部組織疾患",
+                    "label": "その他の四肢の皮膚・軟部組織疾患"
+                  },
+                  {
+                    "value": "巻き爪",
+                    "label": "巻き爪"
+                  },
+                  {
+                    "value": "爪甲周囲炎",
+                    "label": "爪甲周囲炎"
+                  },
+                  {
+                    "value": "蜂窩織炎・創感染",
+                    "label": "蜂窩織炎・創感染"
+                  },
+                  {
+                    "value": "足底腱膜炎",
+                    "label": "足底腱膜炎"
+                  },
+                  {
+                    "value": "陥入爪",
+                    "label": "陥入爪"
+                  }
+                ]
+              },
+              {
+                "value": "神経疾患",
+                "label": "神経疾患",
+                "children": [
+                  {
+                    "value": "その他の四肢の神経疾患",
+                    "label": "その他の四肢の神経疾患"
+                  },
+                  {
+                    "value": "手根管症候群",
+                    "label": "手根管症候群"
+                  },
+                  {
+                    "value": "断端神経腫",
+                    "label": "断端神経腫"
+                  },
+                  {
+                    "value": "肘部管症候群",
+                    "label": "肘部管症候群"
+                  },
+                  {
+                    "value": "複合性局所疼痛症候群(CRPS)",
+                    "label": "複合性局所疼痛症候群(CRPS)"
+                  }
+                ]
+              },
+              {
+                "value": "血管性疾患",
+                "label": "血管性疾患",
+                "children": [
+                  {
+                    "value": "その他の四肢の血管疾患",
+                    "label": "その他の四肢の血管疾患"
+                  },
+                  {
+                    "value": "レイノー病",
+                    "label": "レイノー病"
+                  },
+                  {
+                    "value": "下肢静脈瘤(潰瘍を伴わないもの）",
+                    "label": "下肢静脈瘤(潰瘍を伴わないもの）"
+                  },
+                  {
+                    "value": "深部静脈血栓症",
+                    "label": "深部静脈血栓症"
+                  },
+                  {
+                    "value": "閉塞性動脈炎",
+                    "label": "閉塞性動脈炎"
+                  }
+                ]
+              },
+              {
+                "value": "骨・関節・腱疾患",
+                "label": "骨・関節・腱疾患",
+                "children": [
+                  {
+                    "value": "CM関節症",
+                    "label": "CM関節症"
+                  },
+                  {
+                    "value": "Heberden結節",
+                    "label": "Heberden結節"
+                  },
+                  {
+                    "value": "Kienböcｋ病",
+                    "label": "Kienböcｋ病"
+                  },
+                  {
+                    "value": "de Quervain's disease（ドウケルバン）",
+                    "label": "de Quervain's disease（ドウケルバン）"
+                  },
+                  {
+                    "value": "その他の四肢の骨・関節・腱疾患",
+                    "label": "その他の四肢の骨・関節・腱疾患"
+                  },
+                  {
+                    "value": "その他の変形性関節症",
+                    "label": "その他の変形性関節症"
+                  },
+                  {
+                    "value": "化膿性腱鞘炎",
+                    "label": "化膿性腱鞘炎"
+                  },
+                  {
+                    "value": "外反母趾",
+                    "label": "外反母趾"
+                  },
+                  {
+                    "value": "弾発指",
+                    "label": "弾発指"
+                  },
+                  {
+                    "value": "関節リウマチ",
+                    "label": "関節リウマチ"
+                  },
+                  {
+                    "value": "関節拘縮",
+                    "label": "関節拘縮"
+                  },
+                  {
+                    "value": "骨髄炎（潰瘍・廔孔を伴わないもの）",
+                    "label": "骨髄炎（潰瘍・廔孔を伴わないもの）"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "頭部の炎症・変性疾患",
+            "label": "頭部の炎症・変性疾患",
+            "children": [
+              {
+                "value": "その他",
+                "label": "その他",
+                "children": [
+                  {
+                    "value": "その他の頭部の炎症・変性疾患",
+                    "label": "その他の頭部の炎症・変性疾患"
+                  }
+                ]
+              },
+              {
+                "value": "後天性禿髪",
+                "label": "後天性禿髪",
+                "children": [
+                  {
+                    "value": "その他の後天性禿髪",
+                    "label": "その他の後天性禿髪"
+                  },
+                  {
+                    "value": "円形脱毛症",
+                    "label": "円形脱毛症"
+                  },
+                  {
+                    "value": "男性ホルモン性脱毛",
+                    "label": "男性ホルモン性脱毛"
+                  },
+                  {
+                    "value": "頭皮感染症",
+                    "label": "頭皮感染症"
+                  }
+                ]
+              },
+              {
+                "value": "皮膚・軟部組織疾患",
+                "label": "皮膚・軟部組織疾患",
+                "children": [
+                  {
+                    "value": "その他の頭部の皮膚・軟部組織疾患",
+                    "label": "その他の頭部の皮膚・軟部組織疾患"
+                  },
+                  {
+                    "value": "蜂窩織炎・創感染",
+                    "label": "蜂窩織炎・創感染"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "value": "顔面・頸部の炎症・変性疾患",
+            "label": "顔面・頸部の炎症・変性疾患",
+            "children": [
+              {
+                "value": "その他",
+                "label": "その他",
+                "children": [
+                  {
+                    "value": "その他の眼瞼・眼窩の炎症・変性疾患",
+                    "label": "その他の眼瞼・眼窩の炎症・変性疾患"
+                  },
+                  {
+                    "value": "その他の頸部の炎症・変性疾患",
+                    "label": "その他の頸部の炎症・変性疾患"
+                  },
+                  {
+                    "value": "その他の顔面の炎症・変性疾患",
+                    "label": "その他の顔面の炎症・変性疾患"
+                  },
+                  {
+                    "value": "その他の鼻の炎症・変性疾患",
+                    "label": "その他の鼻の炎症・変性疾患"
+                  }
+                ]
+              },
+              {
+                "value": "甲状腺眼症",
+                "label": "甲状腺眼症",
+                "children": [
+                  {
+                    "value": "甲状腺眼症",
+                    "label": "甲状腺眼症"
+                  }
+                ]
+              },
+              {
+                "value": "皮膚・軟部組織疾患",
+                "label": "皮膚・軟部組織疾患",
+                "children": [
+                  {
+                    "value": "その他の顔面・頸部の皮膚・軟部組織疾患",
+                    "label": "その他の顔面・頸部の皮膚・軟部組織疾患"
+                  },
+                  {
+                    "value": "蜂窩織炎・創感染",
+                    "label": "蜂窩織炎・創感染"
+                  }
+                ]
+              },
+              {
+                "value": "眼瞼内反症",
+                "label": "眼瞼内反症",
+                "children": [
+                  {
+                    "value": "眼瞼内反症",
+                    "label": "眼瞼内反症"
+                  }
+                ]
+              },
+              {
+                "value": "眼瞼外反症",
+                "label": "眼瞼外反症",
+                "children": [
+                  {
+                    "value": "眼瞼外反症",
+                    "label": "眼瞼外反症"
+                  }
+                ]
+              },
+              {
+                "value": "顔面神経麻痺",
+                "label": "顔面神経麻痺",
+                "children": [
+                  {
+                    "value": "Bell麻痺",
+                    "label": "Bell麻痺"
+                  },
+                  {
+                    "value": "Ramsey Hunt症候群",
+                    "label": "Ramsey Hunt症候群"
+                  },
+                  {
+                    "value": "その他の顔面神経麻痺",
+                    "label": "その他の顔面神経麻痺"
+                  }
+                ]
+              },
+              {
+                "value": "顔面萎縮症",
+                "label": "顔面萎縮症",
+                "children": [
+                  {
+                    "value": "その他の顔面萎縮症",
+                    "label": "その他の顔面萎縮症"
+                  },
+                  {
+                    "value": "ウェゲナー肉芽腫症",
+                    "label": "ウェゲナー肉芽腫症"
+                  },
+                  {
+                    "value": "ロンバーグ病",
+                    "label": "ロンバーグ病"
+                  },
+                  {
+                    "value": "強皮症（限局性、全身性）",
+                    "label": "強皮症（限局性、全身性）"
+                  }
+                ]
+              },
+              {
+                "value": "鼻中隔穿孔",
+                "label": "鼻中隔穿孔",
+                "children": [
+                  {
+                    "value": "鼻中隔穿孔",
+                    "label": "鼻中隔穿孔"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+        const linkedData = {
+            disease: diseaseMaster,
+                    site: [
+  {
+    "value": "上肢",
+    "label": "上肢",
+    "children": [
+      {
+        "value": "上腕",
+        "label": "上腕"
+      },
+      {
+        "value": "中指",
+        "label": "中指"
+      },
+      {
+        "value": "前腕",
+        "label": "前腕"
+      },
+      {
+        "value": "小指",
+        "label": "小指"
+      },
+      {
+        "value": "手",
+        "label": "手"
+      },
+      {
+        "value": "手指",
+        "label": "手指"
+      },
+      {
+        "value": "手掌",
+        "label": "手掌"
+      },
+      {
+        "value": "手背",
+        "label": "手背"
+      },
+      {
+        "value": "手関節",
+        "label": "手関節"
+      },
+      {
+        "value": "母指",
+        "label": "母指"
+      },
+      {
+        "value": "環指",
+        "label": "環指"
+      },
+      {
+        "value": "示指",
+        "label": "示指"
+      },
+      {
+        "value": "肘部",
+        "label": "肘部"
+      },
+      {
+        "value": "肩",
+        "label": "肩"
+      },
+      {
+        "value": "腋窩",
+        "label": "腋窩"
+      }
+    ]
+  },
+  {
+    "value": "下肢",
+    "label": "下肢",
+    "children": [
+      {
+        "value": "Ⅰ趾",
+        "label": "Ⅰ趾"
+      },
+      {
+        "value": "Ⅱ趾",
+        "label": "Ⅱ趾"
+      },
+      {
+        "value": "Ⅲ趾",
+        "label": "Ⅲ趾"
+      },
+      {
+        "value": "Ⅳ趾",
+        "label": "Ⅳ趾"
+      },
+      {
+        "value": "Ⅴ趾",
+        "label": "Ⅴ趾"
+      },
+      {
+        "value": "アキレス腱部",
+        "label": "アキレス腱部"
+      },
+      {
+        "value": "下腿",
+        "label": "下腿"
+      },
+      {
+        "value": "内果",
+        "label": "内果"
+      },
+      {
+        "value": "外果",
+        "label": "外果"
+      },
+      {
+        "value": "大腿",
+        "label": "大腿"
+      },
+      {
+        "value": "大転子部",
+        "label": "大転子部"
+      },
+      {
+        "value": "股関節",
+        "label": "股関節"
+      },
+      {
+        "value": "膝",
+        "label": "膝"
+      },
+      {
+        "value": "膝窩部",
+        "label": "膝窩部"
+      },
+      {
+        "value": "足",
+        "label": "足"
+      },
+      {
+        "value": "足底",
+        "label": "足底"
+      },
+      {
+        "value": "足背",
+        "label": "足背"
+      },
+      {
+        "value": "足趾",
+        "label": "足趾"
+      },
+      {
+        "value": "足関節",
+        "label": "足関節"
+      }
+    ]
+  },
+  {
+    "value": "体幹",
+    "label": "体幹",
+    "children": [
+      {
+        "value": "上腹部",
+        "label": "上腹部"
+      },
+      {
+        "value": "下腹部",
+        "label": "下腹部"
+      },
+      {
+        "value": "乳房",
+        "label": "乳房"
+      },
+      {
+        "value": "仙骨部",
+        "label": "仙骨部"
+      },
+      {
+        "value": "会陰",
+        "label": "会陰"
+      },
+      {
+        "value": "側胸部",
+        "label": "側胸部"
+      },
+      {
+        "value": "前胸部",
+        "label": "前胸部"
+      },
+      {
+        "value": "坐骨部",
+        "label": "坐骨部"
+      },
+      {
+        "value": "外陰部",
+        "label": "外陰部"
+      },
+      {
+        "value": "尿道",
+        "label": "尿道"
+      },
+      {
+        "value": "殿部",
+        "label": "殿部"
+      },
+      {
+        "value": "肛門",
+        "label": "肛門"
+      },
+      {
+        "value": "背部",
+        "label": "背部"
+      },
+      {
+        "value": "胸部",
+        "label": "胸部"
+      },
+      {
+        "value": "腰部",
+        "label": "腰部"
+      },
+      {
+        "value": "腹部",
+        "label": "腹部"
+      },
+      {
+        "value": "臍",
+        "label": "臍"
+      },
+      {
+        "value": "鎖骨下部",
+        "label": "鎖骨下部"
+      },
+      {
+        "value": "陰唇",
+        "label": "陰唇"
+      },
+      {
+        "value": "陰嚢",
+        "label": "陰嚢"
+      },
+      {
+        "value": "陰茎",
+        "label": "陰茎"
+      },
+      {
+        "value": "鼠径部",
+        "label": "鼠径部"
+      }
+    ]
+  },
+  {
+    "value": "口腔",
+    "label": "口腔",
+    "children": [
+      {
+        "value": "口腔前庭",
+        "label": "口腔前庭"
+      },
+      {
+        "value": "口腔底",
+        "label": "口腔底"
+      },
+      {
+        "value": "口蓋",
+        "label": "口蓋"
+      },
+      {
+        "value": "歯槽",
+        "label": "歯槽"
+      },
+      {
+        "value": "舌",
+        "label": "舌"
+      },
+      {
+        "value": "頬粘膜",
+        "label": "頬粘膜"
+      }
+    ]
+  },
+  {
+    "value": "咽頭",
+    "label": "咽頭",
+    "children": [
+      {
+        "value": "上咽頭",
+        "label": "上咽頭"
+      },
+      {
+        "value": "下咽頭",
+        "label": "下咽頭"
+      },
+      {
+        "value": "中咽頭",
+        "label": "中咽頭"
+      },
+      {
+        "value": "頸部食道",
+        "label": "頸部食道"
+      }
+    ]
+  },
+  {
+    "value": "頭部",
+    "label": "頭部",
+    "children": [
+      {
+        "value": "側頭部",
+        "label": "側頭部"
+      },
+      {
+        "value": "前頭部",
+        "label": "前頭部"
+      },
+      {
+        "value": "後頭部",
+        "label": "後頭部"
+      },
+      {
+        "value": "頭頂部",
+        "label": "頭頂部"
+      }
+    ]
+  },
+  {
+    "value": "頸部",
+    "label": "頸部",
+    "children": [
+      {
+        "value": "側頸部",
+        "label": "側頸部"
+      },
+      {
+        "value": "前頸部",
+        "label": "前頸部"
+      },
+      {
+        "value": "後頸部(項部)",
+        "label": "後頸部(項部)"
+      }
+    ]
+  },
+  {
+    "value": "顔面",
+    "label": "顔面",
+    "children": [
+      {
+        "value": "オトガイ",
+        "label": "オトガイ"
+      },
+      {
+        "value": "上口唇",
+        "label": "上口唇"
+      },
+      {
+        "value": "上眼瞼",
+        "label": "上眼瞼"
+      },
+      {
+        "value": "上顎",
+        "label": "上顎"
+      },
+      {
+        "value": "下口唇",
+        "label": "下口唇"
+      },
+      {
+        "value": "下眼瞼",
+        "label": "下眼瞼"
+      },
+      {
+        "value": "下顎",
+        "label": "下顎"
+      },
+      {
+        "value": "内眼角",
+        "label": "内眼角"
+      },
+      {
+        "value": "前額",
+        "label": "前額"
+      },
+      {
+        "value": "口唇",
+        "label": "口唇"
+      },
+      {
+        "value": "口角",
+        "label": "口角"
+      },
+      {
+        "value": "外眼角",
+        "label": "外眼角"
+      },
+      {
+        "value": "外耳道",
+        "label": "外耳道"
+      },
+      {
+        "value": "尾毛(部)",
+        "label": "尾毛(部)"
+      },
+      {
+        "value": "球結膜",
+        "label": "球結膜"
+      },
+      {
+        "value": "眉間",
+        "label": "眉間"
+      },
+      {
+        "value": "眼(周囲)部",
+        "label": "眼(周囲)部"
+      },
+      {
+        "value": "眼球",
+        "label": "眼球"
+      },
+      {
+        "value": "眼瞼",
+        "label": "眼瞼"
+      },
+      {
+        "value": "眼窩",
+        "label": "眼窩"
+      },
+      {
+        "value": "睫毛",
+        "label": "睫毛"
+      },
+      {
+        "value": "耳(介)",
+        "label": "耳(介)"
+      },
+      {
+        "value": "耳垂",
+        "label": "耳垂"
+      },
+      {
+        "value": "角膜",
+        "label": "角膜"
+      },
+      {
+        "value": "頬部",
+        "label": "頬部"
+      },
+      {
+        "value": "鼻(部)",
+        "label": "鼻(部)"
+      }
+    ]
+  }
+],
+    facialBone: []
+        };
+
+        const selectChainConfig = { disease: 5, site: 3, facialBone: 2 };
+
+        function findItemByValue(items, value) {
+            for (const item of items) {
+                if (item.value === value) return item;
+                if (item.children) {
+                    const found = findItemByValue(item.children, value);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        function getSelectedValues(group, level) {
+            const select = document.getElementById(`${group}Level${level}`);
+            // For single-select, return value as array; for multiple-select, return all selected
+            if (select.multiple) {
+                return Array.from(select.selectedOptions).map(opt => opt.value);
+            } else {
+                return select.value ? [select.value] : [];
+            }
+        }
+
+        function normalizeForSkip(items, level, maxLevel) {
+            let current = items;
+            let currentLevel = level;
+
+            while (currentLevel < maxLevel && current.length === 1 && current[0].value === '' && Array.isArray(current[0].children)) {
+                current = current[0].children;
+                currentLevel += 1;
+            }
+            
+            // 最後のレベルでも、空の値のアイテムがあればスキップ（ただし currentLevel は進めない）
+            if (currentLevel === maxLevel && current.length === 1 && current[0].value === '' && Array.isArray(current[0].children)) {
+                current = current[0].children;
+            }
+
+            return { items: current, level: currentLevel };
+        }
+
+        const fixedSiteLevel3 = ['左', '中', '両(側)', '正中'];
+        const fixedFacialBoneLevel1 = ['前頭骨', '鼻骨', '鼻軟骨', '篩骨', '眼窩縁', '眼窩下壁', '眼窩内側壁', '眼窩上壁', '頬骨体部', '頬骨弓部', 'ルフォーⅠ型上顎骨', 'ルフォーⅡ型上顎骨', 'ルフォーⅢ型上顎骨', '上顎骨（ルフォー型以外）', '上顎歯槽骨', '口蓋骨', '下顎体部', '下顎枝部（角部含む）', '下顎関節突起部', '下顎歯槽骨', '歯牙'];
+        const fixedFacialBoneLevel2 = ['左', '中', '両(側)', '正中'];
+
+        function populateDependentSelect(group, level) {
+            console.log(`populateDependentSelect: group=${group}, level=${level}`);
+            const root = linkedData[group];
+            let items = [];
+
+            if (group === 'facialBone') {
+                if (level === 1) {
+                    items = fixedFacialBoneLevel1.map(v => ({value: v, label: v}));
+                } else if (level === 2) {
+                    items = fixedFacialBoneLevel2.map(v => ({value: v, label: v}));
+                }
+            } else if (level === 3 && group === 'site') {
+                items = fixedSiteLevel3.map(v => ({value: v, label: v}));
+            } else {
+                if (level === 1) {
+                    items = root;
+                } else {
+                    const parentValues = getSelectedValues(group, level - 1);
+                    console.log(`parentValues for level ${level}: ${JSON.stringify(parentValues)}`);
+                    items = parentValues.flatMap(value => {
+                        const parent = findItemByValue(root, value);
+                        return parent && parent.children ? parent.children : [];
+                    });
+                }
+            }
+
+            console.log(`items count: ${items.length}`);
+            const { items: normalizedItems, level: resolvedLevel } = group === 'facialBone' ? { items, level } : normalizeForSkip(items, level, selectChainConfig[group]);
+            console.log(`normalizedItems count: ${normalizedItems.length}, resolvedLevel: ${resolvedLevel}`);
+            let targetLevel = Math.min(resolvedLevel, selectChainConfig[group]);
+            let select = document.getElementById(`${group}Level${targetLevel}`);
+
+            for (let skip = level; skip < targetLevel; skip++) {
+                const skipped = document.getElementById(`${group}Level${skip}`);
+                if (skipped) {
+                    skipped.innerHTML = '';
+                    skipped.disabled = true;
+                }
+            }
+
+            if (!select) {
+                console.log(`Select element ${group}Level${targetLevel} not found`);
+                return;
+            }
+            select.innerHTML = '';
+
+            if (!normalizedItems.length) {
+                select.disabled = false;
+            } else {
+                select.disabled = false;
+                normalizedItems.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.value;
+                    option.textContent = item.label;
+                    select.appendChild(option);
+                });
+            }
+
+            for (let next = targetLevel + 1; next <= selectChainConfig[group]; next++) {
+                const nextSelect = document.getElementById(`${group}Level${next}`);
+                if (nextSelect) {
+                    nextSelect.innerHTML = '';
+                    nextSelect.disabled = true;
+                }
+            }
+        }
+
+        function onDependentSelectChange(group, level) {
+            console.log(`onDependentSelectChange called: group=${group}, level=${level}`);
+            if (group !== 'facialBone' && level < selectChainConfig[group]) {
+                console.log(`Populating ${group}Level${level + 1}`);
+                populateDependentSelect(group, level + 1);
+            }
+        }
+
+        function initLinkedSelects() {
+            populateDependentSelect('disease', 1);
+            populateDependentSelect('site', 1);
+            populateDependentSelect('site', 3);
+            populateDependentSelect('facialBone', 1);
+            populateDependentSelect('facialBone', 2);
+        }
+
+        function getSelectedKRowCodes() {
+            return Array.from(document.querySelectorAll('.points-table tr.selected'))
+                .map(row => row.dataset.kcode)
+                .filter(Boolean);
+        }
+
+        function matchesKCodeInput(patterns) {
+            const value = document.getElementById('kCodeInput')?.value.trim().toUpperCase();
+            return patterns.some(pattern => value === pattern.toUpperCase());
+        }
+
+        function isK013Selected() {
+            const codes = getSelectedKRowCodes();
+            return codes.includes('K013') || matchesKCodeInput(['K013-(1)', 'K013-(2)', 'K013-(3)', 'K013-(4)']);
+        }
+
+        function isK0132Selected() {
+            const codes = getSelectedKRowCodes();
+            return codes.includes('K013-2') || matchesKCodeInput(['K013-2-(1)', 'K013-2-(2)', 'K013-2-(3)', 'K013-2-(4)']);
+        }
+
+        function isK059Selected() {
+            return matchesKCodeInput(['K059-(1)']);
+        }
+
+        function isK016orK017orK020Selected() {
+            const codes = getSelectedKRowCodes();
+            return codes.includes('K016') || matchesKCodeInput(['K017-(1)', 'K017-(2)', 'K020']);
+        }
+
+        function updateConditionalFields() {
+            document.getElementById('skinDonorK013Wrapper').classList.toggle('hidden', !isK013Selected());
+            document.getElementById('skinDonorK0132Wrapper').classList.toggle('hidden', !isK0132Selected());
+            document.getElementById('boneDonorWrapper').classList.toggle('hidden', !isK059Selected());
+            document.getElementById('flapDonorWrapper').classList.toggle('hidden', !isK016orK017orK020Selected());
+        }
+
         function toggleRow(row) {
             row.classList.toggle('selected');
+            updateConditionalFields();
         }
 
         function previewImage(input) {
@@ -606,9 +7003,12 @@
             canvas = document.getElementById('schemaCanvas');
             ctx = canvas.getContext('2d');
             initCanvas();
+            initLinkedSelects();
+            updateConditionalFields();
             document.getElementById('patientName').addEventListener('input', e => {
                 document.getElementById('syncName').innerText = "患者氏名: " + e.target.value;
             });
+            document.getElementById('kCodeInput').addEventListener('input', updateConditionalFields);
 
             // ボタンイベントリスナー
             document.getElementById('drawBtn').addEventListener('click', () => setMode('draw'));

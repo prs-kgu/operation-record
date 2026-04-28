@@ -6,7 +6,179 @@
     <title>形成外科 手術記録システム</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="./src/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: #1e293b;
+        }
+
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; padding: 0; }
+            .print-container {
+                width: 100%;
+                height: 100%;
+                padding: 10mm;
+                margin: 0;
+                box-sizing: border-box;
+                box-shadow: none;
+                border: none;
+                page-break-after: always;
+                break-after: page;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                display: flex;
+                flex-direction: column;
+            }
+            .print-container:last-child {
+                page-break-after: auto;
+                break-after: auto;
+            }
+            textarea { border: none !important; background: transparent !important; outline: none !important; padding: 0 4px; }
+            .points-table tr.selected td {
+                background: #2563eb !important;
+                color: white !important;
+                border-color: #1d4ed8 !important;
+                font-weight: 700 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        .print-container {
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin: 20px auto;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm;
+            box-sizing: border-box;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-underlined {
+            border: none;
+            border-bottom: 1px solid #e2e8f0;
+            outline: none;
+            padding: 0 4px;
+            background: transparent;
+        }
+
+        .select-group {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        .select-item {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: bold;
+            user-select: none;
+        }
+        .select-input { display: none; }
+        .select-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1.2px solid transparent;
+            border-radius: 50%;
+            transition: all 0.1s;
+        }
+        .select-input:checked + .select-circle {
+            border-color: #0f172a;
+        }
+
+        .points-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+            margin-bottom: 10px;
+        }
+        .points-table th {
+            background: #0f172a;
+            color: white;
+            padding: 0.25rem;
+            border: 1px solid #334155;
+            font-weight: 700;
+            text-align: left;
+        }
+        .points-table td {
+            padding: 0.25rem;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .points-table tr.selected td {
+            background: #2563eb;
+            color: white;
+            border-color: #1d4ed8;
+            font-weight: 700;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .points-table tr.selected .text-slate-500 {
+            color: #dbeafe;
+        }
+        .sub-row {
+            background: #f8fafc;
+            font-size: 8px;
+            color: #64748b;
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #64748b;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: #f1f5f9;
+        }
+
+        #schemaCanvas { background: white; cursor: crosshair; touch-action: none; width: 100%; height: 100%; }
+        .photo-placeholder {
+            border: 1px dashed #cbd5e1;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            cursor: pointer;
+            border-radius: 0.375rem;
+        }
+    </style>
 </head>
 <body>
     <div class="no-print max-w-5xl mx-auto mt-8 mb-6 bg-slate-900 text-white p-6 rounded-lg shadow-xl flex justify-between items-center">
@@ -157,9 +329,9 @@
         <h2 class="text-xl font-bold mb-4">手術図・写真記録 <span id="syncName" class="text-sm font-normal ml-4 text-slate-500"></span></h2>
         
         <div class="no-print flex gap-2 mb-2">
-            <button onclick="setMode('draw')" class="px-3 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">ペン</button>
-            <button onclick="setMode('erase')" class="px-3 py-1 bg-white border text-xs rounded shadow-sm">消しゴム</button>
-            <button onclick="clearCanvas()" class="px-3 py-1 bg-red-50 text-red-600 text-xs rounded">全消去</button>
+            <button id="drawBtn" class="px-3 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">ペン</button>
+            <button id="eraseBtn" class="px-3 py-1 bg-white border text-xs rounded shadow-sm">消しゴム</button>
+            <button id="clearBtn" class="px-3 py-1 bg-red-50 text-red-600 text-xs rounded">全消去</button>
         </div>
         <div class="border border-slate-200 h-[480px] mb-6 rounded overflow-hidden shadow-inner">
             <canvas id="schemaCanvas"></canvas>
@@ -306,6 +478,126 @@
         <div class="text-right text-[9px] text-slate-300 mt-2 italic">Page 03</div>
     </div>
 
-    <script type="module" src="./src/main.js"></script>
+    <script>
+        let canvas;
+        let ctx;
+        let drawing = false;
+        let mode = 'draw';
+
+        function calculateAge() {
+            const birth = document.getElementById('birthDate').value;
+            const op = document.getElementById('opDate').value;
+            if (!birth || !op) return;
+
+            const bDate = new Date(birth);
+            const oDate = new Date(op);
+            let age = oDate.getFullYear() - bDate.getFullYear();
+            if (oDate.getMonth() < bDate.getMonth() || (oDate.getMonth() === bDate.getMonth() && oDate.getDate() < bDate.getDate())) {
+                age--;
+            }
+            document.getElementById('ageResult').value = age >= 0 ? age : 0;
+        }
+
+        function calculateOpDuration() {
+            const start = document.getElementById('startTime').value;
+            const end = document.getElementById('endTime').value;
+            if (!start || !end) return;
+
+            const [sH, sM] = start.split(':').map(Number);
+            const [eH, eM] = end.split(':').map(Number);
+            let diffMinutes = (eH * 60 + eM) - (sH * 60 + sM);
+            if (diffMinutes < 0) diffMinutes += 1440;
+            document.getElementById('durationResult').value = diffMinutes;
+        }
+
+        function toggleRow(row) {
+            row.classList.toggle('selected');
+        }
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const parent = input.parentElement;
+                    parent.innerHTML = `<img src="${e.target.result}" class="h-full w-full object-contain rounded">`;
+                    parent.onclick = () => input.click();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function initCanvas() {
+            const parent = canvas.parentElement;
+            canvas.width = parent.clientWidth;
+            canvas.height = parent.clientHeight;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = 2;
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
+                y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            drawing = true;
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if(!drawing) return;
+            if(e.cancelable) e.preventDefault();
+            const pos = getPos(e);
+            ctx.globalCompositeOperation = mode === 'erase' ? 'destination-out' : 'source-over';
+            ctx.lineWidth = mode === 'erase' ? 20 : 2;
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function setMode(m) {
+            mode = m;
+        }
+
+        function clearCanvas() {
+            if (confirm('シェーマをリセットしますか？')) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function confirmReset() {
+            if (confirm('すべての入力をリセットしますか？')) {
+                window.location.reload();
+            }
+        }
+
+        window.onload = () => {
+            canvas = document.getElementById('schemaCanvas');
+            ctx = canvas.getContext('2d');
+            initCanvas();
+            document.getElementById('patientName').addEventListener('input', e => {
+                document.getElementById('syncName').innerText = "患者氏名: " + e.target.value;
+            });
+
+            // ボタンイベントリスナー
+            document.getElementById('drawBtn').addEventListener('click', () => setMode('draw'));
+            document.getElementById('eraseBtn').addEventListener('click', () => setMode('erase'));
+            document.getElementById('clearBtn').addEventListener('click', () => clearCanvas());
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            window.addEventListener('mouseup', () => drawing = false);
+            canvas.addEventListener('touchstart', startDrawing);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', () => drawing = false);
+        };
+    </script>
 </body>
 </html>

@@ -506,7 +506,7 @@
             </div>
         </div>
         <div class="mb-4">
-            <div class="section-title">Kコード（上記にない場合）</div>
+            <div class="section-title">Kコード（上記にない場合、複数ある場合は,区切り）</div>
             <input id="kCodeInput" type="text" class="input-underlined w-full text-lg font-bold" placeholder="Kコードを検索して入力">
         </div>
         <div class="mb-4 no-print">
@@ -517,34 +517,34 @@
 
     <!-- 第4ページ -->
     <div class="print-container" id="page4">
-        <h2 class="text-xl font-bold mb-4 border-b-2 border-slate-800 pb-2">追加症例情報</h2>
+        <h2 class="text-xl font-bold mb-4 border-b-2 border-slate-800 pb-2">追加症例情報（NCD）</h2>
 
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-12">
                 <div class="section-title">疾患名</div>
                 <div class="grid grid-cols-5 gap-2">
-                    <select id="diseaseLevel1" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 1)"></select>
-                    <select id="diseaseLevel2" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 2)" disabled></select>
-                    <select id="diseaseLevel3" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 3)" disabled></select>
-                    <select id="diseaseLevel4" size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 4)" disabled></select>
-                    <select id="diseaseLevel5" size="3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                    <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 1)"></select>
+                    <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 2)" disabled></select>
+                    <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 3)" disabled></select>
+                    <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 4)" disabled></select>
+                    <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
                 </div>
             </div>
 
             <div class="col-span-12">
                 <div class="section-title">疾患部位</div>
                 <div class="grid grid-cols-3 gap-2">
-                    <select id="siteLevel1" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 1)"></select>
-                    <select id="siteLevel2" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 2)" disabled></select>
-                    <select id="siteLevel3" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                    <select id="siteLevel1" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 1)"></select>
+                    <select id="siteLevel2" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 2)" disabled></select>
+                    <select id="siteLevel3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
                 </div>
             </div>
 
             <div class="col-span-12">
                 <div class="section-title">顔面骨部位</div>
                 <div class="grid grid-cols-2 gap-2">
-                    <select id="facialBoneLevel1" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('facialBone', 1)"></select>
-                    <select id="facialBoneLevel2" multiple size="3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                    <select id="facialBoneLevel1" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('facialBone', 1)"></select>
+                    <select id="facialBoneLevel2" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
                 </div>
             </div>
 
@@ -6779,9 +6779,19 @@
             return null;
         }
 
+        function findItemByPath(items, path) {
+            let currentItems = items;
+            let current = null;
+            for (const value of path) {
+                current = currentItems.find(item => item.value === value);
+                if (!current) return null;
+                currentItems = current.children || [];
+            }
+            return current;
+        }
+
         function getSelectedValues(group, level) {
             const select = document.getElementById(`${group}Level${level}`);
-            // For single-select, return value as array; for multiple-select, return all selected
             if (select.multiple) {
                 return Array.from(select.selectedOptions).map(opt => opt.value);
             } else {
@@ -6811,7 +6821,6 @@
         const fixedFacialBoneLevel2 = ['左', '中', '両(側)', '正中'];
 
         function populateDependentSelect(group, level) {
-            console.log(`populateDependentSelect: group=${group}, level=${level}`);
             const root = linkedData[group];
             let items = [];
 
@@ -6827,48 +6836,52 @@
                 if (level === 1) {
                     items = root;
                 } else {
-                    const parentValues = getSelectedValues(group, level - 1);
-                    console.log(`parentValues for level ${level}: ${JSON.stringify(parentValues)}`);
-                    items = parentValues.flatMap(value => {
-                        const parent = findItemByValue(root, value);
-                        return parent && parent.children ? parent.children : [];
-                    });
+                    const parentPath = [];
+                    for (let i = 1; i < level; i++) {
+                        const selectEl = document.getElementById(`${group}Level${i}`);
+                        if (selectEl && selectEl.value) {
+                            parentPath.push(selectEl.value);
+                        }
+                    }
+                    const parent = findItemByPath(root, parentPath);
+                    items = parent && parent.children ? parent.children : [];
                 }
             }
 
-            console.log(`items count: ${items.length}`);
-            const { items: normalizedItems, level: resolvedLevel } = group === 'facialBone' ? { items, level } : normalizeForSkip(items, level, selectChainConfig[group]);
-            console.log(`normalizedItems count: ${normalizedItems.length}, resolvedLevel: ${resolvedLevel}`);
-            let targetLevel = Math.min(resolvedLevel, selectChainConfig[group]);
-            let select = document.getElementById(`${group}Level${targetLevel}`);
+            // 空の階層をスキップし、次に表示すべき有効なデータセットを探す
+            let currentItems = items;
+            let currentLevel = level;
 
-            for (let skip = level; skip < targetLevel; skip++) {
-                const skipped = document.getElementById(`${group}Level${skip}`);
-                if (skipped) {
-                    skipped.innerHTML = '';
-                    skipped.disabled = true;
-                }
+            // 子要素が1つだけで、かつその値が空文字の場合のみスキップする
+            while (currentItems.length === 1 && currentItems[0].value === "" && currentItems[0].children) {
+                currentItems = currentItems[0].children;
             }
 
-            if (!select) {
-                console.log(`Select element ${group}Level${targetLevel} not found`);
-                return;
-            }
+            const select = document.getElementById(`${group}Level${currentLevel}`);
+            if (!select) return;
+
             select.innerHTML = '';
+            
+            if (currentItems.length > 0) {
+                select.disabled = false;
+                // 初期選択肢として「選択してください」を追加（任意）
+                const placeholder = document.createElement('option');
+                placeholder.value = "";
+                placeholder.textContent = "-- 選択 --";
+                select.appendChild(placeholder);
 
-            if (!normalizedItems.length) {
-                select.disabled = false;
-            } else {
-                select.disabled = false;
-                normalizedItems.forEach(item => {
+                currentItems.forEach(item => {
                     const option = document.createElement('option');
                     option.value = item.value;
                     option.textContent = item.label;
                     select.appendChild(option);
                 });
+            } else {
+                select.disabled = true;
             }
 
-            for (let next = targetLevel + 1; next <= selectChainConfig[group]; next++) {
+            // 以降のレベルをクリア
+            for (let next = currentLevel + 1; next <= selectChainConfig[group]; next++) {
                 const nextSelect = document.getElementById(`${group}Level${next}`);
                 if (nextSelect) {
                     nextSelect.innerHTML = '';
@@ -6878,9 +6891,7 @@
         }
 
         function onDependentSelectChange(group, level) {
-            console.log(`onDependentSelectChange called: group=${group}, level=${level}`);
             if (group !== 'facialBone' && level < selectChainConfig[group]) {
-                console.log(`Populating ${group}Level${level + 1}`);
                 populateDependentSelect(group, level + 1);
             }
         }

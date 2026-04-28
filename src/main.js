@@ -46,18 +46,20 @@ function previewImage(input) {
 }
 
 function initCanvas() {
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = canvas.parentElement.clientHeight;
+    const parent = canvas.parentElement;
+    canvas.width = parent.clientWidth;
+    canvas.height = parent.clientHeight;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.lineWidth = 2;
+    ctx.globalCompositeOperation = 'source-over';
 }
 
 function getPos(e) {
     const rect = canvas.getBoundingClientRect();
     return {
         x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
-        y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top,
+        y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
     };
 }
 
@@ -69,8 +71,8 @@ function startDrawing(e) {
 }
 
 function draw(e) {
-    if (!drawing) return;
-    if (e.cancelable) e.preventDefault();
+    if(!drawing) return;
+    if(e.cancelable) e.preventDefault();
     const pos = getPos(e);
     ctx.globalCompositeOperation = mode === 'erase' ? 'destination-out' : 'source-over';
     ctx.lineWidth = mode === 'erase' ? 20 : 2;
@@ -103,19 +105,23 @@ window.setMode = setMode;
 window.clearCanvas = clearCanvas;
 window.confirmReset = confirmReset;
 
-window.addEventListener('load', () => {
+window.onload = () => {
     canvas = document.getElementById('schemaCanvas');
     ctx = canvas.getContext('2d');
     initCanvas();
-
-    document.getElementById('patientName').addEventListener('input', (e) => {
-        document.getElementById('syncName').innerText = '患者氏名: ' + e.target.value;
+    document.getElementById('patientName').addEventListener('input', e => {
+        document.getElementById('syncName').innerText = "患者氏名: " + e.target.value;
     });
 
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    window.addEventListener('mouseup', () => (drawing = false));
-    canvas.addEventListener('touchstart', startDrawing);
-    canvas.addEventListener('touchmove', draw);
-    canvas.addEventListener('touchend', () => (drawing = false));
-});
+    // ボタンイベントリスナー
+    document.getElementById('drawBtn').addEventListener('click', () => setMode('draw'));
+    document.getElementById('eraseBtn').addEventListener('click', () => setMode('erase'));
+    document.getElementById('clearBtn').addEventListener('click', () => clearCanvas());
+};
+
+canvas.addEventListener('mousedown', startDrawing);
+canvas.addEventListener('mousemove', draw);
+window.addEventListener('mouseup', () => drawing = false);
+canvas.addEventListener('touchstart', startDrawing);
+canvas.addEventListener('touchmove', draw);
+canvas.addEventListener('touchend', () => drawing = false);

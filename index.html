@@ -157,9 +157,9 @@
         <h2 class="text-xl font-bold mb-4">手術図・写真記録 <span id="syncName" class="text-sm font-normal ml-4 text-slate-500"></span></h2>
         
         <div class="no-print flex gap-2 mb-2">
-            <button onclick="setMode('draw')" class="px-3 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">ペン</button>
-            <button onclick="setMode('erase')" class="px-3 py-1 bg-white border text-xs rounded shadow-sm">消しゴム</button>
-            <button onclick="clearCanvas()" class="px-3 py-1 bg-red-50 text-red-600 text-xs rounded">全消去</button>
+            <button id="drawBtn" class="px-3 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">ペン</button>
+            <button id="eraseBtn" class="px-3 py-1 bg-white border text-xs rounded shadow-sm">消しゴム</button>
+            <button id="clearBtn" class="px-3 py-1 bg-red-50 text-red-600 text-xs rounded">全消去</button>
         </div>
         <div class="border border-slate-200 h-[480px] mb-6 rounded overflow-hidden shadow-inner">
             <canvas id="schemaCanvas"></canvas>
@@ -306,6 +306,126 @@
         <div class="text-right text-[9px] text-slate-300 mt-2 italic">Page 03</div>
     </div>
 
-    <script type="module" src="./src/main.js"></script>
+    <script>
+        let canvas;
+        let ctx;
+        let drawing = false;
+        let mode = 'draw';
+
+        function calculateAge() {
+            const birth = document.getElementById('birthDate').value;
+            const op = document.getElementById('opDate').value;
+            if (!birth || !op) return;
+
+            const bDate = new Date(birth);
+            const oDate = new Date(op);
+            let age = oDate.getFullYear() - bDate.getFullYear();
+            if (oDate.getMonth() < bDate.getMonth() || (oDate.getMonth() === bDate.getMonth() && oDate.getDate() < bDate.getDate())) {
+                age--;
+            }
+            document.getElementById('ageResult').value = age >= 0 ? age : 0;
+        }
+
+        function calculateOpDuration() {
+            const start = document.getElementById('startTime').value;
+            const end = document.getElementById('endTime').value;
+            if (!start || !end) return;
+
+            const [sH, sM] = start.split(':').map(Number);
+            const [eH, eM] = end.split(':').map(Number);
+            let diffMinutes = (eH * 60 + eM) - (sH * 60 + sM);
+            if (diffMinutes < 0) diffMinutes += 1440;
+            document.getElementById('durationResult').value = diffMinutes;
+        }
+
+        function toggleRow(row) {
+            row.classList.toggle('selected');
+        }
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const parent = input.parentElement;
+                    parent.innerHTML = `<img src="${e.target.result}" class="h-full w-full object-contain rounded">`;
+                    parent.onclick = () => input.click();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function initCanvas() {
+            const parent = canvas.parentElement;
+            canvas.width = parent.clientWidth;
+            canvas.height = parent.clientHeight;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = 2;
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
+                y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            drawing = true;
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if(!drawing) return;
+            if(e.cancelable) e.preventDefault();
+            const pos = getPos(e);
+            ctx.globalCompositeOperation = mode === 'erase' ? 'destination-out' : 'source-over';
+            ctx.lineWidth = mode === 'erase' ? 20 : 2;
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function setMode(m) {
+            mode = m;
+        }
+
+        function clearCanvas() {
+            if (confirm('シェーマをリセットしますか？')) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function confirmReset() {
+            if (confirm('すべての入力をリセットしますか？')) {
+                window.location.reload();
+            }
+        }
+
+        window.onload = () => {
+            canvas = document.getElementById('schemaCanvas');
+            ctx = canvas.getContext('2d');
+            initCanvas();
+            document.getElementById('patientName').addEventListener('input', e => {
+                document.getElementById('syncName').innerText = "患者氏名: " + e.target.value;
+            });
+
+            // ボタンイベントリスナー
+            document.getElementById('drawBtn').addEventListener('click', () => setMode('draw'));
+            document.getElementById('eraseBtn').addEventListener('click', () => setMode('erase'));
+            document.getElementById('clearBtn').addEventListener('click', () => clearCanvas());
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            window.addEventListener('mouseup', () => drawing = false);
+            canvas.addEventListener('touchstart', startDrawing);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', () => drawing = false);
+        };
+    </script>
 </body>
 </html>

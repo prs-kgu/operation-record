@@ -80,7 +80,7 @@
             border: none;
             border-bottom: 1px solid #e2e8f0;
             outline: none;
-            padding: 0 4px;
+            padding: 0 2px;
             background: transparent;
         }
 
@@ -212,9 +212,12 @@
             <div class="col-span-4 text-right">
                 区分: <label class="mx-2"><input type="radio" name="type"> 入院</label><label class="mx-2"><input type="radio" name="type"> 外来</label>
             </div>
-            <div class="col-span-6 font-bold">氏名: <input type="text" id="patientName" class="input-underlined w-3/4 text-lg" placeholder="患者 氏名"></div>
-            <div class="col-span-4">生年月日: <input type="date" id="birthDate" class="input-underlined" onchange="calculateAge()"></div>
-            <div class="col-span-2 text-right"><input type="text" id="ageResult" class="w-8 text-right font-bold" readonly> 歳</div>
+            <div class="col-span-12 flex items-center gap-2">
+                <div class="font-bold flex-1">氏名: <input type="text" id="patientName" class="input-underlined w-full" placeholder="患者 氏名"></div>
+                <div class="font-bold flex-1">よみ: <input type="text" class="input-underlined w-full" placeholder="ヨミ"></div>
+                <div class="flex-1">生年月日: <input type="date" id="birthDate" class="input-underlined w-full" onchange="calculateAge()"></div>
+                <div class="w-16 text-right"><input type="text" id="ageResult" class="w-8 text-right font-bold" readonly> 歳</div>
+            </div>
 
             <!-- 時間セクション -->
             <div class="col-span-12 flex items-center justify-between mt-1 text-[13px]">
@@ -261,6 +264,7 @@
                         <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="side" class="accent-slate-800"> 左</label>
                         <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="side" class="accent-slate-800"> 右</label>
                         <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="side" class="accent-slate-800"> 両側</label>
+                        <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="side" class="accent-slate-800"> 正中</label>
                     </div>
                 </div>
             </div>
@@ -286,7 +290,12 @@
                     <div class="select-group">
                         <label class="select-item"><input type="radio" name="urgency" class="select-input"><div class="select-circle"></div><span>定</span></label>
                         <label class="select-item"><input type="radio" name="urgency" class="select-input"><div class="select-circle"></div><span>緊</span></label>
+                        <label class="select-item"><input type="radio" name="urgency" class="select-input"><div class="select-circle"></div><span>緊３</span></label>
                     </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">保険</span>
+                    <label class="select-item"><input type="checkbox" class="select-input"><div class="select-circle"></div><span>自費</span></label>
                 </div>
             </div>
 

@@ -7187,101 +7187,101 @@
             }, 500);
         }
 
-let diseaseRowCount = 0;
+        let diseaseRowCount = 0;
 
-// 1. 新しい疾患名行を追加する関数
-function addDiseaseRow() {
-    diseaseRowCount++;
-    const rowId = diseaseRowCount;
-    
-    const rowHtml = `
-        <div id="diseaseRow_${rowId}" class="p-3 bg-slate-50 rounded border border-slate-200 relative group">
-            <button type="button" onclick="removeDiseaseRow(${rowId})" class="no-print absolute -right-2 -top-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="space-y-2">
-                <div class="grid grid-cols-3 gap-2">
-                    <select id="disease_${rowId}_L1" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 1)"></select>
-                    <select id="disease_${rowId}_L2" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 2)" disabled></select>
-                    <select id="disease_${rowId}_L3" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 3)" disabled></select>
+        // 1. 新しい疾患名行を追加する関数
+        function addDiseaseRow() {
+            diseaseRowCount++;
+            const rowId = diseaseRowCount;
+            
+            const rowHtml = `
+                <div id="diseaseRow_${rowId}" class="p-3 bg-slate-50 rounded border border-slate-200 relative group">
+                    <button type="button" onclick="removeDiseaseRow(${rowId})" class="no-print absolute -right-2 -top-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="space-y-2">
+                        <div class="grid grid-cols-3 gap-2">
+                            <select id="disease_${rowId}_L1" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 1)"></select>
+                            <select id="disease_${rowId}_L2" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 2)" disabled></select>
+                            <select id="disease_${rowId}_L3" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 3)" disabled></select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <select id="disease_${rowId}_L4" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 4)" disabled></select>
+                            <select id="disease_${rowId}_L5" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" disabled></select>
+                        </div>
+                    </div>
                 </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <select id="disease_${rowId}_L4" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 4)" disabled></select>
-                    <select id="disease_${rowId}_L5" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" disabled></select>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.getElementById('diseaseContainer').insertAdjacentHTML('beforeend', rowHtml);
-    
-    // 最初のレベルの選択肢を投入
-    renderSelectOptions(`disease_${rowId}_L1`, diseaseMaster);
-}
+            `;
+            
+            document.getElementById('diseaseContainer').insertAdjacentHTML('beforeend', rowHtml);
+            
+            // 最初のレベルの選択肢を投入
+            renderSelectOptions(`disease_${rowId}_L1`, diseaseMaster);
+        }
 
-// 2. 行を削除する関数
-function removeDiseaseRow(id) {
-    const row = document.getElementById(`diseaseRow_${id}`);
-    if (document.querySelectorAll('[id^="diseaseRow_"]').length > 1) {
-        row.remove();
-    } else {
-        alert("少なくとも1つの疾患名が必要です。");
-    }
-}
-
-// 3. 疾患名専用の連動処理（ここが肝心です）
-function syncDisease(rowId, level) {
-    const prefix = `disease_${rowId}_L`;
-    const parentPath = [];
-    
-    // 現在のレベルまでの選択値を取得
-    for (let i = 1; i <= level; i++) {
-        const val = document.getElementById(`${prefix}${i}`).value;
-        if (val) parentPath.push(val);
-    }
-
-    // 次のレベルの選択肢を探す
-    const parentItem = findItemByPath(diseaseMaster, parentPath);
-    let nextOptions = parentItem && parentItem.children ? parentItem.children : [];
-
-    // 空の階層（childrenはあるがvalueが空）をスキップ
-    while (nextOptions.length === 1 && nextOptions[0].value === "" && nextOptions[0].children) {
-        nextOptions = nextOptions[0].children;
-    }
-
-    // 次のレベルを描画
-    if (level < 5) {
-        renderSelectOptions(`${prefix}${level + 1}`, nextOptions);
-        
-        // それ以降のレベルをリセット
-        for (let i = level + 2; i <= 5; i++) {
-            const el = document.getElementById(`${prefix}${i}`);
-            if (el) {
-                el.innerHTML = '';
-                el.disabled = true;
+        // 2. 行を削除する関数
+        function removeDiseaseRow(id) {
+            const row = document.getElementById(`diseaseRow_${id}`);
+            if (document.querySelectorAll('[id^="diseaseRow_"]').length > 1) {
+                row.remove();
+            } else {
+                alert("少なくとも1つの疾患名が必要です。");
             }
         }
-    }
-}
 
-// 4. セレクトボックス描画の共通化
-function renderSelectOptions(elementId, items) {
-    const select = document.getElementById(elementId);
-    if (!select) return;
+        // 3. 疾患名専用の連動処理（ここが肝心です）
+        function syncDisease(rowId, level) {
+            const prefix = `disease_${rowId}_L`;
+            const parentPath = [];
+            
+            // 現在のレベルまでの選択値を取得
+            for (let i = 1; i <= level; i++) {
+                const val = document.getElementById(`${prefix}${i}`).value;
+                if (val) parentPath.push(val);
+            }
 
-    select.innerHTML = '<option value="">-- 選択 --</option>';
-    if (items && items.length > 0) {
-        select.disabled = false;
-        items.forEach(item => {
-            const opt = document.createElement('option');
-            opt.value = item.value;
-            opt.textContent = item.label;
-            select.appendChild(opt);
-        });
-    } else {
-        select.disabled = true;
-    }
-}
+            // 次のレベルの選択肢を探す
+            const parentItem = findItemByPath(diseaseMaster, parentPath);
+            let nextOptions = parentItem && parentItem.children ? parentItem.children : [];
+
+            // 空の階層（childrenはあるがvalueが空）をスキップ
+            while (nextOptions.length === 1 && nextOptions[0].value === "" && nextOptions[0].children) {
+                nextOptions = nextOptions[0].children;
+            }
+
+            // 次のレベルを描画
+            if (level < 5) {
+                renderSelectOptions(`${prefix}${level + 1}`, nextOptions);
+                
+                // それ以降のレベルをリセット
+                for (let i = level + 2; i <= 5; i++) {
+                    const el = document.getElementById(`${prefix}${i}`);
+                    if (el) {
+                        el.innerHTML = '';
+                        el.disabled = true;
+                    }
+                }
+            }
+        }
+
+        // 4. セレクトボックス描画の共通化
+        function renderSelectOptions(elementId, items) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
+
+            select.innerHTML = '<option value="">-- 選択 --</option>';
+            if (items && items.length > 0) {
+                select.disabled = false;
+                items.forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.value;
+                    opt.textContent = item.label;
+                    select.appendChild(opt);
+                });
+            } else {
+                select.disabled = true;
+            }
+        }
 
         function clearCanvas() {
             if (confirm('シェーマをリセットしますか？')) {

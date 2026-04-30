@@ -178,6 +178,21 @@
             cursor: pointer;
             border-radius: 0.375rem;
         }
+
+        /* セレクトボックス内の文字を折り返して表示する設定（ブラウザにより限界があります） */
+        select {
+            white-space: normal !important;
+            word-break: break-all;
+            height: auto !important;
+            min-height: 38px;
+            line-height: 1.2;
+        }
+
+        /* 選択肢（option）自体に幅を持たせるための設定 */
+        select option {
+            white-space: normal;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -194,10 +209,10 @@
                 <i class="fas fa-upload"></i> 読込
             </button>
             <input type="file" id="importFile" class="hidden" accept=".json" onchange="loadFromFile(this)">
-            <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2">
+            <!-- <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2">
                 <i class="fas fa-file-pdf"></i> PDF保存
-            </button>
-            <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2">
+            </button> -->
+            <button onclick="saveAndPrint()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2">
                 <i class="fas fa-print"></i> 印刷
             </button>
             <button onclick="confirmReset()" class="bg-slate-800 text-slate-400 hover:text-white px-3 py-2 rounded-md text-sm border border-slate-700">リセット</button>
@@ -227,7 +242,7 @@
                 </div>
                 <div class="font-bold flex-1 flex items-center gap-1">
                     <span class="whitespace-nowrap">よみ:</span>
-                    <input type="text" id="patientReading" class="input-underlined w-full" placeholder="ヨミ">
+                    <input type="text" id="patientReading" class="input-underlined w-full" placeholder="よみ">
                 </div>
                 <div class="flex-1 flex items-center gap-1">
                     <span class="whitespace-nowrap">生年月日:</span>
@@ -327,8 +342,8 @@
 
         <div class="grid grid-cols-12 gap-4 mb-4">
             <div class="col-span-4 text-xs font-bold">執刀医: <input id="surgeon" type="text" class="input-underlined w-full"></div>
-            <div class="col-span-3 text-xs font-bold">助手: <input id="assistant" type="text" class="input-underlined w-full"></div>
-            <div class="col-span-5 text-right flex flex-col items-end">
+            <div class="col-span-4 text-xs font-bold">助手: <input id="assistant" type="text" class="input-underlined w-full"></div>
+            <div class="col-span-3 text-right flex flex-col items-end">
                 <span class="text-[9px] font-bold text-slate-400 mr-2 mb-1 uppercase tracking-tighter">Anesthesia</span>
                 <div class="select-group">
                     <label class="select-item"><input id="anesthesiaGeneral" type="checkbox" class="select-input"><div class="select-circle"></div><span>全麻</span></label>
@@ -527,16 +542,30 @@
         <h2 class="text-xl font-bold mb-4 border-b-2 border-slate-800 pb-2">追加症例情報（NCD）</h2>
 
         <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12">
+            <!-- <div class="col-span-12">
                 <div class="section-title">疾患名</div>
-                <div class="grid grid-cols-5 gap-2">
-                    <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 1)"></select>
-                    <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 2)" disabled></select>
-                    <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 3)" disabled></select>
-                    <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('disease', 4)" disabled></select>
-                    <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                <div class="space-y-2">
+                    <div class="grid grid-cols-3 gap-2">
+                        <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 1)"></select>
+                        <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 2)" disabled></select>
+                        <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 3)" disabled></select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 4)" disabled></select>
+                        <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" disabled></select>
+                    </div>
                 </div>
-            </div>
+            </div> -->
+
+            <div class="col-span-12">
+              <div class="section-title flex justify-between items-center">
+                  <span>疾患名</span>
+                  <button type="button" onclick="addDiseaseRow()" class="no-print bg-slate-700 text-white text-[10px] px-2 py-1 rounded hover:bg-slate-600">
+                      <i class="fas fa-plus"></i> 追加
+                  </button>
+              </div>
+              <div id="diseaseContainer" class="space-y-4"></div>
+          </div>
 
             <div class="col-span-12">
                 <div class="section-title">疾患部位</div>
@@ -629,6 +658,11 @@
                     <label class="flex items-center gap-2"><input id="graftTakePartial" type="checkbox" name="graftTake" class="accent-slate-800"><span>部分壊死</span></label>
                     <label class="flex items-center gap-2"><input id="graftTakeTotal" type="checkbox" name="graftTake" class="accent-slate-800"><span>全壊死</span></label>
                 </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">指導医</div>
+                <input id="supervisor" type="text" class="input-underlined w-full text-lg font-bold" value="加藤基">
             </div>
         </div>
 
@@ -6904,7 +6938,8 @@
         }
 
         function initLinkedSelects() {
-            populateDependentSelect('disease', 1);
+            // populateDependentSelect('disease', 1);
+            addDiseaseRow();
             populateDependentSelect('site', 1);
             populateDependentSelect('site', 3);
             populateDependentSelect('facialBone', 1);
@@ -7060,6 +7095,30 @@
         function applyFormData(data) {
             if (!data) return;
 
+            // --- 疾患名（NCD）の動的行復元ロジック ---
+            const container = document.getElementById('diseaseContainer');
+            if (container) {
+                container.innerHTML = ''; // 既存の行をクリア
+                diseaseRowCount = 0; // カウンタをリセット
+
+                // 保存されたデータの中から "disease_X_L1" の形式を探し、最大の X を特定する
+                let maxRow = 0;
+                Object.keys(data).forEach(key => {
+                    const match = key.match(/^disease_(\d+)_L1$/);
+                    if (match) {
+                        const num = parseInt(match[1]);
+                        if (num > maxRow) maxRow = num;
+                    }
+                });
+
+                // 最大行数分、入力欄を生成する
+                for (let i = 1; i <= maxRow; i++) {
+                    addDiseaseRow();
+                }
+                // もしデータが一つもなければ、デフォルトで1行追加
+                if (maxRow === 0) addDiseaseRow();
+            }
+
             Object.keys(data).forEach(key => {
                 const el = document.getElementById(key);
                 if (!el) return;
@@ -7067,7 +7126,21 @@
                 if (el.type === 'checkbox' || el.type === 'radio') {
                     // チェック状態を復元 (data[key] には true/false が入っている想定)
                     el.checked = !!data[key];
-                } else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+                } else if (el.tagName === 'SELECT') {
+                  // 連動プルダウンの場合は、値をセットした後に手動でchangeイベントを発火させる
+                  // 疾患名(disease_X_LX)と、部位(site)、顔面骨(facialBone)に対応
+                  el.value = data[key];
+                  
+                  if (key.startsWith('disease_')) {
+                      const parts = key.split('_'); // ["disease", "1", "L1"]
+                      const rowId = parts[1];
+                      const level = parseInt(parts[2].replace('L', ''));
+                      if (level < 5) syncDisease(rowId, level); // 次の階層を生成
+                  } else if (key.startsWith('site') || key.startsWith('facialBone')) {
+                      // 既存の連動プルダウン用（必要に応じて既存の関数を呼び出し）
+                      el.dispatchEvent(new Event('change'));
+                  }
+                } else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                     // テキスト、日付、選択肢を復元
                     el.value = data[key];
                 }
@@ -7102,6 +7175,112 @@
             calculateOpDuration();
             updateConditionalFields();
             alert('データを読み込みました。連動プルダウン等は必要に応じて再選択してください。');
+        }
+
+        // 印刷ボタン
+        function saveAndPrint() {
+            saveToFile();
+            
+            // 保存処理によるブラウザの挙動と干渉しないように念のため0.5秒待機
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+
+        let diseaseRowCount = 0;
+
+        // 1. 新しい疾患名行を追加する関数
+        function addDiseaseRow() {
+            diseaseRowCount++;
+            const rowId = diseaseRowCount;
+            
+            const rowHtml = `
+                <div id="diseaseRow_${rowId}" class="p-3 bg-slate-50 rounded border border-slate-200 relative group">
+                    <button type="button" onclick="removeDiseaseRow(${rowId})" class="no-print absolute -right-2 -top-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="space-y-2">
+                        <div class="grid grid-cols-3 gap-2">
+                            <select id="disease_${rowId}_L1" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 1)"></select>
+                            <select id="disease_${rowId}_L2" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 2)" disabled></select>
+                            <select id="disease_${rowId}_L3" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 3)" disabled></select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <select id="disease_${rowId}_L4" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 4)" disabled></select>
+                            <select id="disease_${rowId}_L5" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" disabled></select>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('diseaseContainer').insertAdjacentHTML('beforeend', rowHtml);
+            
+            // 最初のレベルの選択肢を投入
+            renderSelectOptions(`disease_${rowId}_L1`, diseaseMaster);
+        }
+
+        // 2. 行を削除する関数
+        function removeDiseaseRow(id) {
+            const row = document.getElementById(`diseaseRow_${id}`);
+            if (document.querySelectorAll('[id^="diseaseRow_"]').length > 1) {
+                row.remove();
+            } else {
+                alert("少なくとも1つの疾患名が必要です。");
+            }
+        }
+
+        // 3. 疾患名専用の連動処理（ここが肝心です）
+        function syncDisease(rowId, level) {
+            const prefix = `disease_${rowId}_L`;
+            const parentPath = [];
+            
+            // 現在のレベルまでの選択値を取得
+            for (let i = 1; i <= level; i++) {
+                const val = document.getElementById(`${prefix}${i}`).value;
+                if (val) parentPath.push(val);
+            }
+
+            // 次のレベルの選択肢を探す
+            const parentItem = findItemByPath(diseaseMaster, parentPath);
+            let nextOptions = parentItem && parentItem.children ? parentItem.children : [];
+
+            // 空の階層（childrenはあるがvalueが空）をスキップ
+            while (nextOptions.length === 1 && nextOptions[0].value === "" && nextOptions[0].children) {
+                nextOptions = nextOptions[0].children;
+            }
+
+            // 次のレベルを描画
+            if (level < 5) {
+                renderSelectOptions(`${prefix}${level + 1}`, nextOptions);
+                
+                // それ以降のレベルをリセット
+                for (let i = level + 2; i <= 5; i++) {
+                    const el = document.getElementById(`${prefix}${i}`);
+                    if (el) {
+                        el.innerHTML = '';
+                        el.disabled = true;
+                    }
+                }
+            }
+        }
+
+        // 4. セレクトボックス描画の共通化
+        function renderSelectOptions(elementId, items) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
+
+            select.innerHTML = '<option value="">-- 選択 --</option>';
+            if (items && items.length > 0) {
+                select.disabled = false;
+                items.forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.value;
+                    opt.textContent = item.label;
+                    select.appendChild(opt);
+                });
+            } else {
+                select.disabled = true;
+            }
         }
 
         function clearCanvas() {

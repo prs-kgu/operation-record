@@ -157,6 +157,7 @@ function onDependentSelectChange(group, level) {
     if (group !== 'facialBone' && level < selectChainConfig[group]) {
         populateDependentSelect(group, level + 1);
     }
+    updateConditionalFields();
 }
 
 function initLinkedSelects() {
@@ -198,11 +199,37 @@ function isK016orK017orK020Selected() {
     return codes.includes('K016') || matchesKCodeInput(['K017-(1)', 'K017-(2)', 'K020']);
 }
 
+// 「移植片の生着」を表示すべきか判定する関数
+function isGraftTakeNeeded() {
+    // 1. Kコード入力欄のチェック（カンマ区切り対応）
+    const inputVal = document.getElementById('kCodeInput')?.value.trim().toUpperCase() || "";
+    const inputCodes = inputVal.split(',').map(s => s.trim());
+    const hasInputMatch = inputCodes.some(code => graftTakeTargetCodes.includes(code));
+
+    // 2. 選択済み行のチェック（data-kcode属性との比較）
+    const selectedRowCodes = getSelectedKRowCodes();
+    const hasRowMatch = selectedRowCodes.some(code => {
+        // K013 など、枝番号がない状態で定義されているものへの前方一致や完全一致の考慮
+        return graftTakeTargetCodes.some(target => target.startsWith(code));
+    });
+
+    return hasInputMatch || hasRowMatch;
+}
+
+// 「熱傷の予後」を表示すべきか判定する関数
+function isBurnOutcomeNeeded() {
+    // 疾患名の最終レベル（L4）の値を取得
+    const d4 = document.getElementById('diseaseLevel4')?.value;
+    return burnOutcomeTargetDiseases.includes(d4);
+}
+
 function updateConditionalFields() {
     document.getElementById('skinDonorK013Wrapper').classList.toggle('hidden', !isK013Selected());
     document.getElementById('skinDonorK0132Wrapper').classList.toggle('hidden', !isK0132Selected());
     document.getElementById('boneDonorWrapper').classList.toggle('hidden', !isK059Selected());
     document.getElementById('flapDonorWrapper').classList.toggle('hidden', !isK016orK017orK020Selected());
+    document.getElementById('graftTakeWrapper').classList.toggle('hidden', !isGraftTakeNeeded());
+    document.getElementById('burnOutcomeWrapper').classList.toggle('hidden', !isBurnOutcomeNeeded());
 }
 
 function toggleRow(row) {
@@ -317,28 +344,23 @@ function loadFromFile(input) {
 function applyFormData(data) {
     if (!data) return;
 
-    // --- 疾患名（NCD）の動的行復元ロジック ---
-    const container = document.getElementById('diseaseContainer');
-    if (container) {
-        container.innerHTML = ''; // 既存の行をクリア
-        diseaseRowCount = 0; // カウンタをリセット
-
-        // 保存されたデータの中から "disease_X_L1" の形式を探し、最大の X を特定する
-        let maxRow = 0;
+    // --- 疾患部位（NCD）の動的行復元ロジック ---
+    const sContainer = document.getElementById('siteContainer');
+    if (sContainer) {
+        sContainer.innerHTML = '';
+        siteRowCount = 0;
+        let maxSiteRow = 0;
         Object.keys(data).forEach(key => {
-            const match = key.match(/^disease_(\d+)_L1$/);
+            const match = key.match(/^site_(\d+)_L1$/);
             if (match) {
                 const num = parseInt(match[1]);
-                if (num > maxRow) maxRow = num;
+                if (num > maxSiteRow) maxSiteRow = num;
             }
         });
-
-        // 最大行数分、入力欄を生成する
-        for (let i = 1; i <= maxRow; i++) {
-            addDiseaseRow();
+        for (let i = 1; i <= maxSiteRow; i++) {
+            addSiteRow();
         }
-        // もしデータが一つもなければ、デフォルトで1行追加
-        if (maxRow === 0) addDiseaseRow();
+        if (maxSiteRow === 0) addSiteRow();
     }
 
     Object.keys(data).forEach(key => {
@@ -350,14 +372,13 @@ function applyFormData(data) {
             el.checked = !!data[key];
         } else if (el.tagName === 'SELECT') {
             // 連動プルダウンの場合は、値をセットした後に手動でchangeイベントを発火させる
-            // 疾患名(disease_X_LX)と、部位(site)、顔面骨(facialBone)に対応
             el.value = data[key];
 
-            if (key.startsWith('disease_')) {
-                const parts = key.split('_'); // ["disease", "1", "L1"]
+            if (key.startsWith('site_')) { // 部位用の同期を追加
+                const parts = key.split('_');
                 const rowId = parts[1];
                 const level = parseInt(parts[2].replace('L', ''));
-                if (level < 5) syncDisease(rowId, level); // 次の階層を生成
+                if (level < 3) syncSite(rowId, level);
             } else if (key.startsWith('site') || key.startsWith('facialBone')) {
                 // 既存の連動プルダウン用（必要に応じて既存の関数を呼び出し）
                 el.dispatchEvent(new Event('change'));
@@ -396,6 +417,15 @@ function applyFormData(data) {
     calculateAge();
     calculateOpDuration();
     updateConditionalFields();
+
+    // 最後にID表示を一括更新
+    if (data.patientId) {
+        const idDisplays = document.querySelectorAll('.sync-id-display');
+        idDisplays.forEach(el => {
+            el.innerText = data.patientId;
+        });
+    }
+
     alert('データを読み込みました。連動プルダウン等は必要に応じて再選択してください。');
 }
 
@@ -409,79 +439,74 @@ function saveAndPrint() {
     }, 500);
 }
 
-let diseaseRowCount = 0;
+let siteRowCount = 0; // 追加
 
-// 1. 新しい疾患名行を追加する関数
-function addDiseaseRow() {
-    diseaseRowCount++;
-    const rowId = diseaseRowCount;
-
-    const rowHtml = `
-                <div id="diseaseRow_${rowId}" class="p-3 bg-slate-50 rounded border border-slate-200 relative group">
-                    <button type="button" onclick="removeDiseaseRow(${rowId})" class="no-print absolute -right-2 -top-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="space-y-2">
-                        <div class="grid grid-cols-3 gap-2">
-                            <select id="disease_${rowId}_L1" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 1)"></select>
-                            <select id="disease_${rowId}_L2" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 2)" disabled></select>
-                            <select id="disease_${rowId}_L3" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 3)" disabled></select>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <select id="disease_${rowId}_L4" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="syncDisease(${rowId}, 4)" disabled></select>
-                            <select id="disease_${rowId}_L5" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" disabled></select>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-    document.getElementById('diseaseContainer').insertAdjacentHTML('beforeend', rowHtml);
-
-    // 最初のレベルの選択肢を投入
-    renderSelectOptions(`disease_${rowId}_L1`, diseaseMaster);
+// initLinkedSelects 関数を以下のように書き換え
+function initLinkedSelects() {
+    populateDependentSelect('disease', 1); // 疾患名を固定で初期化
+    addSiteRow(); // 初期状態で1行追加
+    populateDependentSelect('facialBone', 1);
+    populateDependentSelect('facialBone', 2);
 }
 
-// 2. 行を削除する関数
-function removeDiseaseRow(id) {
-    const row = document.getElementById(`diseaseRow_${id}`);
-    if (document.querySelectorAll('[id^="diseaseRow_"]').length > 1) {
-        row.remove();
+// 疾患部位の行を追加
+function addSiteRow() {
+    siteRowCount++;
+    const rowId = siteRowCount;
+
+    const rowHtml = `
+        <div id="siteRow_${rowId}" class="p-3 bg-slate-50 rounded border border-slate-200 relative group">
+            <button type="button" onclick="removeSiteRow(${rowId})" class="no-print absolute -right-2 -top-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="grid grid-cols-3 gap-2">
+                <select id="site_${rowId}_L1" class="border border-slate-200 rounded p-2 text-sm bg-white" onchange="syncSite(${rowId}, 1)"></select>
+                <select id="site_${rowId}_L2" class="border border-slate-200 rounded p-2 text-sm bg-white" onchange="syncSite(${rowId}, 2)" disabled></select>
+                <select id="site_${rowId}_L3" class="border border-slate-200 rounded p-2 text-sm bg-white" disabled></select>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('siteContainer').insertAdjacentHTML('beforeend', rowHtml);
+    renderSelectOptions(`site_${rowId}_L1`, linkedData.site);
+}
+
+// 疾患部位の行を削除
+function removeSiteRow(id) {
+    if (document.querySelectorAll('[id^="siteRow_"]').length > 1) {
+        document.getElementById(`siteRow_${id}`).remove();
     } else {
-        alert("少なくとも1つの疾患名が必要です。");
+        alert("少なくとも1つの疾患部位が必要です。");
     }
 }
 
-// 3. 疾患名専用の連動処理（ここが肝心です）
-function syncDisease(rowId, level) {
-    const prefix = `disease_${rowId}_L`;
-    const parentPath = [];
+// 疾患部位の連動処理
+function syncSite(rowId, level) {
+    const prefix = `site_${rowId}_L`;
+    
+    if (level === 2) {
+        // Level 3 は固定値（左, 中, 両側...）
+        const nextSelect = document.getElementById(`${prefix}3`);
+        renderSelectOptions(`${prefix}3`, fixedSiteLevel3.map(v => ({ value: v, label: v })));
+        return;
+    }
 
-    // 現在のレベルまでの選択値を取得
+    const parentPath = [];
     for (let i = 1; i <= level; i++) {
         const val = document.getElementById(`${prefix}${i}`).value;
         if (val) parentPath.push(val);
     }
 
-    // 次のレベルの選択肢を探す
-    const parentItem = findItemByPath(diseaseMaster, parentPath);
+    const parentItem = findItemByPath(linkedData.site, parentPath);
     let nextOptions = parentItem && parentItem.children ? parentItem.children : [];
 
-    // 空の階層（childrenはあるがvalueが空）をスキップ
-    while (nextOptions.length === 1 && nextOptions[0].value === "" && nextOptions[0].children) {
-        nextOptions = nextOptions[0].children;
-    }
-
-    // 次のレベルを描画
-    if (level < 5) {
+    if (level < 3) {
         renderSelectOptions(`${prefix}${level + 1}`, nextOptions);
-
-        // それ以降のレベルをリセット
-        for (let i = level + 2; i <= 5; i++) {
-            const el = document.getElementById(`${prefix}${i}`);
-            if (el) {
-                el.innerHTML = '';
-                el.disabled = true;
-            }
+        // Level 1 を変えたら Level 3 は一旦リセット
+        if (level === 1) {
+            const l3 = document.getElementById(`${prefix}3`);
+            l3.innerHTML = '';
+            l3.disabled = true;
         }
     }
 }
@@ -523,6 +548,18 @@ window.onload = () => {
     initCanvas();
     initLinkedSelects();
     updateConditionalFields();
+
+    // ID同期のリスナー
+    const patientIdInput = document.getElementById('patientId');
+    if (patientIdInput) {
+        patientIdInput.addEventListener('input', e => {
+            const idDisplays = document.querySelectorAll('.sync-id-display');
+            idDisplays.forEach(el => {
+                el.innerText = e.target.value;
+            });
+        });
+    }
+
     document.getElementById('patientName').addEventListener('input', e => {
         document.getElementById('syncName').innerText = "患者氏名: " + e.target.value;
     });

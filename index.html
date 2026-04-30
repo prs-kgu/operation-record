@@ -11,7 +11,7 @@
 <body>
     <div class="no-print max-w-5xl mx-auto mt-8 mb-6 bg-slate-900 text-white p-6 rounded-lg shadow-xl flex justify-between items-center">
         <div>
-            <h2 class="text-lg font-bold">形成外科 手術記録システム v5.0</h2>
+            <h1 class="text-lg font-bold">形成外科 手術記録システム v5.1</h1>
             <p class="text-xs text-slate-400">属性選択を省スペースな丸囲みUIに統合しました。</p>
         </div>
         <div class="flex gap-2">
@@ -35,7 +35,7 @@
     <!-- 第1ページ -->
     <div class="print-container" id="page1">
         <div class="flex justify-between items-baseline mb-4">
-            <h1 class="text-3xl font-bold text-slate-900 tracking-tight">手術記録</h1>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">手術記録</h2>
             <div class="text-xs font-bold text-slate-400">手術日: <input type="date" id="opDate" class="input-underlined text-slate-900" onchange="calculateAge()"></div>
         </div>
 
@@ -183,8 +183,11 @@
 
     <!-- 第2ページ -->
     <div class="print-container" id="page2">
-        <h2 class="text-xl font-bold mb-4">手術図・写真記録 <span id="syncName" class="text-sm font-normal ml-4 text-slate-500"></span></h2>
-        
+        <div class="flex justify-between items-center mb-4 border-b-2 border-slate-800 pb-2">
+            <h2 class="text-xl font-bold tracking-tighter">手術図・写真記録</h2>
+            <div class="text-sm font-bold">ID: <span class="sync-id-display"></span></div>
+        </div>
+
         <div class="no-print flex gap-2 mb-2">
             <button id="drawBtn" class="px-3 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">ペン</button>
             <button id="eraseBtn" class="px-3 py-1 bg-white border text-xs rounded shadow-sm">消しゴム</button>
@@ -217,8 +220,11 @@
 
     <!-- 第3ページ -->
     <div class="print-container" id="page3">
-        <h2 class="text-xl font-bold mb-4 border-b-2 border-slate-800 pb-2">診療報酬点数表 (形成外科関連)</h2>
-        
+        <div class="flex justify-between items-center mb-4 border-b-2 border-slate-800 pb-2">
+            <h2 class="text-xl font-bold tracking-tighter">診療報酬点数表 (形成外科関連)</h2>
+            <div class="text-sm font-bold">ID: <span class="sync-id-display"></span></div>
+        </div>
+
         <div class="grid grid-cols-2 gap-x-4">
             <div>
                 <table class="points-table">
@@ -249,16 +255,6 @@
                 <table class="points-table">
                     <thead><tr><th colspan="2">植皮術 (K013/K013-(2)共通)</th></tr></thead>
                     <tbody>
-                        <tr class="sub-row">
-                            <td colspan="2">
-                                <label class="mr-1"><input type="checkbox"> 頭頸部</label>
-                                <label class="mr-1"><input type="checkbox"> 左上肢</label>
-                                <label class="mr-1"><input type="checkbox"> 左下肢</label>
-                                <label class="mr-1"><input type="checkbox"> 右上肢</label>
-                                <label class="mr-1"><input type="checkbox"> 右下肢</label>
-                                <label class="mr-1"><input type="checkbox"> 体幹</label>
-                            </td>
-                        </tr>
                         <tr><td colspan="2" class="font-bold bg-slate-100">K013-2 全層植皮術</td></tr>
                         <tr id="K013-2-1" onclick="toggleRow(this)" data-kcode="K013-2"><td>　1. 25cm²未満</td><td class="text-right">10,000</td></tr>
                         <tr id="K013-2-2" onclick="toggleRow(this)" data-kcode="K013-2"><td>　2. 25cm²以上100cm²未満</td><td class="text-right">12,500</td></tr>
@@ -352,41 +348,36 @@
 
     <!-- 第4ページ -->
     <div class="print-container" id="page4">
-        <h2 class="text-xl font-bold mb-4 border-b-2 border-slate-800 pb-2">追加症例情報（NCD）</h2>
+        <div class="flex justify-between items-center mb-4 border-b-2 border-slate-800 pb-2">
+            <h2 class="text-xl font-bold tracking-tighter">追加症例情報（NCD）</h2>
+            <div class="text-sm font-bold">ID: <span class="sync-id-display"></span></div>
+        </div>
 
         <div class="grid grid-cols-12 gap-4">
-            <!-- <div class="col-span-12">
+            
+            <div class="col-span-12">
                 <div class="section-title">疾患名</div>
                 <div class="space-y-2">
                     <div class="grid grid-cols-3 gap-2">
-                        <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 1)"></select>
-                        <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 2)" disabled></select>
-                        <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 3)" disabled></select>
+                        <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 1)"></select>
+                        <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 2)" disabled></select>
+                        <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 3)" disabled></select>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
-                        <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 4)" disabled></select>
-                        <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" disabled></select>
+                        <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 4)" disabled></select>
+                        <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" disabled></select>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <div class="col-span-12">
-              <div class="section-title flex justify-between items-center">
-                  <span>疾患名</span>
-                  <button type="button" onclick="addDiseaseRow()" class="no-print bg-slate-700 text-white text-[10px] px-2 py-1 rounded hover:bg-slate-600">
-                      <i class="fas fa-plus"></i> 追加
-                  </button>
-              </div>
-              <div id="diseaseContainer" class="space-y-4"></div>
-          </div>
-
-            <div class="col-span-12">
-                <div class="section-title">疾患部位</div>
-                <div class="grid grid-cols-3 gap-2">
-                    <select id="siteLevel1" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 1)"></select>
-                    <select id="siteLevel2" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 2)" disabled></select>
-                    <select id="siteLevel3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                <div class="section-title flex justify-between items-center">
+                    <span>疾患部位</span>
+                    <button type="button" onclick="addSiteRow()" class="no-print bg-slate-700 text-white text-[10px] px-2 py-1 rounded hover:bg-slate-600">
+                        <i class="fas fa-plus"></i> 追加
+                    </button>
                 </div>
+                <div id="siteContainer" class="space-y-4"></div>
             </div>
 
             <div class="col-span-12">
@@ -457,19 +448,25 @@
             </div>
 
             <div class="col-span-12">
-                <div class="section-title">熱傷の予後</div>
-                <div class="flex flex-wrap gap-4 items-center text-sm">
-                    <label class="flex items-center gap-2"><input id="burnOutcomeRescue" type="radio" name="burnOutcome" value="救命" class="accent-slate-800">救命</label>
-                    <label class="flex items-center gap-2"><input id="burnOutcomeDeath" type="radio" name="burnOutcome" value="死亡" class="accent-slate-800">死亡</label>
-                </div>
-            </div>
+                <div class="section-title">予後項目</div> 
+                
+                <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                    <div id="burnOutcomeWrapper" class="col-span-12 hidden">
+                        <div class="section-title">熱傷の予後</div>
+                        <div class="flex flex-wrap gap-4 items-center text-sm">
+                            <label class="flex items-center gap-2"><input id="burnOutcomeRescue" type="radio" name="burnOutcome" value="救命" class="accent-slate-800">救命</label>
+                            <label class="flex items-center gap-2"><input id="burnOutcomeDeath" type="radio" name="burnOutcome" value="死亡" class="accent-slate-800">死亡</label>
+                        </div>
+                    </div>
 
-            <div class="col-span-12">
-                <div class="section-title">移植片の生着</div>
-                <div class="grid grid-cols-3 gap-2 text-sm">
-                    <label class="flex items-center gap-2"><input id="graftTakeComplete" type="checkbox" name="graftTake" class="accent-slate-800"><span>完全生着</span></label>
-                    <label class="flex items-center gap-2"><input id="graftTakePartial" type="checkbox" name="graftTake" class="accent-slate-800"><span>部分壊死</span></label>
-                    <label class="flex items-center gap-2"><input id="graftTakeTotal" type="checkbox" name="graftTake" class="accent-slate-800"><span>全壊死</span></label>
+                    <div id="graftTakeWrapper" class="col-span-12 hidden">
+                        <div class="section-title">移植片の生着</div>
+                        <div class="grid grid-cols-3 gap-2 text-sm">
+                            <label class="flex items-center gap-2"><input id="graftTakeComplete" type="checkbox" name="graftTake" class="accent-slate-800"><span>完全生着</span></label>
+                            <label class="flex items-center gap-2"><input id="graftTakePartial" type="checkbox" name="graftTake" class="accent-slate-800"><span>部分壊死</span></label>
+                            <label class="flex items-center gap-2"><input id="graftTakeTotal" type="checkbox" name="graftTake" class="accent-slate-800"><span>全壊死</span></label>
+                        </div>
+                    </div>
                 </div>
             </div>
 

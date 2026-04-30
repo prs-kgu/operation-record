@@ -157,6 +157,7 @@ function onDependentSelectChange(group, level) {
     if (group !== 'facialBone' && level < selectChainConfig[group]) {
         populateDependentSelect(group, level + 1);
     }
+    updateConditionalFields();
 }
 
 function initLinkedSelects() {
@@ -198,11 +199,37 @@ function isK016orK017orK020Selected() {
     return codes.includes('K016') || matchesKCodeInput(['K017-(1)', 'K017-(2)', 'K020']);
 }
 
+// 「移植片の生着」を表示すべきか判定する関数
+function isGraftTakeNeeded() {
+    // 1. Kコード入力欄のチェック（カンマ区切り対応）
+    const inputVal = document.getElementById('kCodeInput')?.value.trim().toUpperCase() || "";
+    const inputCodes = inputVal.split(',').map(s => s.trim());
+    const hasInputMatch = inputCodes.some(code => graftTakeTargetCodes.includes(code));
+
+    // 2. 選択済み行のチェック（data-kcode属性との比較）
+    const selectedRowCodes = getSelectedKRowCodes();
+    const hasRowMatch = selectedRowCodes.some(code => {
+        // K013 など、枝番号がない状態で定義されているものへの前方一致や完全一致の考慮
+        return graftTakeTargetCodes.some(target => target.startsWith(code));
+    });
+
+    return hasInputMatch || hasRowMatch;
+}
+
+// 「熱傷の予後」を表示すべきか判定する関数
+function isBurnOutcomeNeeded() {
+    // 疾患名の最終レベル（L4）の値を取得
+    const d4 = document.getElementById('diseaseLevel4')?.value;
+    return burnOutcomeTargetDiseases.includes(d4);
+}
+
 function updateConditionalFields() {
     document.getElementById('skinDonorK013Wrapper').classList.toggle('hidden', !isK013Selected());
     document.getElementById('skinDonorK0132Wrapper').classList.toggle('hidden', !isK0132Selected());
     document.getElementById('boneDonorWrapper').classList.toggle('hidden', !isK059Selected());
     document.getElementById('flapDonorWrapper').classList.toggle('hidden', !isK016orK017orK020Selected());
+    document.getElementById('graftTakeWrapper').classList.toggle('hidden', !isGraftTakeNeeded());
+    document.getElementById('burnOutcomeWrapper').classList.toggle('hidden', !isBurnOutcomeNeeded());
 }
 
 function toggleRow(row) {

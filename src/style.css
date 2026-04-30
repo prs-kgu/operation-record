@@ -16,6 +16,21 @@ body {
     color: #1e293b;
 }
 
+/* セレクトボックス内の文字を折り返して表示する設定（ブラウザにより限界があります） */
+select {
+    white-space: normal !important;
+    word-break: break-all;
+    height: auto !important;
+    min-height: 38px;
+    line-height: 1.2;
+}
+
+/* 選択肢（option）自体に幅を持たせるための設定 */
+select option {
+    white-space: normal;
+    width: 100%;
+}
+
 @page {
     size: A4;
     margin: 10mm;
@@ -44,6 +59,14 @@ body {
         break-after: auto;
     }
     textarea { border: none !important; background: transparent !important; outline: none !important; padding: 0 4px; }
+    .points-table tr.selected td {
+        background: #2563eb !important;
+        color: white !important;
+        border-color: #1d4ed8 !important;
+        font-weight: 700 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
 }
 
 .print-container {
@@ -63,7 +86,7 @@ body {
     border: none;
     border-bottom: 1px solid #e2e8f0;
     outline: none;
-    padding: 0 4px;
+    padding: 0 2px;
     background: transparent;
 }
 
@@ -122,6 +145,8 @@ body {
     color: white;
     border-color: #1d4ed8;
     font-weight: 700;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 .points-table tr.selected .text-slate-500 {
     color: #dbeafe;

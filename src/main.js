@@ -390,6 +390,15 @@ function applyFormData(data) {
     calculateAge();
     calculateOpDuration();
     updateConditionalFields();
+
+    // 最後にID表示を一括更新
+    if (data.patientId) {
+        const idDisplays = document.querySelectorAll('.sync-id-display');
+        idDisplays.forEach(el => {
+            el.innerText = data.patientId;
+        });
+    }
+
     alert('データを読み込みました。連動プルダウン等は必要に応じて再選択してください。');
 }
 
@@ -512,6 +521,18 @@ window.onload = () => {
     initCanvas();
     initLinkedSelects();
     updateConditionalFields();
+
+    // ID同期のリスナー
+    const patientIdInput = document.getElementById('patientId');
+    if (patientIdInput) {
+        patientIdInput.addEventListener('input', e => {
+            const idDisplays = document.querySelectorAll('.sync-id-display');
+            idDisplays.forEach(el => {
+                el.innerText = e.target.value;
+            });
+        });
+    }
+
     document.getElementById('patientName').addEventListener('input', e => {
         document.getElementById('syncName').innerText = "患者氏名: " + e.target.value;
     });

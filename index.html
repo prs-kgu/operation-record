@@ -355,38 +355,30 @@
         <h2 class="text-xl font-bold mb-4 border-b-2 border-slate-800 pb-2">追加症例情報（NCD）</h2>
 
         <div class="grid grid-cols-12 gap-4">
-            <!-- <div class="col-span-12">
+            
+            <div class="col-span-12">
                 <div class="section-title">疾患名</div>
                 <div class="space-y-2">
                     <div class="grid grid-cols-3 gap-2">
-                        <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 1)"></select>
-                        <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 2)" disabled></select>
-                        <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 3)" disabled></select>
+                        <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 1)"></select>
+                        <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 2)" disabled></select>
+                        <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 3)" disabled></select>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
-                        <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" onchange="onDependentSelectChange('disease', 4)" disabled></select>
-                        <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-xs w-full bg-white" disabled></select>
+                        <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 4)" disabled></select>
+                        <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" disabled></select>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <div class="col-span-12">
-              <div class="section-title flex justify-between items-center">
-                  <span>疾患名</span>
-                  <button type="button" onclick="addDiseaseRow()" class="no-print bg-slate-700 text-white text-[10px] px-2 py-1 rounded hover:bg-slate-600">
-                      <i class="fas fa-plus"></i> 追加
-                  </button>
-              </div>
-              <div id="diseaseContainer" class="space-y-4"></div>
-          </div>
-
-            <div class="col-span-12">
-                <div class="section-title">疾患部位</div>
-                <div class="grid grid-cols-3 gap-2">
-                    <select id="siteLevel1" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 1)"></select>
-                    <select id="siteLevel2" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('site', 2)" disabled></select>
-                    <select id="siteLevel3" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                <div class="section-title flex justify-between items-center">
+                    <span>疾患部位</span>
+                    <button type="button" onclick="addSiteRow()" class="no-print bg-slate-700 text-white text-[10px] px-2 py-1 rounded hover:bg-slate-600">
+                        <i class="fas fa-plus"></i> 追加
+                    </button>
                 </div>
+                <div id="siteContainer" class="space-y-4"></div>
             </div>
 
             <div class="col-span-12">

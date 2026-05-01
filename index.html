@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>形成外科 手術記録システム</title>
+    <link href="./dist.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+    <div class="no-print max-w-5xl mx-auto mt-8 mb-6 bg-slate-900 text-white p-6 rounded-lg shadow-xl flex justify-between items-center">
+        <div>
+            <h1 class="text-lg font-bold">形成外科 手術記録システム v5.1</h1>
+            <p class="text-xs text-slate-400">印刷からPDF保存もできます</p>
+        </div>
+        <div class="flex gap-2">
+            <button onclick="saveToFile()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2">
+                <i class="fas fa-save"></i> PCに保存
+            </button>
+            <button onclick="document.getElementById('importFile').click()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2">
+                <i class="fas fa-upload"></i> 読込
+            </button>
+            <input type="file" id="importFile" class="hidden" accept=".json" onchange="loadFromFile(this)">
+            <button onclick="saveAndPrint()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2">
+                <i class="fas fa-print"></i> 印刷
+            </button>
+            <button onclick="confirmReset()" class="bg-slate-800 text-slate-400 hover:text-white px-3 py-2 rounded-md text-sm border border-slate-700">リセット</button>
+        </div>
+    </div>
+
+    <!-- 第1ページ -->
+    <div class="print-container" id="page1">
+        <div class="flex justify-between items-baseline mb-4">
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">手術記録</h2>
+            <div class="text-xs font-bold text-slate-400">手術日: <input type="date" id="opDate" class="input-underlined text-slate-900" onchange="calculateAge()"></div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-y-3 mb-4 text-sm border-b border-slate-100 pb-4">
+            <div class="col-span-4 font-bold">ID: <input id="patientId" type="text" class="input-underlined w-3/4"></div>
+            <div class="col-span-4 text-center">
+                性別: <label class="mx-2"><input id="genderMale" type="radio" name="gender"> 男</label><label class="mx-2"><input id="genderFemale" type="radio" name="gender"> 女</label>
+            </div>
+            <div class="col-span-4 text-right">
+                区分: <label class="mx-2"><input id="typeInpatient" type="radio" name="type"> 入院</label><label class="mx-2"><input id="typeOutpatient" type="radio" name="type"> 外来</label>
+            </div>
+
+            <div class="col-span-12 flex items-center gap-4">
+                <div class="font-bold flex-1 flex items-center gap-1">
+                    <span class="whitespace-nowrap">氏名:</span>
+                    <input type="text" id="patientName" class="input-underlined w-full" placeholder="患者 氏名">
+                </div>
+                <div class="font-bold flex-1 flex items-center gap-1">
+                    <span class="whitespace-nowrap">よみ:</span>
+                    <input type="text" id="patientReading" class="input-underlined w-full" placeholder="よみ">
+                </div>
+                <div class="flex-1 flex items-center gap-1">
+                    <span class="whitespace-nowrap">生年月日:</span>
+                    <input type="date" id="birthDate" class="input-underlined w-full" onchange="calculateAge()">
+                </div>
+                <div class="flex-none flex items-center gap-1 border-b-2 border-gray-200">
+                    <input type="text" id="ageResult" class="w-8 text-right font-bold bg-transparent outline-none" readonly>
+                    <span class="whitespace-nowrap pr-1">歳</span>
+                </div>
+            </div>
+
+            <!-- 時間セクション -->
+            <div class="col-span-12 flex items-center justify-between mt-1 text-[13px]">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-slate-700">手術時間:</span>
+                    <input type="time" id="startTime" class="input-underlined w-20 text-center text-blue-600 font-bold" onchange="calculateOpDuration()">
+                    <span class="text-slate-400">〜</span>
+                    <input type="time" id="endTime" class="input-underlined w-20 text-center text-blue-600 font-bold" onchange="calculateOpDuration()">
+                    <span class="ml-2 text-xs text-slate-500">( 計 <input type="text" id="durationResult" class="w-10 text-center font-bold border-b" readonly> 分 )</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-bold">
+                    出血量: <input type="text" class="input-underlined w-12 text-right"> ml
+                </div>
+            </div>
+        </div>
+
+        <!-- 疾患カテゴリセクション -->
+        <div class="mb-4">
+            <div class="section-title">疾患カテゴリ</div>
+            <div class="grid grid-cols-4 gap-y-2 text-[11px] font-medium bg-slate-50/50 p-2 rounded border border-slate-100">
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition1" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> 外傷・熱傷</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition2" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> 先天異常</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition3" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> 腫瘍</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition4" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> 瘢痕・ケロイド</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition5" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> 難治性潰瘍</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition6" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> 炎症・変性</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition7" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> 美容外科</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input id="condition8" type="checkbox" class="w-3.5 h-3.5 accent-slate-800"> その他</label>
+            </div>
+        </div>
+
+        <div class="mb-4 space-y-3">
+            <div>
+                <div class="section-title">診断名</div>
+                <div class="flex items-end gap-4">
+                    <div class="flex-grow">
+                        <input id="diagnosisName" type="text" class="input-underlined w-full font-bold" placeholder="疾患名を入力">
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="text-slate-400 text-xs font-bold">部位:</span>
+                        <input id="affectedArea" type="text" class="input-underlined w-24 text-center" placeholder="（例：前腕）">
+                    </div>
+                    <div class="flex items-center gap-2 text-sm border-l pl-4 border-slate-200">
+                        <label class="flex items-center gap-1 cursor-pointer"><input id="sideLeft" type="radio" name="side" class="accent-slate-800"> 左</label>
+                        <label class="flex items-center gap-1 cursor-pointer"><input id="sideRight" type="radio" name="side" class="accent-slate-800"> 右</label>
+                        <label class="flex items-center gap-1 cursor-pointer"><input id="sideBoth" type="radio" name="side" class="accent-slate-800"> 両側</label>
+                        <label class="flex items-center gap-1 cursor-pointer"><input id="sideMidline" type="radio" name="side" class="accent-slate-800"> 正中</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 属性選択セクション（丸囲みスタイル） -->
+            <div class="flex gap-10 items-center justify-start py-1 px-2 border-y border-slate-100">
+                <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">救済</span>
+                    <div class="select-group">
+                        <label class="select-item"><input id="salvageYes" type="radio" name="salvage" class="select-input"><div class="select-circle"></div><span>有</span></label>
+                        <label class="select-item"><input id="salvageNo" type="radio" name="salvage" class="select-input"><div class="select-circle"></div><span>無</span></label>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">担当科</span>
+                    <div class="select-group">
+                        <label class="select-item"><input id="deptSelf" type="radio" name="dept" class="select-input"><div class="select-circle"></div><span>自</span></label>
+                        <label class="select-item"><input id="deptOther" type="radio" name="dept" class="select-input"><div class="select-circle"></div><span>他</span></label>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">区分</span>
+                    <div class="select-group">
+                        <label class="select-item"><input id="urgencyNormal" type="radio" name="urgency" class="select-input"><div class="select-circle"></div><span>定</span></label>
+                        <label class="select-item"><input id="urgencyUrgent" type="radio" name="urgency" class="select-input"><div class="select-circle"></div><span>緊</span></label>
+                        <label class="select-item"><input id="urgencyUrgent3" type="radio" name="urgency" class="select-input"><div class="select-circle"></div><span>緊３</span></label>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">保険</span>
+                    <label class="select-item"><input id="insuranceSelf" type="checkbox" class="select-input"><div class="select-circle"></div><span>自費</span></label>
+                </div>
+            </div>
+
+            <div>
+                <div class="section-title">手術名</div>
+                <input id="surgeryName" type="text" class="input-underlined w-full text-lg font-bold" placeholder="実施した手術名を入力">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-4 mb-4">
+            <div class="col-span-4 text-xs font-bold">執刀医: <input id="surgeon" type="text" class="input-underlined w-full"></div>
+            <div class="col-span-4 text-xs font-bold">助手: <input id="assistant" type="text" class="input-underlined w-full"></div>
+            <div class="col-span-3 text-right flex flex-col items-end">
+                <span class="text-[9px] font-bold text-slate-400 mr-2 mb-1 uppercase tracking-tighter">Anesthesia</span>
+                <div class="select-group">
+                    <label class="select-item"><input id="anesthesiaGeneral" type="checkbox" class="select-input"><div class="select-circle"></div><span>全麻</span></label>
+                    <label class="select-item"><input id="anesthesiaSpinal" type="checkbox" class="select-input"><div class="select-circle"></div><span>脊麻</span></label>
+                    <label class="select-item"><input id="anesthesiaSedation" type="checkbox" class="select-input"><div class="select-circle"></div><span>静麻</span></label>
+                    <label class="select-item"><input id="anesthesiaRegional" type="checkbox" class="select-input"><div class="select-circle"></div><span>伝達</span></label>
+                    <label class="select-item"><input id="anesthesiaLocal" type="checkbox" class="select-input"><div class="select-circle"></div><span>局麻</span></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 手術所見エリア -->
+        <div class="flex-grow flex flex-col min-h-0">
+            <div class="section-title">手術所見・経過</div>
+            <textarea id="opFindings" class="w-full flex-grow text-[13px] leading-relaxed border border-slate-100 rounded-sm outline-none bg-slate-50/20 p-3 resize-none" 
+                placeholder="【手術所見】&#10;・アプローチ、剥離層、病変の性状&#10;・神経、血管の温存状態&#10;&#10;【手術経過】&#10;・止血、閉創、ドレーン留置の有無"></textarea>
+        </div>
+
+        <div class="flex justify-between items-center text-[9px] text-slate-400 pt-3 border-t border-slate-100 mt-4">
+            <div>病理提出: <label class="ml-1"><input type="radio" name="path"> 有</label> <label class="ml-1"><input type="radio" name="path"> 無</label></div>
+            <div>Generated by Surgical Report System | Page 01</div>
+        </div>
+    </div>
+
+    <!-- 第2ページ -->
+    <div class="print-container" id="page2">
+        <div class="flex justify-between items-center mb-4 border-b-2 border-slate-800 pb-2">
+            <h2 class="text-xl font-bold tracking-tighter">手術図・写真記録</h2>
+            <div class="text-sm font-bold">ID: <span class="sync-id-display"></span></div>
+        </div>
+
+        <div class="no-print flex gap-2 mb-2">
+            <button id="drawBtn" class="px-3 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">ペン</button>
+            <button id="eraseBtn" class="px-3 py-1 bg-white border text-xs rounded shadow-sm">消しゴム</button>
+            <button id="clearBtn" class="px-3 py-1 bg-red-50 text-red-600 text-xs rounded">全消去</button>
+        </div>
+        <div class="border border-slate-200 h-[480px] mb-6 rounded overflow-hidden shadow-inner">
+            <canvas id="schemaCanvas"></canvas>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 flex-grow">
+            <div class="photo-placeholder" onclick="document.getElementById('img1').click()">
+                <span class="text-[10px] font-bold text-slate-400">1. 術前写真</span>
+                <input type="file" id="img1" class="hidden" onchange="previewImage(this)">
+            </div>
+            <div class="photo-placeholder" onclick="document.getElementById('img2').click()">
+                <span class="text-[10px] font-bold text-slate-400">2. デザイン/術中</span>
+                <input type="file" id="img2" class="hidden" onchange="previewImage(this)">
+            </div>
+            <div class="photo-placeholder" onclick="document.getElementById('img3').click()">
+                <span class="text-[10px] font-bold text-slate-400">3. 摘出標本</span>
+                <input type="file" id="img3" class="hidden" onchange="previewImage(this)">
+            </div>
+            <div class="photo-placeholder" onclick="document.getElementById('img4').click()">
+                <span class="text-[10px] font-bold text-slate-400">4. 閉創後</span>
+                <input type="file" id="img4" class="hidden" onchange="previewImage(this)">
+            </div>
+        </div>
+        <div class="text-right text-[9px] text-slate-300 mt-4">Page 02</div>
+    </div>
+
+    <!-- 第3ページ -->
+    <div class="print-container" id="page3">
+        <div class="flex justify-between items-center mb-4 border-b-2 border-slate-800 pb-2">
+            <h2 class="text-xl font-bold tracking-tighter">診療報酬点数表 (形成外科関連)</h2>
+            <div class="text-sm font-bold">ID: <span class="sync-id-display"></span></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-x-4">
+            <div>
+                <table class="points-table">
+                    <thead><tr><th colspan="2">K020 自家遊離複合組織移植術</th></tr></thead>
+                    <tbody>
+                        <tr id="K020-1" onclick="toggleRow(this)" data-kcode="K020"><td>顕微鏡下血管柄付きのもの</td><td class="text-right">131,310</td></tr>
+                    </tbody>
+                </table>
+
+                <table class="points-table">
+                    <thead><tr><th colspan="2">K015 皮弁作成術、移動術等</th></tr></thead>
+                    <tbody>
+                        <tr id="K015-1" onclick="toggleRow(this)"><td>1. 25cm²未満</td><td class="text-right">5,180</td></tr>
+                        <tr id="K015-2" onclick="toggleRow(this)"><td>2. 25cm²以上100cm²未満</td><td class="text-right">13,720</td></tr>
+                        <tr id="K015-3" onclick="toggleRow(this)"><td>3. 100cm²以上</td><td class="text-right">22,310</td></tr>
+                    </tbody>
+                </table>
+
+                <table class="points-table">
+                    <thead><tr><th colspan="2">K016 動脈(皮)弁術、筋(皮)弁術</th></tr></thead>
+                    <tbody>
+                        <tr id="K016-1" onclick="toggleRow(this)" data-kcode="K016"><td>動脈(皮)弁術</td><td class="text-right">41,120</td></tr>
+                        <tr id="K016-2" onclick="toggleRow(this)" data-kcode="K016"><td>筋(皮)弁術</td><td class="text-right">41,120</td></tr>
+                        <tr id="K016-3" onclick="toggleRow(this)" data-kcode="K016"><td>穿通枝皮弁</td><td class="text-right">41,120</td></tr>
+                    </tbody>
+                </table>
+
+                <table class="points-table">
+                    <thead><tr><th colspan="2">植皮術 (K013/K013-(2)共通)</th></tr></thead>
+                    <tbody>
+                        <tr><td colspan="2" class="font-bold bg-slate-100">K013-2 全層植皮術</td></tr>
+                        <tr id="K013-2-1" onclick="toggleRow(this)" data-kcode="K013-2"><td>　1. 25cm²未満</td><td class="text-right">10,000</td></tr>
+                        <tr id="K013-2-2" onclick="toggleRow(this)" data-kcode="K013-2"><td>　2. 25cm²以上100cm²未満</td><td class="text-right">12,500</td></tr>
+                        <tr id="K013-2-3" onclick="toggleRow(this)" data-kcode="K013-2"><td>　3. 100cm²以上200cm²未満</td><td class="text-right">28,210</td></tr>
+                        <tr id="K013-2-4" onclick="toggleRow(this)" data-kcode="K013-2"><td>　4. 200cm²以上</td><td class="text-right">40,290</td></tr>
+                        <tr><td colspan="2" class="font-bold bg-slate-100">K013 分層植皮術</td></tr>
+                        <tr id="K013-1" onclick="toggleRow(this)" data-kcode="K013"><td>　1. 25cm²未満</td><td class="text-right">3,520</td></tr>
+                        <tr id="K013-2" onclick="toggleRow(this)" data-kcode="K013"><td>　2. 25cm²以上100cm²未満</td><td class="text-right">6,270</td></tr>
+                        <tr id="K013-3" onclick="toggleRow(this)" data-kcode="K013"><td>　3. 100cm²以上200cm²未満</td><td class="text-right">9,000</td></tr>
+                        <tr id="K013-4" onclick="toggleRow(this)" data-kcode="K013"><td>　4. 2₀₀cm²以上</td><td class="text-right">25,82₀</td></tr>
+                    </tbody>
+                </table>
+
+                <table class="points-table">
+                    <thead><tr><th colspan="2">K001 皮膚切開術</th></tr></thead>
+                    <tbody>
+                        <tr id="K001-1" onclick="toggleRow(this)"><td>1. 長径10cm未満</td><td class="text-right">640</td></tr>
+                        <tr id="K001-2" onclick="toggleRow(this)"><td>2. 長径10cm以上20cm未満</td><td class="text-right">1,110</td></tr>
+                        <tr id="K001-3" onclick="toggleRow(this)"><td>3. 長径20cm以上</td><td class="text-right">2,270</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 右カラム -->
+            <div>
+                <table class="points-table">
+                    <thead><tr><th colspan="2">K005/K006 腫瘍摘出術</th></tr></thead>
+                    <tbody>
+                        <tr><td colspan="2" class="bg-slate-100 font-bold">K005 露出部</td></tr>
+                        <tr id="K005-1" onclick="toggleRow(this)"><td>1. 2cm未満</td><td class="text-right">1,660</td></tr>
+                        <tr id="K005-2" onclick="toggleRow(this)"><td>2. 2cm以上4cm未満</td><td class="text-right">3,670</td></tr>
+                        <tr id="K005-3" onclick="toggleRow(this)"><td>3. 4cm以上</td><td class="text-right">5,010</td></tr>
+                        <tr><td colspan="2" class="bg-slate-100 font-bold">K006 露出部以外</td></tr>
+                        <tr id="K006-1" onclick="toggleRow(this)"><td>1. 3cm未満</td><td class="text-right">1,280</td></tr>
+                        <tr id="K006-2" onclick="toggleRow(this)"><td>2. 3cm以上6cm未満</td><td class="text-right">3,230</td></tr>
+                        <tr id="K006-3" onclick="toggleRow(this)"><td>3. 6cm以上12cm未満</td><td class="text-right">4,160</td></tr>
+                        <tr id="K006-4" onclick="toggleRow(this)"><td>4. 12cm以上</td><td class="text-right">8,320</td></tr>
+                    </tbody>
+                </table>
+
+                <table class="points-table">
+                    <thead><tr><th colspan="2">K000 創傷処理 (真皮縫合・デブリ等加算有)</th></tr></thead>
+                    <tbody>
+                        <tr class="sub-row">
+                            <td colspan="2">加算：真皮縫合(露出部)460 / 汚染デブリ100</td>
+                        </tr>
+                        <tr><td colspan="2" class="bg-slate-50 font-bold">筋肉、臓器に達するもの</td></tr>
+                        <tr id="K000-1" onclick="toggleRow(this)"><td>　1. 5cm未満</td><td class="text-right">1,400</td></tr>
+                        <tr id="K000-2" onclick="toggleRow(this)"><td>　2. 5cm以上10cm未満</td><td class="text-right">1,880</td></tr>
+                        <tr id="K000-3" onclick="toggleRow(this)"><td>　3-イ 頭頸部 (20cm以上)</td><td class="text-right">9,630</td></tr>
+                        <tr id="K000-4" onclick="toggleRow(this)"><td>　3-ロ その他 (10cm以上)</td><td class="text-right">3,090</td></tr>
+                        <tr><td colspan="2" class="bg-slate-50 font-bold">筋肉、臓器に達しないもの</td></tr>
+                        <tr id="K000-5" onclick="toggleRow(this)"><td>　4. 5cm未満</td><td class="text-right">530</td></tr>
+                        <tr id="K000-6" onclick="toggleRow(this)"><td>　5. 5cm以上10cm未満</td><td class="text-right">950</td></tr>
+                        <tr id="K000-7" onclick="toggleRow(this)"><td>　6. 10cm以上</td><td class="text-right">1,480</td></tr>
+                    </tbody>
+                </table>
+
+                <table class="points-table">
+                    <thead><tr><th colspan="2">K002 デブリードマン (加算あり)</th></tr></thead>
+                    <tbody>
+                        <tr class="sub-row">
+                            <td colspan="2">加算：深部1,000 / 水圧式2,500 / 超音波式2,500</td>
+                        </tr>
+                        <tr id="K002-1" onclick="toggleRow(this)"><td>1. 100cm²未満</td><td class="text-right">1,620</td></tr>
+                        <tr id="K002-2" onclick="toggleRow(this)"><td>2. 100cm²以上3,000cm²未満</td><td class="text-right">4,820</td></tr>
+                    </tbody>
+                </table>
+
+                <table class="points-table">
+                    <thead><tr><th colspan="2">形成再建・その他</th></tr></thead>
+                    <tbody>
+                        <tr id="K628" onclick="toggleRow(this)"><td>K628 リンパ管吻合</td><td class="text-right">34,450</td></tr>
+                        <tr class="sub-row"><td colspan="2">箇所数：<input id="locationCount" type="text" class="border-b w-8 outline-none bg-transparent"> カ所</td></tr>
+                        <tr><td colspan="2" class="bg-slate-50 font-bold">K219 眼瞼下垂症手術</td></tr>
+                        <tr id="K219-1" onclick="toggleRow(this)"><td>　1. 眼瞼挙筋前転法</td><td class="text-right">7,200</td></tr>
+                        <tr id="K219-2" onclick="toggleRow(this)"><td>　2. 筋膜移植法</td><td class="text-right">18,530</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mb-4">
+            <div class="section-title">Kコード（上記にない場合、複数ある場合は,区切り）</div>
+            <input id="kCodeInput" type="text" class="input-underlined w-full text-lg font-bold" placeholder="Kコードを検索して入力">
+        </div>
+        <div class="mb-4 no-print">
+            <a href="https://docs.google.com/spreadsheets/d/13ZG8FXXzWYKLNJUzk5kPcwShQwx13tor5sHJ20DI_IQ/edit?gid=1301598919#gid=1301598919" class="text-blue-600 font-bold text-lg" target="_blank">早見表</a>
+        </div>
+        <div class="text-right text-[9px] text-slate-300 mt-2 italic">Page 03</div>
+    </div>
+
+    <!-- 第4ページ -->
+    <div class="print-container" id="page4">
+        <div class="flex justify-between items-center mb-4 border-b-2 border-slate-800 pb-2">
+            <h2 class="text-xl font-bold tracking-tighter">追加症例情報（NCD）</h2>
+            <div class="text-sm font-bold">ID: <span class="sync-id-display"></span></div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-4">
+            
+            <div class="col-span-12">
+                <div class="section-title">疾患名</div>
+                <div class="space-y-2">
+                    <div class="grid grid-cols-3 gap-2">
+                        <select id="diseaseLevel1" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 1)"></select>
+                        <select id="diseaseLevel2" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 2)" disabled></select>
+                        <select id="diseaseLevel3" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 3)" disabled></select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <select id="diseaseLevel4" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" onchange="onDependentSelectChange('disease', 4)" disabled></select>
+                        <select id="diseaseLevel5" class="border border-slate-200 rounded p-2 text-[11px] w-full bg-white" disabled></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title flex justify-between items-center">
+                    <span>疾患部位</span>
+                    <button type="button" onclick="addSiteRow()" class="no-print bg-slate-700 text-white text-[10px] px-2 py-1 rounded hover:bg-slate-600">
+                        <i class="fas fa-plus"></i> 追加
+                    </button>
+                </div>
+                <div id="siteContainer" class="space-y-4"></div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">顔面骨部位</div>
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="facialBoneLevel1" class="border border-slate-200 rounded p-2 text-sm" onchange="onDependentSelectChange('facialBone', 1)"></select>
+                    <select id="facialBoneLevel2" class="border border-slate-200 rounded p-2 text-sm" disabled></select>
+                </div>
+            </div>
+
+            <div id="skinDonorK013Wrapper" class="col-span-12 hidden">
+                <div class="section-title">採皮部（K013 分層植皮術）</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input id="skinDonorK013HeadNeck" type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>頭頸部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK013UpperExtremity" type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>上肢</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK013LowerExtremity" type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>下肢</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK013Thoracoabdominal" type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>胸腹部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK013Gluteal" type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>殿部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK013Dorsal" type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>背部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK013Other" type="checkbox" name="skinDonorK013" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div id="skinDonorK0132Wrapper" class="col-span-12 hidden">
+                <div class="section-title">採皮部（K013-2 全層植皮術）</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input id="skinDonorK0132EarPosterior" type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>耳後部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK0132InternalLower" type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>内果下部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK0132Clavicular" type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>鎖骨上窩</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK0132Brachial" type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>鼠径部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK0132Plantar" type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>足底部</span></label>
+                    <label class="flex items-center gap-2"><input id="skinDonorK0132Other" type="checkbox" name="skinDonorK0132" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div id="boneDonorWrapper" class="col-span-12 hidden">
+                <div class="section-title">採骨部</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input id="boneDonorSkull" type="checkbox" name="boneDonor" class="accent-slate-800"><span>頭蓋骨</span></label>
+                    <label class="flex items-center gap-2"><input id="boneDonorEarCartilage" type="checkbox" name="boneDonor" class="accent-slate-800"><span>耳介軟骨</span></label>
+                    <label class="flex items-center gap-2"><input id="boneDonorNasalSeptum" type="checkbox" name="boneDonor" class="accent-slate-800"><span>鼻中隔軟骨</span></label>
+                    <label class="flex items-center gap-2"><input id="boneDonorRibs" type="checkbox" name="boneDonor" class="accent-slate-800"><span>肋骨</span></label>
+                    <label class="flex items-center gap-2"><input id="boneDonorCostal" type="checkbox" name="boneDonor" class="accent-slate-800"><span>肋軟骨</span></label>
+                    <label class="flex items-center gap-2"><input id="boneDonorIlium" type="checkbox" name="boneDonor" class="accent-slate-800"><span>腸骨</span></label>
+                    <label class="flex items-center gap-2"><input id="boneDonorOther" type="checkbox" name="boneDonor" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div id="flapDonorWrapper" class="col-span-12 hidden">
+                <div class="section-title">皮弁採取部位</div>
+                <div class="grid grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input id="flapDonorHeadNeck" type="checkbox" name="flapDonor" class="accent-slate-800"><span>頭頸部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorUpperArm" type="checkbox" name="flapDonor" class="accent-slate-800"><span>上腕部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorForearm" type="checkbox" name="flapDonor" class="accent-slate-800"><span>前腕部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorFingers" type="checkbox" name="flapDonor" class="accent-slate-800"><span>手指部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorChest" type="checkbox" name="flapDonor" class="accent-slate-800"><span>胸部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorAbdomen" type="checkbox" name="flapDonor" class="accent-slate-800"><span>腹部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorBack" type="checkbox" name="flapDonor" class="accent-slate-800"><span>背部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorAxilla" type="checkbox" name="flapDonor" class="accent-slate-800"><span>鼠径部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorKidney" type="checkbox" name="flapDonor" class="accent-slate-800"><span>腎部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorThigh" type="checkbox" name="flapDonor" class="accent-slate-800"><span>大腿部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorLowerLeg" type="checkbox" name="flapDonor" class="accent-slate-800"><span>下腿部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorFoot" type="checkbox" name="flapDonor" class="accent-slate-800"><span>足部</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorSmallIntestine" type="checkbox" name="flapDonor" class="accent-slate-800"><span>空腸</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorLargeOmentum" type="checkbox" name="flapDonor" class="accent-slate-800"><span>大網</span></label>
+                    <label class="flex items-center gap-2"><input id="flapDonorOther" type="checkbox" name="flapDonor" class="accent-slate-800"><span>その他</span></label>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">予後項目</div> 
+                
+                <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                    <div id="burnOutcomeWrapper" class="col-span-12 hidden">
+                        <div class="section-title">熱傷の予後</div>
+                        <div class="flex flex-wrap gap-4 items-center text-sm">
+                            <label class="flex items-center gap-2"><input id="burnOutcomeRescue" type="radio" name="burnOutcome" value="救命" class="accent-slate-800">救命</label>
+                            <label class="flex items-center gap-2"><input id="burnOutcomeDeath" type="radio" name="burnOutcome" value="死亡" class="accent-slate-800">死亡</label>
+                        </div>
+                    </div>
+
+                    <div id="graftTakeWrapper" class="col-span-12 hidden">
+                        <div class="section-title">移植片の生着</div>
+                        <div class="grid grid-cols-3 gap-2 text-sm">
+                            <label class="flex items-center gap-2"><input id="graftTakeComplete" type="checkbox" name="graftTake" class="accent-slate-800"><span>完全生着</span></label>
+                            <label class="flex items-center gap-2"><input id="graftTakePartial" type="checkbox" name="graftTake" class="accent-slate-800"><span>部分壊死</span></label>
+                            <label class="flex items-center gap-2"><input id="graftTakeTotal" type="checkbox" name="graftTake" class="accent-slate-800"><span>全壊死</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <div class="section-title">指導医</div>
+                <input id="supervisor" type="text" class="input-underlined w-full text-lg font-bold" value="加藤基">
+            </div>
+        </div>
+
+        <div class="text-right text-[9px] text-slate-300 mt-4 italic">Page 04</div>
+    </div>
+
+    <script src="src/config.js"></script>
+    <script src="src/main.js"></script>
+</body>
+</html>

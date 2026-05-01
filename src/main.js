@@ -199,37 +199,37 @@ function isK016orK017orK020Selected() {
     return codes.includes('K016') || matchesKCodeInput(['K017-(1)', 'K017-(2)', 'K020']);
 }
 
-// 「移植片の生着」を表示すべきか判定する関数
-function isGraftTakeNeeded() {
-    // 1. Kコード入力欄のチェック（カンマ区切り対応）
-    const inputVal = document.getElementById('kCodeInput')?.value.trim().toUpperCase() || "";
-    const inputCodes = inputVal.split(',').map(s => s.trim());
-    const hasInputMatch = inputCodes.some(code => graftTakeTargetCodes.includes(code));
+// // 「移植片の生着」を表示すべきか判定する関数
+// function isGraftTakeNeeded() {
+//     // 1. Kコード入力欄のチェック（カンマ区切り対応）
+//     const inputVal = document.getElementById('kCodeInput')?.value.trim().toUpperCase() || "";
+//     const inputCodes = inputVal.split(',').map(s => s.trim());
+//     const hasInputMatch = inputCodes.some(code => graftTakeTargetCodes.includes(code));
 
-    // 2. 選択済み行のチェック（data-kcode属性との比較）
-    const selectedRowCodes = getSelectedKRowCodes();
-    const hasRowMatch = selectedRowCodes.some(code => {
-        // K013 など、枝番号がない状態で定義されているものへの前方一致や完全一致の考慮
-        return graftTakeTargetCodes.some(target => target.startsWith(code));
-    });
+//     // 2. 選択済み行のチェック（data-kcode属性との比較）
+//     const selectedRowCodes = getSelectedKRowCodes();
+//     const hasRowMatch = selectedRowCodes.some(code => {
+//         // K013 など、枝番号がない状態で定義されているものへの前方一致や完全一致の考慮
+//         return graftTakeTargetCodes.some(target => target.startsWith(code));
+//     });
 
-    return hasInputMatch || hasRowMatch;
-}
+//     return hasInputMatch || hasRowMatch;
+// }
 
-// 「熱傷の予後」を表示すべきか判定する関数
-function isBurnOutcomeNeeded() {
-    // 疾患名の最終レベル（L4）の値を取得
-    const d4 = document.getElementById('diseaseLevel4')?.value;
-    return burnOutcomeTargetDiseases.includes(d4);
-}
+// // 「熱傷の予後」を表示すべきか判定する関数
+// function isBurnOutcomeNeeded() {
+//     // 疾患名の最終レベル（L4）の値を取得
+//     const d4 = document.getElementById('diseaseLevel4')?.value;
+//     return burnOutcomeTargetDiseases.includes(d4);
+// }
 
 function updateConditionalFields() {
     document.getElementById('skinDonorK013Wrapper').classList.toggle('hidden', !isK013Selected());
     document.getElementById('skinDonorK0132Wrapper').classList.toggle('hidden', !isK0132Selected());
     document.getElementById('boneDonorWrapper').classList.toggle('hidden', !isK059Selected());
     document.getElementById('flapDonorWrapper').classList.toggle('hidden', !isK016orK017orK020Selected());
-    document.getElementById('graftTakeWrapper').classList.toggle('hidden', !isGraftTakeNeeded());
-    document.getElementById('burnOutcomeWrapper').classList.toggle('hidden', !isBurnOutcomeNeeded());
+    // document.getElementById('graftTakeWrapper').classList.toggle('hidden', !isGraftTakeNeeded());
+    // document.getElementById('burnOutcomeWrapper').classList.toggle('hidden', !isBurnOutcomeNeeded());
 }
 
 function toggleRow(row) {
@@ -379,6 +379,12 @@ function applyFormData(data) {
                 const rowId = parts[1];
                 const level = parseInt(parts[2].replace('L', ''));
                 if (level < 3) syncSite(rowId, level);
+            } else if (key.startsWith('diseaseLevel')) {
+                // 疾患名：値をセットした後、次の階層を作るためにchangeを発火
+                const level = parseInt(key.replace('diseaseLevel', ''));
+                if (level < 5) {
+                    onDependentSelectChange('disease', level);
+                }
             } else if (key.startsWith('site') || key.startsWith('facialBone')) {
                 // 既存の連動プルダウン用（必要に応じて既存の関数を呼び出し）
                 el.dispatchEvent(new Event('change'));
@@ -426,7 +432,24 @@ function applyFormData(data) {
         });
     }
 
+    forceLoadDiseaseLevels(data);
+
     alert('データを読み込みました。連動プルダウン等は必要に応じて再選択してください。');
+}
+
+// 強制的に順番に読み込むための補助関数
+function forceLoadDiseaseLevels(data) {
+    for (let i = 1; i <= 5; i++) {
+        const id = `diseaseLevel${i}`;
+        if (data[id]) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.value = data[id];
+                // 次の階層を強制生成
+                onDependentSelectChange('disease', i);
+            }
+        }
+    }
 }
 
 // 印刷ボタン

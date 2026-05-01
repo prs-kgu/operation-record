@@ -336,9 +336,21 @@
         <div class="mb-4">
             <div class="section-title">Kコード（上記にない場合、複数ある場合は,区切り）</div>
             <input id="kCodeInput" type="text" class="input-underlined w-full text-lg font-bold" placeholder="Kコードを検索して入力">
+
         </div>
-        <div class="mb-4 no-print">
-            <a href="https://docs.google.com/spreadsheets/d/13ZG8FXXzWYKLNJUzk5kPcwShQwx13tor5sHJ20DI_IQ/edit?gid=1301598919#gid=1301598919" class="text-blue-600 font-bold text-lg" target="_blank">早見表</a>
+        <div class="mb-6 no-print grid grid-cols-3 gap-3">
+            <a href="./res/medical_fee_schedule_k0.pdf" target="_blank" 
+               class="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 px-4 rounded-lg border border-slate-200 transition-all text-sm font-bold shadow-sm">
+                <i class="fas fa-file-medical text-blue-500"></i> 早見表（形成）
+            </a>
+            <a href="./res/medical_fee_schedule_org.pdf" target="_blank" 
+               class="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 px-4 rounded-lg border border-slate-200 transition-all text-sm font-bold shadow-sm">
+                <i class="fas fa-file-pdf text-red-500"></i> 早見表（全体）
+            </a>
+            <a href="https://shirobon.net/" target="_blank" 
+               class="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 px-4 rounded-lg border border-slate-200 transition-all text-sm font-bold shadow-sm">
+                <i class="fas fa-globe text-emerald-500"></i> しろぼんねっと
+            </a>
         </div>
         <div class="text-right text-[9px] text-slate-300 mt-2 italic">Page 03</div>
     </div>
@@ -444,9 +456,8 @@
                 </div>
             </div>
 
-            <div class="col-span-12">
-                <div class="section-title">予後項目</div> 
-                
+            <!-- <div class="col-span-12">
+                <div class="section-title">予後項目</div>
                 <div class="p-3 bg-slate-50 rounded border border-slate-200">
                     <div id="burnOutcomeWrapper" class="col-span-12 hidden">
                         <div class="section-title">熱傷の予後</div>
@@ -465,7 +476,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="col-span-12">
                 <div class="section-title">指導医</div>

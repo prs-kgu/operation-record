@@ -42,7 +42,10 @@
                 性別: <label class="mx-2"><input id="genderMale" type="radio" name="gender"> 男</label><label class="mx-2"><input id="genderFemale" type="radio" name="gender"> 女</label>
             </div>
             <div class="col-span-4 text-right">
-                区分: <label class="mx-2"><input id="typeInpatient" type="radio" name="type"> 入院</label><label class="mx-2"><input id="typeOutpatient" type="radio" name="type"> 外来</label>
+                区分: 
+                <label class="mx-2"><input id="typeInpatient" type="radio" name="type"> 入院</label>
+                <label class="mx-2"><input id="typeOutpatient" type="radio" name="type"> 外来</label>
+                <label class="mx-2"><input id="typeInpatient3" type="radio" name="type"> 入３</label>
             </div>
 
             <div class="col-span-12 flex items-center gap-4">
@@ -68,9 +71,9 @@
             <div class="col-span-12 flex items-center justify-between mt-1 text-[13px]">
                 <div class="flex items-center gap-2">
                     <span class="font-bold text-slate-700">手術時間:</span>
-                    <input type="time" id="startTime" class="input-underlined w-20 text-center text-blue-600 font-bold" onchange="calculateOpDuration()">
+                    <input type="time" id="startTime" class="input-underlined w-20 text-center font-bold" onchange="calculateOpDuration()">
                     <span class="text-slate-400">〜</span>
-                    <input type="time" id="endTime" class="input-underlined w-20 text-center text-blue-600 font-bold" onchange="calculateOpDuration()">
+                    <input type="time" id="endTime" class="input-underlined w-20 text-center font-bold" onchange="calculateOpDuration()">
                     <span class="ml-2 text-xs text-slate-500">( 計 <input type="text" id="durationResult" class="w-10 text-center font-bold border-b" readonly> 分 )</span>
                 </div>
                 <div class="text-[10px] text-slate-400 font-bold">
@@ -480,7 +483,7 @@
 
             <div class="col-span-12">
                 <div class="section-title">指導医</div>
-                <input id="supervisor" type="text" class="input-underlined w-full text-lg font-bold" value="加藤基">
+                <input id="supervisor" type="text" class="input-underlined w-full text-base" value="加藤基">
             </div>
         </div>
 

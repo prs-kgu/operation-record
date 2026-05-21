@@ -248,6 +248,26 @@ function updateConditionalFields() {
 
 function toggleRow(row) {
     row.classList.toggle('selected');
+
+    // すでに挿入されているかチェック（重複防止）
+    const nextRow = row.nextElementSibling;
+    if (nextRow && nextRow.classList.contains('sub-row')) {
+        // すでに存在する場合は削除（トグル機能）
+        nextRow.remove();
+        return;
+    }
+    // 挿入するHTML文字列 親要素のID（例: K015-1）を取得し、inputのIDに組み込む
+    const rowId = row.id;
+    // const subRowHtml = `<tr class="sub-row"><td colspan="2">箇所数：<input id="locationCount-${rowId}" type="text" class="border-b w-8 outline-none bg-transparent"> カ所</td></tr>`;
+    const subRowHtml = `
+    <tr class="sub-row">
+        <td colspan="2" class="pl-4">
+            箇所数：<input id="locationCount-${rowId}" type="text" class="border-b w-8 outline-none bg-transparent mr-4 text-center"> カ所
+            部位：<input id="locationSite-${rowId}" type="text" class="border-b w-32 outline-none bg-transparent">
+        </td>
+    </tr>`;
+    row.insertAdjacentHTML('afterend', subRowHtml);
+
     updateConditionalFields();
 }
 
@@ -357,6 +377,31 @@ function loadFromFile(input) {
 // データを画面に反映させる関数
 function applyFormData(data) {
     if (!data) return;
+
+    // --- トグル行（箇所数入力欄）の事前復元ロジック ---
+    Object.keys(data).forEach(key => {
+        // locationCount- または locationSite- から始まるキーを探し、行IDを抽出
+        const match = key.match(/^(?:locationCount|locationSite)-(.+)$/);
+        if (match) {
+            const rowId = match[1];
+            const targetRow = document.getElementById(rowId);
+            
+            // 対象の親行が存在し、まだサブ行が挿入されていなければ挿入する
+            if (targetRow) {
+                const nextRow = targetRow.nextElementSibling;
+                if (!nextRow || !nextRow.classList.contains('sub-row')) {
+                    const subRowHtml = `
+                        <tr class="sub-row">
+                            <td colspan="2" class="pl-4">
+                                箇所数：<input id="locationCount-${rowId}" type="text" class="border-b w-8 outline-none bg-transparent mr-4 text-center"> カ所
+                                部位：<input id="locationSite-${rowId}" type="text" class="border-b w-32 outline-none bg-transparent">
+                            </td>
+                        </tr>`;
+                    targetRow.insertAdjacentHTML('afterend', subRowHtml);
+                }
+            }
+        }
+    });
 
     // --- 疾患部位（NCD）の動的行復元ロジック ---
     const sContainer = document.getElementById('siteContainer');

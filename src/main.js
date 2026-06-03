@@ -93,9 +93,9 @@ function normalizeForSkip(items, level, maxLevel) {
     return { items: current, level: currentLevel };
 }
 
-const fixedSiteLevel3 = ['左', '中', '両(側)', '正中'];
+const fixedSiteLevel3 = ['左', '右', '両(側)', '正中'];
 const fixedFacialBoneLevel1 = ['前頭骨', '鼻骨', '鼻軟骨', '篩骨', '眼窩縁', '眼窩下壁', '眼窩内側壁', '眼窩上壁', '頬骨体部', '頬骨弓部', 'ルフォーⅠ型上顎骨', 'ルフォーⅡ型上顎骨', 'ルフォーⅢ型上顎骨', '上顎骨（ルフォー型以外）', '上顎歯槽骨', '口蓋骨', '下顎体部', '下顎枝部（角部含む）', '下顎関節突起部', '下顎歯槽骨', '歯牙'];
-const fixedFacialBoneLevel2 = ['左', '中', '両(側)', '正中'];
+const fixedFacialBoneLevel2 = ['左', '右', '両(側)', '正中'];
 
 function populateDependentSelect(group, level) {
     const root = linkedData[group];

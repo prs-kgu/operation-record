@@ -17,6 +17,11 @@ function initFooters() {
     });
 }
 
+function changeDay() {
+    whatDayOfWeek();
+    calculateAge();
+}
+
 function calculateAge() {
     const birth = document.getElementById('birthDate').value;
     const op = document.getElementById('opDate').value;
@@ -31,8 +36,59 @@ function calculateAge() {
     document.getElementById('ageResult').value = age >= 0 ? age : 0;
 }
 
+function whatDayOfWeek() {
+    const dateVal = document.getElementById('opDate').value;
+    const dayOfWeekSpan = document.getElementById('opDayOfWeek');
+  
+    if (!dateVal) {
+      dayOfWeekSpan.textContent = "";
+      return;
+    }
+    
+    // 日付オブジェクトを作成して曜日を取得
+    const date = new Date(dateVal);
+    const dayOfWeekNum = date.getDay(); // 1. 通常の曜日を取得 (0:日, 1:月, ... 6:土)
+    const weekdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"];
+    let dayName = weekdays[dayOfWeekNum];
+
+    // 祝日かどうかの判定
+    const isHoliday = !!holidays[dateVal];
+    // 日曜日(0) または 土曜日(6) かどうかの判定
+    const isWeekend = (dayOfWeekNum === 0 || dayOfWeekNum === 6);
+
+    // 3. 土、日、または祝日の場合は赤色にする
+    if (isHoliday || isWeekend) {
+        if (isHoliday) {
+            dayName = `${dayName}(祝)`; // 祝日のみ後ろに(祝)をつける
+        }
+        
+        // 文字色を赤（Tailwind CSS: text-red-500）にする
+        dayOfWeekSpan.classList.remove('text-slate-900');
+        dayOfWeekSpan.classList.add('text-red-500');
+    } else {
+        // 平日の場合は通常の文字色（text-slate-400）に戻す
+        dayOfWeekSpan.classList.remove('text-red-500');
+        dayOfWeekSpan.classList.add('text-slate-900');
+    }
+    
+    // 画面に反映
+    dayOfWeekSpan.textContent = dayName;
+}
+
 function calculateOpDuration() {
-    const start = document.getElementById('startTime').value;
+    const startTimeInput = document.getElementById('startTime');
+    const start = startTimeInput.value;
+
+    if (start) {
+        const [hours, minutes] = start.split(':').map(Number);
+
+        if (hours >= 22 || hours < 6 || (hours === 6 && minutes === 0)) {
+            startTimeInput.style.color = 'red';
+        } else {
+            startTimeInput.style.color = '';
+        }
+    }
+
     const end = document.getElementById('endTime').value;
     if (!start || !end) return;
 
@@ -479,6 +535,7 @@ function applyFormData(data) {
     }
 
     // 計算処理の再実行
+    whatDayOfWeek();
     calculateAge();
     calculateOpDuration();
     updateConditionalFields();

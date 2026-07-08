@@ -327,16 +327,41 @@ function toggleRow(row) {
     updateConditionalFields();
 }
 
+// 枠クリック時にアップロードを発火
+function triggerUpload(placeholder) {
+    const input = placeholder.querySelector('input[type="file"]');
+    if (input) input.click();
+}
+
+// 画像選択時のプレビュー表示
 function previewImage(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = (e) => {
             const parent = input.parentElement;
-            parent.innerHTML = `<img src="${e.target.result}" class="h-full w-full object-contain rounded">`;
-            parent.onclick = () => input.click();
+            const img = parent.querySelector('.preview-img');
+            const btn = parent.querySelector('.delete-btn');
+            
+            img.src = e.target.result;
+            img.classList.remove('hidden'); // 画像を表示
+            btn.classList.remove('hidden'); // ×ボタンを表示
         };
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+// 画像削除処理
+function removeImage(event, button) {
+    event.stopPropagation(); // 枠のクリックイベント（再選択）が走るのを防ぐ
+    
+    const parent = button.parentElement;
+    const input = parent.querySelector('input[type="file"]');
+    const img = parent.querySelector('.preview-img');
+    
+    input.value = ""; // ファイルの選択状態をクリア
+    img.src = "";
+    img.classList.add('hidden'); // 画像を非表示
+    button.classList.add('hidden'); // ×ボタンを非表示
 }
 
 function initCanvas() {
